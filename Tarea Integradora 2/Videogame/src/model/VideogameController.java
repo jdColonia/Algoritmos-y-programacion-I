@@ -7,14 +7,10 @@ public class VideogameController{
 	public static Random random = new Random();
 	private Player[] playersList;
 	private Level[] levels;
-	private Treasure[] treasuresList; //Arrays for register treasure in the system
-	private Enemy[] enemiesList; //Array for register enemy in the system
 	
 	public VideogameController() {
 		this.playersList = new Player[20];
 		this.levels = new Level[10];
-		this.treasuresList = new Treasure[50];
-		this.enemiesList = new Enemy[25];
 	}
 	
 	public Player[] getPlayersList() {
@@ -33,22 +29,6 @@ public class VideogameController{
 		this.levels = levels;
 	}
 
-	public Treasure[] getTreasuresList() {
-		return treasuresList;
-	}
-
-	public void setTreasuresList(Treasure[] treasuresList) {
-		this.treasuresList = treasuresList;
-	}
-
-	public Enemy[] getEnemiesList() {
-		return enemiesList;
-	}
-
-	public void setEnemiesList(Enemy[] enemiesList) {
-		this.enemiesList = enemiesList;
-	}
-	
 	
 	/**
 	 *Description: The method createLevel allows to add the id and the points to the level
@@ -66,7 +46,7 @@ public class VideogameController{
 			
 			if (levels[i] == null) {
 				
-				id = "Nivel " + (i + 1);
+				id = "Level " + (i + 1);
 				myLevel.setId(id);
 				points += 10; 
 				myLevel.setPoints(points);
@@ -127,7 +107,7 @@ public class VideogameController{
 			
 			if (playersList[i] == null) {
 				
-				//myPlayer.setLevel("");
+				myPlayer.setLevel("Level " + (i +1));
 				myPlayer.setScore(10);
 				myPlayer.setNumberLives(5);
 				playersList[i] = myPlayer;
@@ -171,38 +151,42 @@ public class VideogameController{
 	
 	
 	/**
-	 *Description: The method createTreasure allow to register one treasure to the system
-	 *pre: treasureList must be initialized
-	 *pos: Treasure is register in the treasureList
+	 *Description: The method createTreasure allow to register treasures to a level
+	 *pre: levels must be initialized
+	 *pos: Treasure is registered in a level
+	 *@param optionLevel	int	Option of the level where the treasure will be added
 	 *@param nameTreasure	String	Name of the treasure
 	 *@param image	String	Image of the treasure 
-	 *@param scoreAwardedToPlayer	int Score that the enemy award from the player
-	 *@param positionX	int	Position in X of the treasure
-	 *@param positionY	int	Position in Y of the treasure
+	 *@param scoreAwardedToPlayer	int	Score that the treasure award from the player
+	 *@param numTreasures	int	Number of treasures that will be added in the level
 	 *@return stopFlag	boolean	Flag to know if the process was successful or not
 	*/
-	public boolean createTreasure(String nameTreasure, String image, int scoreAwardedToPlayer) {
-		
-		Treasure myTreasure = new Treasure(nameTreasure, image, scoreAwardedToPlayer);
-		
+	public boolean createTreasure(int optionLevel, String nameTreasure, String image, int scoreAwardedToPlayer, int numTreasures) {
+
 		boolean stopFlag = false;
 		
-		for (int i = 0; i < treasuresList.length; i++) {
-			
-			if (treasuresList[i] == null) {
+		for (int i = 0; i < levels.length; i++) {
+	
+			for (int j = 0; j < numTreasures; j++) {
 				
-				treasuresList[i] = myTreasure;
-				return stopFlag = true;
+				if (levels[i].getId().equals(levels[optionLevel].getId())) {
+							
+					int positionX = generatePositionX();
+					int positionY = generatePositionY();
+							
+					stopFlag = levels[i].addTreasure(nameTreasure, image, scoreAwardedToPlayer, positionX, positionY);
 				
+				}
+	
 			}
-
+			
 		}
 
 		return stopFlag;
+
 	}
 	
 	
-	//NO SE COMO HACER EL CONTRATO
 	public String getEnemyType() {
 		
 		String msg = "";
@@ -221,61 +205,31 @@ public class VideogameController{
 	
 	
 	/**
-	 *Description: The method verifyEnemy allows to check if the name of the enemy is in the system
-	 *pre: enemiesList must be initialized
-	 *pos: Know if nameEnemy to register is not registered for another enemy
-	 *@param nameEnemy	String	Name of the enemy
-	 *@return stopFlag	boolean	Flag to know if the process was successful or not
-	 */
-	public boolean verifyEnemy (String nameEnemy) {
-		
-		boolean stopFlag = true;
-		
-		for (int i = 0; i < enemiesList.length; i++) {
-			
-			if (enemiesList[i] != null) {
-				
-				if (nameEnemy.equals(enemiesList[i].getNameEnemy())) {
-					
-					return stopFlag = false;
-					
-				}
-				
-			}
-
-		}
-		
-		return stopFlag;
-		
-	}
-
-	
-	/**
 	 *Description: The method createTreasure allow to register one treasure to the system
 	 *pre: enemiesList must be initialized
 	 *pos: Enemy is register in the enemiesList
+	 *@param optionLevel	int	Option of the level where the enemy will be added
 	 *@param nameEnemy	String	Name of the enemy
-	 *@param scoreAwardedToPlayer int Score that the enemy award from the player
+	 *@param enemyType	int	Type of the enemy
 	 *@param scoreSubtractedToPlayer	int	Score that the enemy subtract from the player
-	 *@param positionX int Position in X of the enemy
-	 *@param positionY int Position in Y of the enemy
+	 *@param scoreAwardedToPlayer	int	Score that the enemy award from the player
 	 *@return stopFlag boolean Flag to know if the process was successful or not
 	*/
-	public boolean createEnemy(String nameEnemy, int enemyType, int scoreSubtractedToPlayer, int scoreAwardedToPlayer) {
-		
-		Enemy myEnemy = new Enemy(nameEnemy, enemyType, scoreSubtractedToPlayer, scoreAwardedToPlayer);
+	public boolean createEnemy(int optionLevel, String nameEnemy, int enemyType, int scoreSubtractedToPlayer, int scoreAwardedToPlayer) {
 		
 		boolean stopFlag = false;
 		
-		for (int i = 0; i < enemiesList.length; i++) {
-			
-			if (enemiesList[i] == null) {
-				
-				enemiesList[i] = myEnemy;
-				return stopFlag = true;
+		for (int i = 0; i < levels.length; i++) {
+	
+			if (levels[i].getId().equals(levels[optionLevel].getId())) {
+							
+					int positionX = generatePositionX();
+					int positionY = generatePositionY();
+					
+					stopFlag = levels[i].addEnemy(nameEnemy, enemyType, scoreSubtractedToPlayer, scoreAwardedToPlayer, positionX, positionY);
 				
 			}
-
+			
 		}
 
 		return stopFlag;
@@ -305,7 +259,7 @@ public class VideogameController{
 
 		return msg;
 
-	} 
+	}
 	
 	
 	/**
@@ -332,69 +286,35 @@ public class VideogameController{
 
 	}
 	
-	
 	/**
-	 *Description: The method showTreasuresList allow show the list of treasures registered in the system
-	 *pre: treasuresList must be initialized
-	 *pos: Show list of treasures
-	 *@return msg	String	Message with list of treasures (only name of the treasure)
+	 *Description: The method modifyScorePlayer allow to modify a player's score
+	 *pre: playersList must be initialized
+	 *pos: Score of a player changed
+	 *@param optionPlayer	int	Option of the player whose score will be changed
+	 *@param newScore	int	New score of the player
+	 *@return stopFlag	boolean	Flag to know if the process was successful or not
 	*/
-	public String showTreasuresList() {
-
-		String msg = "";
-
-		for (int i = 0; i < treasuresList.length; i++) {
-
-			if (treasuresList[i] != null) {
-
-				msg += "\n[" + (i+1) + "]" + treasuresList[i].getNameTreasure();
-				
-			}
-			
-		}
-
-		return msg;
-
-	}
-	
-	
-	/**
-	 *Description: The method showEnemiesList allow show the list of enemies registered in the system
-	 *pre: enemiesList must be initialized
-	 *pos: Show list of enemies
-	 *@return msg	String	Message with list of enemies (only name of the enemy)
-	*/
-	public String showEnemiesList() {
-
-		String msg = "";
-
-		for (int i = 0; i < enemiesList.length; i++) {
-
-			if (enemiesList[i] != null) {
-
-				msg += "\n[" + (i+1) + "]" + enemiesList[i].getNameEnemy();
-				
-			}
-			
-		}
-
-		return msg;
-
-	} 
-	
-	/**
-	 * 
-	 * @param optionTeam
-	 * @param optionPokemon
-	 * @return
-	 */
-	public boolean addTreasureToLevel (int optionLevel, int optionTreasure) {
+	public boolean modifyScorePlayer(int optionPlayer, int newScore) {
 		
-		return levels[(optionLevel)].addTreasure(treasuresList[(optionTreasure)]);
-
+		boolean stopFlag = false;
+		
+		for (int i = 0; i < playersList.length; i++) {
+			
+			if (playersList[i] != null) {
+				
+				if (playersList[i].getNickname().equals(playersList[optionPlayer].getNickname())) {
+					
+					playersList[optionPlayer].setScore(newScore);
+					return stopFlag = true;
+				}
+			
+			}
+			
+		}
+		
+		return stopFlag;
+		
 	}
-	
-	
 
 
 

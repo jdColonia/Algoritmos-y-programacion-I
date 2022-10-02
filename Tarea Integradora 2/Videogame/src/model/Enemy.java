@@ -9,13 +9,13 @@ public class Enemy{
 	private int positionY;
 	private EnemyType enemyType;
 	
-	public Enemy(String nameEnemy, int enemyType, int scoreSubtractedToPlayer, int scoreAwardedToPlayer) {
+	public Enemy(String nameEnemy, int enemyType, int scoreSubtractedToPlayer, int scoreAwardedToPlayer, int positionX, int positionY) {
 		this.nameEnemy = nameEnemy;
 		this.enemyType = EnemyType.values()[enemyType];
 		this.scoreSubtractedToPlayer = scoreSubtractedToPlayer;
 		this.scoreAwardedToPlayer = scoreAwardedToPlayer;
-		this.positionX = 0;
-		this.positionY = 0;
+		this.positionX = positionX;
+		this.positionY = positionY;
 	}
 
 	public String getNameEnemy() {
@@ -25,7 +25,15 @@ public class Enemy{
 	public void setNameEnemy(String nameEnemy) {
 		this.nameEnemy = nameEnemy;
 	}
+	
+	public EnemyType getEnemyType() {
+		return enemyType;
+	}
 
+	public void setEnemyType(EnemyType enemyType) {
+		this.enemyType = enemyType;
+	}
+	
 	public int getScoreSubtractedToPlayer() {
 		return scoreSubtractedToPlayer;
 	}
@@ -57,16 +65,5 @@ public class Enemy{
 	public void setPositionY(int positionY) {
 		this.positionY = positionY;
 	}
-
-	public EnemyType getEnemyType() {
-		return enemyType;
-	}
-
-	public void setEnemyType(EnemyType enemyType) {
-		this.enemyType = enemyType;
-	}
-	
-	
-	
 
 }

@@ -26,9 +26,9 @@ public class VideogameManager{
 			
 			System.out.println("\nSelect an option"
 					+ "\n[1] Create player "
-					+ "\n[2] Create treasure"
-					+ "\n[3] Create enemy"
-					+ "\n[4] "
+					+ "\n[2] Register treasure to a level"
+					+ "\n[3] Register enemy to a level "
+					+ "\n[4] Modify score of a player"
 					+ "\n[0] Exit");
 			
 			int mainOption = sc.nextInt();
@@ -45,7 +45,8 @@ public class VideogameManager{
 				createEnemy();
 				break;
 			case 4:
-				addTreasureToLevel();
+				modifyScorePlayer();
+				break;
 			case 0:
 				stopFlag = true;
 				System.out.println("Thanks for using our system");
@@ -63,8 +64,8 @@ public class VideogameManager{
 	 *Description: The method createPlayer allow to register one player to the system
 	 *pre: controller must be initialized
 	 *pos: No aplica
-	 *Input:  nickname	String	Nickname of the player to register
-	 *Input: namePlayer	String	Name of the player to register
+	 *Input:  nickname	String	Nickname of the player
+	 *Input: namePlayer	String	Name of the player
 	*/
 	public static void createPlayer() {
 		
@@ -93,14 +94,24 @@ public class VideogameManager{
 	
 	
 	/**
-	 *Description: The method createTreasure allow to register one treasure to the system
+	 *Description: The method createTreasure allow to register treasures to a level
 	 *pre: controller must be initialized
 	 *pos: No aplica
-	 *Input: nameTreasure	String	Name of the treasure to register
+	 *Input: optionLevel	int	Option of the level where the treasure will be added
+	 *Input: nameTreasure	String	Name of the treasure
 	 *Input: image	String	Image of the treasure 
 	 *Input: scoreAwardedToPlayer	int	Score that the treasure award from the player
+	 *Input: numTreasures	int	Number of treasures that will be added in the level
 	*/
 	public static void createTreasure() {
+		
+		String levelsList = controller.showLevels();
+		
+		System.out.println("These are the levels currently registered:" + levelsList);
+		System.out.print("Type the ID of the level you want to register a Treasure: ");
+		int optionLevel = sc.nextInt();
+		
+		System.out.println("Type the following information to register a treasure at a level");
 		
 		System.out.print("Type the name of the new treasure: ");
 		sc.nextLine();
@@ -111,10 +122,13 @@ public class VideogameManager{
 		
 		System.out.print("Type the score that award to player the new treasure: ");
 		int scoreAwardedToPlayer = sc.nextInt();
+		
+		System.out.print("Type the the number of treasure that will register in the level: ");
+		int numTreasures = sc.nextInt();
 				
-		if (controller.createTreasure(nameTreasure, image, scoreAwardedToPlayer)) {
+		if (controller.createTreasure((optionLevel-1), nameTreasure, image, scoreAwardedToPlayer, numTreasures)) {
 			
-				System.out.println("Treasure successfully registered");
+			System.out.println("Treasure successfully registered");
 
 		} else {
 			
@@ -126,15 +140,22 @@ public class VideogameManager{
 	
 	
 	/**
-	 *Description: The method createEnemy allow to register one enemy to the system
+	 *Description: The method createEnemy allow to register one enemy to a level
 	 *pre: controller must be initialized
 	 *pos: No aplica
-	 *Input: nameEnemy	String	Name of the enemy to register
-	 *Input: 
+	 *Input: optionLevel	int	Option of the level where the enemy will be added
+	 *Input: nameEnemy	String	Name of the enemy
+	 *Input: enemyType	int	Type of the enemy
 	 *Input: scoreSubtractedToPlayer	int	Score that the enemy subtract from the player
 	 *Input: scoreAwardedToPlayer	int	Score that the enemy award from the player
 	*/
 	public static void createEnemy() {
+		
+		String levelsList = controller.showLevels();
+		
+		System.out.println("These are the levels currently registered:" + levelsList);
+		System.out.print("Type the ID of the level you want to register a Enemy: ");
+		int optionLevel = sc.nextInt();
 		
 		System.out.print("Type the name of the new enemy: ");
 		sc.nextLine();
@@ -149,14 +170,10 @@ public class VideogameManager{
 		
 		System.out.print("Type the score that award to player the new enemy: ");
 		int scoreAwardedToPlayer = sc.nextInt();
-		
-		if (controller.verifyEnemy(nameEnemy)) {
 			
-			if (controller.createEnemy(nameEnemy, enemyType, scoreSubtractedToPlayer, scoreAwardedToPlayer)) {
+		if (controller.createEnemy((optionLevel-1), nameEnemy, enemyType, scoreSubtractedToPlayer, scoreAwardedToPlayer)) {
 			
-				System.out.println("Enemy successfully registered");
-			
-			}
+			System.out.println("Enemy successfully registered");
 
 		} else {
 			
@@ -167,45 +184,43 @@ public class VideogameManager{
 	}
 	
 	
-	/**FALTA
-	 *Description: The method addTreasureToLevel allow to register one enemy to the system
+	/**
+	 *Description: The method modifyScorePlayer allow to modify a player's score
 	 *pre: controller must be initialized
 	 *pos: No aplica
-	 *Input: nameEnemy	String	Name of the enemy to register
-	 *Input: 
-	 *Input: scoreSubtractedToPlayer	int	Score that the enemy subtract from the player
-	 *Input: scoreAwardedToPlayer	int	Score that the enemy award from the player
+	 *Input: optionPlayer	int	Option of the player whose score will be changed
+	 *Input: newScore	int	New score of the player
 	*/
-	public static void addTreasureToLevel() {
+	public static void modifyScorePlayer() {
 		
-		String levelsList = controller.showLevels();
+		String playersList = controller.showPlayersList();
 		
-		System.out.println("These are the levels currently registered:" + levelsList);
-		System.out.print("Type the ID of the level you want to register a Treasure: ");
-		int optionLevel = sc.nextInt();
-		
-		String treasuresList = controller.showTreasuresList();
-		
-		System.out.println("These are the treasures currently registered:" + treasuresList);
-		System.out.print("Type the Name of the Treasure: ");
-		int optionTreasure = sc.nextInt();
-		
-		System.out.print("Type the the number of treasure that will register in the level: ");
-		int numTreasure = sc.nextInt();
-		
-		for (int i = 0; i < numTreasure; i++) {
+		if (playersList.equals("")) {
 			
-			if (controller.addTreasureToLevel((optionLevel-1), (optionTreasure-1))) {
+			System.out.println("There aren't any Players registered.");
+			
+		} else {
+		
+			System.out.println("These are the players currently registered:" + playersList);
+			System.out.print("Type the Nickname of the player whose points you want to modify: ");
+			int optionPlayer = sc.nextInt();
+			
+			System.out.print("Type the new score of the player: ");
+			int newScore = sc.nextInt();
+			
+			if (controller.modifyScorePlayer((optionPlayer-1), newScore)) {
 				
-				System.out.println("Successfully added treasure to level");
-
+				System.out.println("Change was made successfully");
+	
 			} else {
 				
-				System.out.println("Error, it was not possible to add the treasure to the level");
+				System.out.println("Error, change failed");
 				
 			}
+		
 		}
 		
-		
 	}
+	
+
 }

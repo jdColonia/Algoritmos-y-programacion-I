@@ -61,11 +61,9 @@ public class Player{
 		return "\nMove info: "
 				+ "\nNickame: " + this.nickname
 				+ "\nName: " + this.namePlayer
-				+ "\nLevel: "// + this.level
+				+ "\nLevel: " + this.level
 				+ "\nScore: " + this.score
 				+ "\nNumber lives: " + this.numberLives;
 	}
 
-	
-	
 }

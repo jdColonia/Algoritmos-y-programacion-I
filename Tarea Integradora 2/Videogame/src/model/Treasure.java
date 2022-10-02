@@ -8,12 +8,12 @@ public class Treasure{
 	private int positionX;
 	private int positionY;
 	
-	public Treasure(String nameTreasure, String image, int scoreAwardedToPlayer) {
+	public Treasure(String nameTreasure, String image, int scoreAwardedToPlayer, int positionX, int positionY) {
 		this.nameTreasure = nameTreasure;
 		this.image = image;
 		this.scoreAwardedToPlayer = scoreAwardedToPlayer;
-		this.positionX = 0;
-		this.positionY = 0;
+		this.positionX = positionX;
+		this.positionY = positionY;
 	}
 
 	public String getNameTreasure() {
@@ -55,8 +55,5 @@ public class Treasure{
 	public void setPositionY(int positionY) {
 		this.positionY = positionY;
 	}
-	
-	
-	
-	
+
 }
