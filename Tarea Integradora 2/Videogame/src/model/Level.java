@@ -58,15 +58,17 @@ public class Level{
 	
 	
 	/**
-	 *Description: The method addTreasure allow to add treasures to a level
-	 *pre: treasuresList must be initialized
-	 *pos: Treasure is register in a level
-	 *@param nameTreasure	String	Name of the treasure
-	 *@param image	String	Image of the treasure 
-	 *@param scoreAwardedToPlayer	int Score that the treasure award from the player
-	 *@param positionX	int	Position in X of the treasure
-	 *@param positionY	int	Position in Y of the treasure
-	 *@return stopFlag	boolean	Flag to know if the process was successful or not
+	 * <pre>
+	 * <strong>Description:</strong> The method addTreasure allows to add treasures to a level
+	 * <strong>pre:</strong> treasuresList must be initialized
+	 * <strong>pos:</strong> Treasure is register in a level
+	 * @param nameTreasure </strong>String</strong> Name of the treasure
+	 * @param image </strong>String</strong> Image of the treasure 
+	 * @param scoreAwardedToPlayer </strong>int</strong> Score that the treasure award from the player
+	 * @param positionX </strong>int</strong> Position in X of the treasure
+	 * @param positionY </strong>int</strong> Position in Y of the treasure
+	 * @return stopFlag </strong>boolean</strong> Flag to know if the process was successful or not
+	 * </pre>
 	*/
 	public boolean addTreasure(String nameTreasure, String image, int scoreAwardedToPlayer, int positionX, int positionY) {
 		
@@ -91,11 +93,13 @@ public class Level{
 	
 	
 	/**
-	 *Description: The method verifyEnemy allows to check if the name of the enemy is in the system
-	 *pre: enemiesList must be initialized
-	 *pos: Know if nameEnemy to register is not registered for another enemy
-	 *@param nameEnemy	String	Name of the enemy
-	 *@return stopFlag	boolean	Flag to know if the process was successful or not
+	 * <pre>
+	 * <strong>Description:</strong> The method verifyEnemy allows to check if the name of the enemy is in the system
+	 * <strong>pre:</strong> enemiesList must be initialized
+	 * <strong>pos:</strong> Know if nameEnemy to register is not registered for another enemy
+	 * @param nameEnemy </strong>String</strong> Name of the enemy
+	 * @return stopFlag </strong>boolean</strong> Flag to know if the process was successful or not
+	 * </pre>
 	 */
 	public boolean verifyEnemy (String nameEnemy) {
 		
@@ -121,16 +125,18 @@ public class Level{
 	
 	
 	/**
-	 *Description: The method addEnemy allow to add enemies to a level
-	 *pre: enemiesList must be initialized
-	 *pos: Enemy is register in the enemiesList
-	 *@param nameEnemy	String	Name of the enemy
-	 *@param enemyType	int	Type of the enemy
-	 *@param scoreSubtractedToPlayer	int	Score that the enemy subtract from the player
-	 *@param scoreAwardedToPlayer	int	Score that the enemy award from the player
-	 *@param positionX	int	Position in X of the enemy
-	 *@param positionY	int	Position in Y of the enemy
-	 *@return stopFlag	boolean	Flag to know if the process was successful or not
+	 * <pre>
+	 * <strong>Description:</strong> The method addEnemy allows to add enemies to a level
+	 * <strong>pre:</strong> enemiesList must be initialized
+	 * <strong>pos:</strong> Enemy is register in the enemiesList
+	 * @param nameEnemy </strong>String</strong> Name of the enemy
+	 * @param enemyType </strong>int</strong> Type of the enemy
+	 * @param scoreSubtractedToPlayer </strong>int</strong> Score that the enemy subtract from the player
+	 * @param scoreAwardedToPlayer </strong>int</strong> Score that the enemy award from the player
+	 * @param positionX </strong>int</strong> Position in X of the enemy
+	 * @param positionY </strong>int</strong> Position in Y of the enemy
+	 * @return stopFlag </strong>boolean</strong> Flag to know if the process was successful or not
+	 * </pre>
 	*/
 	public boolean addEnemy(String nameEnemy, int enemyType, int scoreSubtractedToPlayer, int scoreAwardedToPlayer, int positionX, int positionY) {
 		
@@ -156,7 +162,99 @@ public class Level{
 		return stopFlag;
 
 	}
-
 	
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showTreasuresByLevel allows to show the list of treasures registered in a level
+	 * <strong>pre:</strong> treasuresList must be initialized
+	 * <strong>pos:</strong> Get the list of treasures in a level
+	 * @return msg </strong>String</strong> Message with list of treasures
+	 * </pre>
+	*/
+	public String showTreasuresByLevel() {
+		 
+		String msg = "";
+			
+			if (treasuresList[0] != null) {
+				
+				for (int i = 0; i < treasuresList.length; i++) {
+				
+					if (treasuresList[i] != null) {
+					
+						if (i == 0) {
+							
+							msg += "Treasures: " + treasuresList[i].getNameTreasure() + ", ";
+								
+						} else if (i < treasuresList.length-1) {
+								
+							msg += treasuresList[i].getNameTreasure() + ", ";
+							
+						} else {
+								
+							msg += treasuresList[i].getNameTreasure() + ".";
+								
+						} 
+					
+					}
+					
+				}
+				
+			} else {
+				
+				msg = "There aren't any treasures registered in this level";
+			
+			}
+			
+		return msg;
+		
+	}
+	
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showEnemiesByLevel allows to show the list of enemies registered in a level
+	 * <strong>pre:</strong> enemiesList must be initialized
+	 * <strong>pos:</strong> Get the list of enemies in a level
+	 * @return msg </strong>String</strong> Message with list of enemies
+	 * </pre>
+	*/
+	public String showEnemiesByLevel() {
+		 
+		String msg = "";
+		
+		if (enemiesList[0] != null) {
+			
+			for (int i = 0; i < enemiesList.length; i++) {
+			
+				if (enemiesList[i] != null) {
+				
+					if (i == 0) {
+						
+						msg += "Enemies: " + enemiesList[i].getNameEnemy() + ", ";
+							
+					} else if (i < enemiesList.length-1) {
+							
+						msg += enemiesList[i].getNameEnemy() + ", ";
+						
+					} else {
+							
+						msg += enemiesList[i].getNameEnemy() + ".";
+							
+					} 
+				
+				}
+				
+			}
+			
+		} else {
+			
+			msg = "There aren't any enemies registered in this level";
+		
+		}
+		
+	return msg;
+		
+	}
 	
 }

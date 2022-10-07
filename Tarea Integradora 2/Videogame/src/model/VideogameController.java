@@ -28,21 +28,39 @@ public class VideogameController{
 	public void setLevels(Level[] levels) {
 		this.levels = levels;
 	}
-
+	
+	public String getEnemyType() {
+		
+		String msg = "";
+		
+		EnemyType[] enemyType = EnemyType.values();
+		
+		for (int i = 0; i < enemyType.length; i++) {
+			
+			msg += "[" + (i+1) + "]" + enemyType[i] + "\n";
+			
+		}
+		
+		return msg;
+		
+	}
+	
 	
 	/**
-	 *Description: The method createLevel allows to add the id and the points to the level
-	 *pre: levels must be initialized
-	 *pos: The id and points are added to each level
-	*/
+	 * <pre>
+	 * <strong>Description:</strong> The method createLevel allows to add the id and the points to the level
+	 * <strong>pre:</strong> levels must be initialized
+	 * <strong>pos:</strong> The id and points are added to each level
+	 * </pre>
+	 */
 	public void createLevel() {
+		
+		String id = "";
+		int points = 0;
 		
 		for (int i = 0; i < levels.length; i++) {
 			
 			Level myLevel = new Level ();
-			
-			String id = "";
-			int points = 0;
 			
 			if (levels[i] == null) {
 				
@@ -58,14 +76,16 @@ public class VideogameController{
 		
 	}
 
-
+	
 	/**
-	 *Description: The method verifyNickname allows to check if the nickname is in the system
-	 *pre: playerList must be initialized
-	 *pos: Know if nickname to register is not registered for another player
-	 *@param nickname	String	Nickname of the player
-	 *@return stopFlag	boolean	Flag to know if the process was successful or not
-	*/
+	 * <pre>
+	 * <strong>Description:</strong> The method verifyNickname allows to check if the nickname is in the system
+	 * <strong>pre:</strong> playerList must be initialized
+	 * <strong>pos:</strong> Know if nickname to register is not registered for another player
+	 * @param nickname <strong>String</strong> Nickname of the player
+	 * @return stopFlag <strong>boolean</strong> Flag to know if the process was successful or not
+	 * </pre>
+	 */
 	public boolean verifyNickname (String nickname) {
 		
 		boolean stopFlag = true;
@@ -90,13 +110,15 @@ public class VideogameController{
 	
 	
 	/**
-	 *Description: The method createPlayer allow to register one player to the system
-	 *pre: playerList must be initialized
-	 *pos: Player is register in the playerList
-	 *@param nickname	String	Nickname of the player
-	 *@param namePlayer	String	Name of the player
-	 *@return stopFlag	boolean	Flag to know if the process was successful or not
-	*/
+	 * <pre>
+	 * <strong>Description:</strong> The method createPlayer allows to register one player to the system
+	 * <strong>pre:</strong> playerList must be initialized
+	 * <strong>pos:</strong> Player is register in the playerList
+	 * @param nickname <strong>String</strong> Nickname of the player
+	 * @param namePlayer <strong>String</strong> Name of the player
+	 * @return stopFlag <strong>boolean</strong> Flag to know if the process was successful or not
+	 * </pre>
+	 */
 	public boolean createPlayer(String nickname, String namePlayer) {
 		
 		Player myPlayer = new Player(nickname, namePlayer);
@@ -123,11 +145,13 @@ public class VideogameController{
 	
 	
 	/**
-	 *Description: The method generatePositionX allow to register one player to the system
-	 *pre: random must be initialized
-	 *pos: positionX is automatically generated
-	 *@return positionX	int	Random position of a treasure or enemy
-	*/
+	 * <pre>
+	 * <strong>Description:</strong> The method generatePositionX allows to randomly generate the X position of the treasure or enemy
+	 * <strong>pre:</strong> random must be initialized
+	 * <strong>pos:</strong> positionX is automatically generated
+	 * @return positionX <strong>int</strong> Random position of a treasure or enemy
+	 * </pre>
+	 */
 	public int generatePositionX() {
 		
 		int positionX = random.nextInt(1281);
@@ -137,11 +161,13 @@ public class VideogameController{
 	
 	
 	/**
-	 *Description: The method generatePositionY allow to register one player to the system
-	 *pre: random must be initialized
-	 *pos: positionY is automatically generated
-	 *@return positionY	int	Random position of a treasure or enemy
-	*/
+	 * <pre>
+	 * <strong>Description:</strong> The method generatePositionY allows to randomly generate the Y position of the treasure or enemy
+	 * <strong>pre:</strong> random must be initialized
+	 * <strong>pos:</strong> positionY is automatically generated
+	 * @return positionY <strong>int</strong> Random position of a treasure or enemy
+	 * </pre>
+	 */
 	public int generatePositionY() {
 		
 		int positionY = random.nextInt(721);
@@ -151,15 +177,17 @@ public class VideogameController{
 	
 	
 	/**
-	 *Description: The method createTreasure allow to register treasures to a level
-	 *pre: levels must be initialized
-	 *pos: Treasure is registered in a level
-	 *@param optionLevel	int	Option of the level where the treasure will be added
-	 *@param nameTreasure	String	Name of the treasure
-	 *@param image	String	Image of the treasure 
-	 *@param scoreAwardedToPlayer	int	Score that the treasure award from the player
-	 *@param numTreasures	int	Number of treasures that will be added in the level
-	 *@return stopFlag	boolean	Flag to know if the process was successful or not
+	 * <pre>
+	 * <strong>Description:</strong> The method createTreasure allows to register treasures to a level
+	 * <strong>pre:</strong> levels must be initialized
+	 * <strong>pos:</strong> Treasure is registered in a level
+	 * @param optionLevel </strong>int</strong> Level where the treasure will be added
+	 * @param nameTreasure </strong>String</strong> Name of the treasure
+	 * @param image </strong>String</strong> Image of the treasure 
+	 * @param scoreAwardedToPlayer </strong>int</strong> Score that the treasure award from the player
+	 * @param numTreasures </strong>int</strong> Number of treasures that will be added in the level
+	 * @return stopFlag </strong>boolean</strong> Flag to know if the process was successful or not
+	 * </pre>
 	*/
 	public boolean createTreasure(int optionLevel, String nameTreasure, String image, int scoreAwardedToPlayer, int numTreasures) {
 
@@ -187,33 +215,18 @@ public class VideogameController{
 	}
 	
 	
-	public String getEnemyType() {
-		
-		String msg = "";
-		
-		EnemyType[] enemyType = EnemyType.values();
-		
-		for (int i = 0; i < enemyType.length; i++) {
-			
-			msg += "[" + (i+1) + "]" + enemyType[i] + "\n";
-			
-		}
-		
-		return msg;
-		
-	}
-	
-	
 	/**
-	 *Description: The method createTreasure allow to register one treasure to the system
-	 *pre: enemiesList must be initialized
-	 *pos: Enemy is register in the enemiesList
-	 *@param optionLevel	int	Option of the level where the enemy will be added
-	 *@param nameEnemy	String	Name of the enemy
-	 *@param enemyType	int	Type of the enemy
-	 *@param scoreSubtractedToPlayer	int	Score that the enemy subtract from the player
-	 *@param scoreAwardedToPlayer	int	Score that the enemy award from the player
-	 *@return stopFlag boolean Flag to know if the process was successful or not
+	 * <pre>
+	 * <strong>Description:</strong> The method createTreasure allows to register one treasure to the system
+	 * <strong>pre:</strong> enemiesList must be initialized
+	 * <strong>pos:</strong> Enemy is register in the enemiesList
+	 *@param optionLevel </strong>int</strong> Option of the level where the enemy will be added
+	 *@param nameEnemy </strong>String</strong> Name of the enemy
+	 *@param enemyType </strong>int</strong> Type of the enemy
+	 *@param scoreSubtractedToPlayer </strong>int</strong> Score that the enemy subtract from the player
+	 *@param scoreAwardedToPlayer </strong>int</strong> Score that the enemy award from the player
+	 *@return stopFlag </strong>boolean</strong> Flag to know if the process was successful or not
+	 * </pre>
 	*/
 	public boolean createEnemy(int optionLevel, String nameEnemy, int enemyType, int scoreSubtractedToPlayer, int scoreAwardedToPlayer) {
 		
@@ -238,10 +251,12 @@ public class VideogameController{
 
 	
 	/**
-	 *Description: The method showLevels allow show the list of levels of the system
-	 *pre: levels must be initialized
-	 *pos: Show list of levels
-	 *@return msg	String	Message with list of levels (only id)
+	 * <pre>
+	 * <strong>Description:</strong> The method showLevels allows to show the list of levels of the system
+	 * <strong>pre:</strong> levels must be initialized
+	 * <strong>pos:</strong> Show list of levels
+	 * @return msg </strong>String</strong> Message with list of levels (only id)
+	 * </pre>
 	*/
 	public String showLevels() {
 
@@ -263,10 +278,12 @@ public class VideogameController{
 	
 	
 	/**
-	 *Description: The method showPlayerList allow show the list of players registered in the system
-	 *pre: playersList must be initialized
-	 *pos: Show list of players
-	 *@return msg	String	Message with list of players (only nickname)
+	 * <pre>
+	 * <strong>Description:</strong> The method showPlayerList allows to show the list of players registered in the system
+	 * <strong>pre:</strong> playersList must be initialized
+	 * <strong>pos:</strong> Show list of players
+	 * @return msg </strong>String</strong> Message with list of players (only nickname)
+	 * </pre>
 	*/
 	public String showPlayersList() {
 
@@ -286,13 +303,16 @@ public class VideogameController{
 
 	}
 	
+	
 	/**
-	 *Description: The method modifyScorePlayer allow to modify a player's score
-	 *pre: playersList must be initialized
-	 *pos: Score of a player changed
-	 *@param optionPlayer	int	Option of the player whose score will be changed
-	 *@param newScore	int	New score of the player
-	 *@return stopFlag	boolean	Flag to know if the process was successful or not
+	 * <pre>
+	 * <strong>Description:</strong> The method modifyScorePlayer allows to modify a player's score
+	 * <strong>pre:</strong> playersList must be initialized
+	 * <strong>pos:</strong> Score of a player changed
+	 * @param optionPlayer </strong>int</strong> Player whose score will be changed
+	 * @param newScore </strong>int</strong> New score of the player
+	 * @return stopFlag </strong>boolean</strong> Flag to know if the process was successful or not
+	 * </pre>
 	*/
 	public boolean modifyScorePlayer(int optionPlayer, int newScore) {
 		
@@ -300,13 +320,10 @@ public class VideogameController{
 		
 		for (int i = 0; i < playersList.length; i++) {
 			
-			if (playersList[i] != null) {
+			if ((playersList[i] != null) && (playersList[i].getNickname().equals(playersList[optionPlayer].getNickname()))) {
 				
-				if (playersList[i].getNickname().equals(playersList[optionPlayer].getNickname())) {
-					
-					playersList[optionPlayer].setScore(newScore);
-					return stopFlag = true;
-				}
+				playersList[optionPlayer].setScore(newScore);
+				return stopFlag = true;
 			
 			}
 			
@@ -315,7 +332,105 @@ public class VideogameController{
 		return stopFlag;
 		
 	}
+	
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method modifyLevelPlayer allows to modify a player's level
+	 * <strong>pre:</strong> playersList must be initialized
+	 * <strong>pos:</strong> Level of a player changed
+	 * @param optionPlayer </strong>int</strong> Player whose level will be changed
+	 * @param newLevel </strong>int</strong> New level of the player
+	 * @return stopFlag </strong>boolean</strong> Flag to know if the process was successful or not
+	 * </pre>
+	*/
+	public boolean modifyLevelPlayer(int optionPlayer, int newLevel) {
+		
+		boolean stopFlag = false;
+				
+		for (int i = 0; i < playersList.length; i++) {
+				
+			if ((playersList[i] != null) && (playersList[i].getNickname().equals(playersList[optionPlayer].getNickname()))) {
+						
+				if (playersList[optionPlayer].getScore() > levels[newLevel].getPoints()) {
+							
+					playersList[optionPlayer].setLevel("Level " + (newLevel+1));
+					stopFlag = true;
+					
+				}
+				
+			}
+			
+		}		
+		
+		return stopFlag;
+		
+	}
+	
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method scoreRequiredToPassLevel allows you know what score is needed to go to the next level
+	 * <strong>pre:</strong> playersList must be initialized
+	 * <strong>pos:</strong> Determine the score required to move to the next level
+	 * @param optionPlayer </strong>int</strong> Player whose level will be changed
+	 * @param newLevel </strong>int</strong> New level of the player
+	 * @return scoreRequired </strong>int</strong> Score required to go to the next level
+	 * </pre>
+	*/
+	public int scoreRequiredToPassLevel(int optionPlayer, int newLevel) {
+		
+		int scoreRequired = 0;
+		
+		for (int i = 0; i < playersList.length; i++) {
+			
+			if ((playersList[i] != null) && (playersList[i].getNickname().equals(playersList[optionPlayer].getNickname()))) {
+				
+				if (playersList[optionPlayer].getScore() < levels[newLevel].getPoints()) {
+					
+					scoreRequired = levels[newLevel].getPoints();
+					
+				}
 
+			}
+			
+		}
+		
+		return scoreRequired;
+		
+	}
+	
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showTreasuresAndEnemies allows to show a list of registered treasures and enemies in a level
+	 * <strong>pre:</strong> levels must be initialized
+	 * <strong>pos:</strong> Show list of registered treasures and enemies in a level
+	 * @param optionLevel </strong>int</strong> Level from which the list is obtained
+	 * @return msg </strong>String</strong> Message with list of registered treasures and enemies in a level
+	 * </pre>
+	*/
+	public String showTreasuresAndEnemies (int optionLevel) {
+		
+		String msgTreasures = "";
+		String msgEnemies = "";
+		
+		for (int i = 0; i < levels.length; i++) {
+			
+			if (levels[i].getId().equals(levels[optionLevel].getId())) {
+					
+				msgTreasures += levels[(optionLevel)].showTreasuresByLevel();
+				msgEnemies += levels[(optionLevel)].showEnemiesByLevel();
+				
+			}
+			
+		}
+		
+		String msg = msgTreasures + "\n" + msgEnemies;
+		
+		return msg;
+			
+	}
 
 
 }
