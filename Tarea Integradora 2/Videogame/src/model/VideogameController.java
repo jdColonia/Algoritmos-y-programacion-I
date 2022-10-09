@@ -37,7 +37,7 @@ public class VideogameController{
 		
 		for (int i = 0; i < enemyType.length; i++) {
 			
-			msg += "[" + (i+1) + "]" + enemyType[i] + "\n";
+			msg += "\n[" + (i+1) + "]" + enemyType[i];
 			
 		}
 		
@@ -236,10 +236,10 @@ public class VideogameController{
 	
 			if (levels[i].getId().equals(levels[optionLevel].getId())) {
 							
-					int positionX = generatePositionX();
-					int positionY = generatePositionY();
+				int positionX = generatePositionX();
+				int positionY = generatePositionY();
 					
-					stopFlag = levels[i].addEnemy(nameEnemy, enemyType, scoreSubtractedToPlayer, scoreAwardedToPlayer, positionX, positionY);
+				stopFlag = levels[i].addEnemy(nameEnemy, enemyType, scoreSubtractedToPlayer, scoreAwardedToPlayer, positionX, positionY);
 				
 			}
 			
@@ -431,6 +431,93 @@ public class VideogameController{
 		return msg;
 			
 	}
+	
+	public boolean searchTreasure(String nameTreasure) {
+		
+		boolean stopFlag = false;
+		
+		for (int i = 0; i < levels.length; i++) {
+			
+			for (int j = 0; j < levels[i].getTreasuresList().length; j++) {
+				
+				if (levels[i].getTreasuresList()[j] != null) {
+				
+					if (levels[i].getTreasuresList()[j].getNameTreasure().equals(nameTreasure)) {
+						
+						stopFlag = true;
+						
+					}
+					
+				}
+				
+			}
+			
+			
+		}
+		
+		return stopFlag;
+
+	}
+	
+	
+	public int amountTreasureLevels(String nameTreasure) {
+		
+		int numTreasuresInAllLevel = 0;
+		
+		for (int i = 0; i < levels.length; i++) {
+			
+			numTreasuresInAllLevel += levels[i].amountTreasureLevel(nameTreasure);
+			
+		}
+		
+		return numTreasuresInAllLevel;
+		
+	}
+	
+	
+	public boolean searchEnemy(String nameEnemy) {
+		
+		boolean stopFlag = false;
+		
+		for (int i = 0; i < levels.length; i++) {
+			
+			for (int j = 0; j < levels[i].getEnemiesList().length; j++) {
+				
+				if (levels[i].getEnemiesList()[j] != null) {
+				
+					if (levels[i].getEnemiesList()[j].getNameEnemy().equals(nameEnemy)) {
+						
+						stopFlag = true;
+						
+					}
+					
+				}
+				
+			}
+			
+			
+		}
+		
+		return stopFlag;
+
+	}
+	
+	
+	public int amountEnemyLevels(String nameEnemy) {
+		
+		int numEnemiesInAllLevel = 0;
+		
+		for (int i = 0; i < levels.length; i++) {
+			
+			numEnemiesInAllLevel += levels[i].amountEnemyLevel(nameEnemy);
+			
+		}
+		
+		return numEnemiesInAllLevel;
+		
+	}
+	
+
 
 
 }

@@ -31,6 +31,8 @@ public class VideogameManager{
 					+ "\n[4] Modify score of a player"
 					+ "\n[5] Modify level of a player"
 					+ "\n[6] Show treasures and enemies of a level"
+					+ "\n[7] Show amount of a treasure in all levels"
+					+ "\n[8] Show amount of a enemy in all levels"
 					+ "\n[0] Exit");
 			
 			int mainOption = sc.nextInt();
@@ -54,6 +56,12 @@ public class VideogameManager{
 				break;
 			case 6:
 				showTreasuresAndEnemies();
+				break;
+			case 7:
+				showAmountTreasure();
+				break;
+			case 8:
+				showAmountEnemy();
 				break;
 			case 0:
 				stopFlag = true;
@@ -175,8 +183,8 @@ public class VideogameManager{
 		sc.nextLine();
 		String nameEnemy = sc.nextLine();
 		
-		System.out.println("Type the type of the enemy");
-		System.out.print(controller.getEnemyType());
+		System.out.println("These are the possible types of enemies:" + controller.getEnemyType());
+		System.out.println("Type the type of the enemy: ");
 		int enemyType = (sc.nextInt()-1);
 		
 		System.out.print("Type the score that subtract to player the new enemy: ");
@@ -219,7 +227,7 @@ public class VideogameManager{
 		} else {
 		
 			System.out.println("These are the players currently registered:" + playersList);
-			System.out.print("Type the Nickname of the player whose points you want to modify: ");
+			System.out.print("Type the nickname of the player whose points you want to modify: ");
 			int optionPlayer = sc.nextInt();
 			
 			System.out.print("Type the new score of the player: ");
@@ -261,7 +269,7 @@ public class VideogameManager{
 		} else {
 		
 			System.out.println("These are the players currently registered:" + playersList);
-			System.out.print("Type the Nickname of the player whose level you want to modify: ");
+			System.out.print("Type the nickname of the player whose level you want to modify: ");
 			int optionPlayer = sc.nextInt();
 			
 			System.out.println("These are the levels currently registered:" + controller.showLevels());
@@ -292,7 +300,7 @@ public class VideogameManager{
 	 * <strong>Outputs:</strong> Message by console
 	 * </pre>
 	 */
-	public static void showTreasuresAndEnemies () {
+	public static void showTreasuresAndEnemies() {
 		
 		System.out.println("These are the levels currently registered:" + controller.showLevels());
 		System.out.print("Type the ID of the level in which you want to see the registered treasures and enemies: ");
@@ -301,5 +309,46 @@ public class VideogameManager{
 		System.out.println(controller.showTreasuresAndEnemies((optionLevel-1)));
 		
 	}
+	
+	public static void showAmountTreasure() {
+		
+		System.out.print("Type the name of the treasure: ");
+		sc.nextLine();
+		String nameTreasure = sc.nextLine();
+		
+		if (controller.searchTreasure(nameTreasure)) {
+			
+			System.out.println("The amount of " + nameTreasure + " is: " + controller.amountTreasureLevels(nameTreasure));
+			
+			
+		} else {
+			
+			System.out.println("Error, treasure is not registered in any level");
+			
+		}
+		
+	}
+	
+	
+	public static void showAmountEnemy() {
+		
+		System.out.print("Type the name of the enemy: ");
+		sc.nextLine();
+		String nameEnemy = sc.nextLine();
+		
+		if (controller.searchEnemy(nameEnemy)) {
+			
+			System.out.println("The amount of " + nameEnemy + " is: " + controller.amountEnemyLevels(nameEnemy));
+			
+			
+		} else {
+			
+			System.out.println("Error, enemy is not registered in any level");
+			
+		}
+		
+	}
+	
+
 
 }

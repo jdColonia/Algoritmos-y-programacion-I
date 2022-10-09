@@ -253,8 +253,46 @@ public class Level{
 		
 		}
 		
-	return msg;
+		return msg;
 		
+	}
+	
+	
+	public int amountTreasureLevel (String nameTreausure) {
+		
+		int numTreasuresInTheLevel = 0;
+		
+		for (int i = 0; i < treasuresList.length; i++) {
+			
+			if ((treasuresList[i] != null) && (treasuresList[i].getNameTreasure().equals(nameTreausure))) {
+				
+				numTreasuresInTheLevel += 1;
+				
+			}
+			
+		}
+		
+		  return numTreasuresInTheLevel;
+		  
+	}
+	
+	
+	public int amountEnemyLevel (String nameEnemy) {
+		
+		int numEnemiesInTheLevel = 0;
+		
+		for (int i = 0; i < enemiesList.length; i++) {
+			
+			if ((enemiesList[i] != null) && (enemiesList[i].getNameEnemy().equals(nameEnemy))) {
+				
+				numEnemiesInTheLevel += 1;
+				
+			}
+			
+		}
+		
+		  return numEnemiesInTheLevel;
+		  
 	}
 	
 }
