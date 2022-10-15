@@ -32,7 +32,11 @@ public class VideogameManager{
 					+ "\n[5] Modify level of a player"
 					+ "\n[6] Show treasures and enemies of a level"
 					+ "\n[7] Show amount of a treasure in all levels"
-					+ "\n[8] Show amount of a enemy in all levels"
+					+ "\n[8] Show amount of a enemy type in all levels"
+					+ "\n[9] S"
+					+ "\n[10] Show enemy with highest score"
+					+ "\n[11] Show number of consonants in enemy names"
+					+ "\n[12] Show podium"
 					+ "\n[0] Exit");
 			
 			int mainOption = sc.nextInt();
@@ -62,6 +66,18 @@ public class VideogameManager{
 				break;
 			case 8:
 				showAmountEnemy();
+				break;
+			case 9:
+				
+				break;
+			case 10:
+				System.out.println(controller.showEnemyWithHighestScore());
+				break;
+			case 11:
+				System.out.println("El numero de consonantes es: " + controller.countConsonant());
+				break;
+			case 12:
+				showTopFive();
 				break;
 			case 0:
 				stopFlag = true;
@@ -332,13 +348,13 @@ public class VideogameManager{
 	
 	public static void showAmountEnemy() {
 		
-		System.out.print("Type the name of the enemy: ");
-		sc.nextLine();
-		String nameEnemy = sc.nextLine();
+		System.out.println("These are the types of enemies:" + controller.getEnemyType());
+		System.out.println("Type the type of the enemy: ");
+		int enemyType = (sc.nextInt()-1);
 		
-		if (controller.searchEnemy(nameEnemy)) {
+		if (controller.searchEnemyType(enemyType)) {
 			
-			System.out.println("The amount of " + nameEnemy + " is: " + controller.amountEnemyLevels(nameEnemy));
+			System.out.println("The amount of " + enemyType + " is: " + controller.amountEnemyLevels(enemyType));
 			
 			
 		} else {
@@ -346,6 +362,21 @@ public class VideogameManager{
 			System.out.println("Error, enemy is not registered in any level");
 			
 		}
+		
+	}
+	
+	public static void showTopFive() {
+		
+		if (controller.showTopFive().equals("")) {
+			
+			System.out.println("No hay jugadores registrados actualmente");
+			
+		} else {
+			
+			System.out.println(controller.showTopFive());
+			
+		}
+		
 		
 	}
 	

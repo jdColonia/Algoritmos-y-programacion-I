@@ -55,15 +55,5 @@ public class Player{
 	public void setScore(int score) {
 		this.score = score;
 	}
-	
-	public String toString() {
-		
-		return "\nMove info: "
-				+ "\nNickame: " + this.nickname
-				+ "\nName: " + this.namePlayer
-				+ "\nLevel: " + this.level
-				+ "\nScore: " + this.score
-				+ "\nNumber lives: " + this.numberLives;
-	}
 
 }

@@ -202,7 +202,7 @@ public class VideogameController{
 					int positionX = generatePositionX();
 					int positionY = generatePositionY();
 							
-					stopFlag = levels[i].addTreasure(nameTreasure, image, scoreAwardedToPlayer, positionX, positionY);
+					return stopFlag = levels[i].addTreasure(nameTreasure, image, scoreAwardedToPlayer, positionX, positionY);
 				
 				}
 	
@@ -239,7 +239,7 @@ public class VideogameController{
 				int positionX = generatePositionX();
 				int positionY = generatePositionY();
 					
-				stopFlag = levels[i].addEnemy(nameEnemy, enemyType, scoreSubtractedToPlayer, scoreAwardedToPlayer, positionX, positionY);
+				return stopFlag = levels[i].addEnemy(nameEnemy, enemyType, scoreSubtractedToPlayer, scoreAwardedToPlayer, positionX, positionY);
 				
 			}
 			
@@ -355,7 +355,7 @@ public class VideogameController{
 				if (playersList[optionPlayer].getScore() > levels[newLevel].getPoints()) {
 							
 					playersList[optionPlayer].setLevel("Level " + (newLevel+1));
-					stopFlag = true;
+					return stopFlag = true;
 					
 				}
 				
@@ -444,14 +444,13 @@ public class VideogameController{
 				
 					if (levels[i].getTreasuresList()[j].getNameTreasure().equals(nameTreasure)) {
 						
-						stopFlag = true;
+						return stopFlag = true;
 						
 					}
 					
 				}
 				
-			}
-			
+			}	
 			
 		}
 		
@@ -475,7 +474,7 @@ public class VideogameController{
 	}
 	
 	
-	public boolean searchEnemy(String nameEnemy) {
+	public boolean searchEnemyType(int enemyType) {
 		
 		boolean stopFlag = false;
 		
@@ -485,9 +484,9 @@ public class VideogameController{
 				
 				if (levels[i].getEnemiesList()[j] != null) {
 				
-					if (levels[i].getEnemiesList()[j].getNameEnemy().equals(nameEnemy)) {
+					if (levels[i].getEnemiesList()[j].getEnemyType().equals(enemyType)) {
 						
-						stopFlag = true;
+						return stopFlag = true;
 						
 					}
 					
@@ -503,13 +502,13 @@ public class VideogameController{
 	}
 	
 	
-	public int amountEnemyLevels(String nameEnemy) {
+	public int amountEnemyLevels(int enemyType) {
 		
 		int numEnemiesInAllLevel = 0;
 		
 		for (int i = 0; i < levels.length; i++) {
 			
-			numEnemiesInAllLevel += levels[i].amountEnemyLevel(nameEnemy);
+			numEnemiesInAllLevel += levels[i].amountEnemyLevel(enemyType);
 			
 		}
 		
@@ -517,7 +516,218 @@ public class VideogameController{
 		
 	}
 	
+	public String showTreasureMostRepeated() {
+		
+		String globalTreasuresList[] = new String[500];
+		String treasureMostRepeated = "";
+		int cantTreasureMostRepeated = 0;
+		
+		//Rellenar arreglo global
+		for (int i = 0; i < levels.length; i++) {
+			
+			for (int j = 0; j < levels[i].getTreasuresList().length; j++) {
+				
+				if (levels[i].getTreasuresList() != null) {
+			
+					globalTreasuresList[i] = levels[i].getTreasuresList()[j].getNameTreasure();
+				
+				}
+			
+			}
+			
+		}
+		
+		for (int i = 0; i < globalTreasuresList.length; i++) {
+			
+			if (i == 0) {
+				
+				treasureMostRepeated = globalTreasuresList[i];
+				cantTreasureMostRepeated++;
+				
+			} else {
+				
+				if (globalTreasuresList[i].equals(treasureMostRepeated)) {
+					
+					cantTreasureMostRepeated++;
+					
+				} else 
+				
+				
+				
+			}
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		return ;
+		
+		
+	}
+	
+	
+	//Muestra el enemigo que mas se repite con su nivel y puntaje
+	public String showEnemyWithHighestScore() {
+		
+		String name = "";
+		String level = "";
+		int score = 0;
+		String msg = "";
+		
+		for (int i = 0; i < levels.length; i++) {
+				
+			for (int j = 0; j < levels[i].getEnemiesList().length; j++) {
+				
+				if (levels[i].getEnemiesList()[j] != null) {
+					
+					name = levels[i].getEnemiesList()[0].getNameEnemy();
+					level = levels[i].getId();
+					score = levels[i].getEnemiesList()[0].getScoreAwardedToPlayer();
+					msg = "ENEMY WITH HIGHEST SCORE: "
+							+ "\nName: " + name
+							+ "\nLevel: " + level
+							+ "\nScore: " + score;
+					
+					if (levels[i].getEnemiesList()[j].getScoreAwardedToPlayer() > score) {
+						
+						name = levels[i].getEnemiesList()[j].getNameEnemy();
+						level = levels[i].getId();
+						score = levels[i].getEnemiesList()[j].getScoreAwardedToPlayer();
+						msg = "ENEMY WITH HIGHEST SCORE: "
+								+ "\nName: " + name
+								+ "\nLevel: " + level
+								+ "\nScore: " + score;
+						
+					}
+				
+				}
+			
+			}
+		
+		}
+		
+		if (msg.equals("")) {
+			
+			msg = "No hay enemigos registrados";
+		
+		}
+		
+		return msg;
+		
+	}
+	
+	public int countConsonant() {
+		
+		int countConsonant = 0;
+		
+		for (int i = 0; i < levels.length; i++) {
 
+			for (int j = 0; j < levels[i].getEnemiesList().length; j++) {
+				
+				if (levels[i].getEnemiesList()[j] != null) {
+					
+					String nameEnemy = levels[i].getEnemiesList()[j].getNameEnemy();
+		
+					for (int k = 0; k < nameEnemy.length(); k++) {
+						
+						char letter = nameEnemy.charAt(k);
+						
+						if (isConsonant(letter)) {
+							
+							countConsonant++;
+							
+						}
+						
+					}
+				
+				}
+				
+			}
+		
+		}
+		
+		return countConsonant;
+		
+	}
+	
+	public boolean isConsonant(char letter) {
+		
+		return "bcdfghjklmnñpqrstvwxyz".contains(String.valueOf(letter).toLowerCase());
+		
+	}
+	
+	public String showTopFive() {
+		
+		int playersGlobalScore[] = new int[20];
+		String msg = "";
+		boolean stopFlag = false;
+		int count = 0;
+		
+		for (int i = 0; i < playersList.length; i++) {
+				
+			if (playersList[i] != null) {
+			
+				playersGlobalScore[i] = playersList[i].getScore();
+				
+			}
+			
+		}
+		
+		overallPlayerScoreSorted(playersGlobalScore);
+		
+		for (int i = 0; i < playersList.length; i++) {
+				
+			if (playersList[i] != null) {
+				
+				for (int j = 0; j < 5; j++) {
+							
+					if (playersList[i].getScore() == playersGlobalScore[j] && !stopFlag) {
+							
+						msg += "\n" + (i+1) + ". " + playersList[i].getNickname() + "----->" + playersList[i].getScore();
+						stopFlag = true;
+							
+					}
+						
+				}
+					
+			}
+				
+			stopFlag = false;
+				
+		}
+		
+		return msg;
+		
+	}
+	
+    private void overallPlayerScoreSorted(int[] playersGlobalScore) {
+    	
+    	//Bubble Sort
+    	
+        for (int x = 0; x < playersGlobalScore.length; x++) {
+        	
+            for (int y = 0; y < playersGlobalScore.length - 1; y++) {
+            	
+                int currentItem = playersGlobalScore[y],
+                	nextItem = playersGlobalScore[y + 1];
+                
+                if (currentItem < nextItem) {
 
+                	playersGlobalScore[y] = nextItem;
+                	playersGlobalScore[y + 1] = currentItem;
+                    
+                }
+                
+            }
+            
+        }
+       
+    }
+    
+    
 
 }

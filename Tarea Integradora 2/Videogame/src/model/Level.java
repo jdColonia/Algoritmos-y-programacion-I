@@ -277,13 +277,13 @@ public class Level{
 	}
 	
 	
-	public int amountEnemyLevel (String nameEnemy) {
+	public int amountEnemyLevel (int enemyType) {
 		
 		int numEnemiesInTheLevel = 0;
 		
 		for (int i = 0; i < enemiesList.length; i++) {
 			
-			if ((enemiesList[i] != null) && (enemiesList[i].getNameEnemy().equals(nameEnemy))) {
+			if ((enemiesList[i] != null) && (enemiesList[i].getEnemyType().equals(enemyType))) {
 				
 				numEnemiesInTheLevel += 1;
 				
@@ -295,4 +295,10 @@ public class Level{
 		  
 	}
 	
-}
+	
+
+		
+		
+		
+	}
+	
