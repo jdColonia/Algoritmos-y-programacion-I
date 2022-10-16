@@ -11,7 +11,7 @@ public class Level{
 	public Level() {
 		this.id = "";
 		this.points = 0;
-		//this.complexityLevel = ComplexityLevel.values()[complexityLevel];
+		this.complexityLevel = ComplexityLevel.values()[1];
 		this.treasuresList = new Treasure[50];
 		this.enemiesList = new Enemy[25];
 	}
@@ -36,8 +36,22 @@ public class Level{
 		return complexityLevel;
 	}
 
-	public void setComplexityLevel(ComplexityLevel complexityLevel) {
-		this.complexityLevel = complexityLevel;
+	public void setComplexityLevel(int treasureScoreAwardedToPlayer, int enemyScoreAwardedToPlayer) {
+		
+		if (treasureScoreAwardedToPlayer > enemyScoreAwardedToPlayer) {
+			
+			this.complexityLevel = ComplexityLevel.values()[0];
+			
+		} else if (treasureScoreAwardedToPlayer < enemyScoreAwardedToPlayer) {
+			
+			this.complexityLevel = ComplexityLevel.values()[2];
+			
+		} else {
+			
+			this.complexityLevel = ComplexityLevel.values()[1];
+			
+		}
+		
 	}
 
 	public Treasure[] getTreasuresList() {
@@ -54,6 +68,43 @@ public class Level{
 
 	public void setEnemiesList(Enemy[] enemiesList) {
 		this.enemiesList = enemiesList;
+	}
+	
+	
+	public int treasureScoreAwardedToPlayer() {
+		
+		int treasureScoreAwardedToPlayer = 0;
+		
+		for (int i = 0; i < treasuresList.length; i++) {
+			
+			if (treasuresList[i] != null) {
+			
+				treasureScoreAwardedToPlayer = treasuresList[i].getScoreAwardedToPlayer();
+			
+			}
+			
+		}
+		
+		return treasureScoreAwardedToPlayer;
+
+	}
+	
+	public int enemyScoreAwardedToPlayer() {
+		
+		int enemyScoreAwardedToPlayer = 0;
+		
+		for (int i = 0; i < enemiesList.length; i++) {
+			
+			if (enemiesList[i] != null) {
+			
+				enemyScoreAwardedToPlayer = enemiesList[i].getScoreAwardedToPlayer();
+			
+			}
+			
+		}
+		
+		return enemyScoreAwardedToPlayer;
+
 	}
 	
 	
@@ -81,6 +132,9 @@ public class Level{
 			if (treasuresList[i] == null) {
 				
 				treasuresList[i] = myTreasure;
+				int treasureScoreAwardedToPlayer = treasureScoreAwardedToPlayer();
+				int enemyScoreAwardedToPlayer = enemyScoreAwardedToPlayer();
+				setComplexityLevel(treasureScoreAwardedToPlayer, enemyScoreAwardedToPlayer);
 				return stopFlag = true;
 				
 			}
@@ -151,6 +205,9 @@ public class Level{
 				if (verifyEnemy(nameEnemy)) {
 				
 					enemiesList[i] = myEnemy;
+					int treasureScoreAwardedToPlayer = treasureScoreAwardedToPlayer();
+					int enemyScoreAwardedToPlayer = enemyScoreAwardedToPlayer();
+					setComplexityLevel(treasureScoreAwardedToPlayer, enemyScoreAwardedToPlayer);
 					return stopFlag = true;
 				
 				}
@@ -283,7 +340,7 @@ public class Level{
 		
 		for (int i = 0; i < enemiesList.length; i++) {
 			
-			if ((enemiesList[i] != null) && (enemiesList[i].getEnemyType().equals(enemyType))) {
+			if ((enemiesList[i] != null) && (enemiesList[i].getEnemyType().equals(EnemyType.values()[enemyType]))) {
 				
 				numEnemiesInTheLevel += 1;
 				

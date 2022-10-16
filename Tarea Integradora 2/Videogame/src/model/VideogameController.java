@@ -71,7 +71,7 @@ public class VideogameController{
 				levels[i] = myLevel;
 				
 			}
-				
+			
 		}
 		
 	}
@@ -195,14 +195,14 @@ public class VideogameController{
 		
 		for (int i = 0; i < levels.length; i++) {
 	
-			for (int j = 0; j < numTreasures; j++) {
+			if (levels[i].getId().equals(levels[optionLevel].getId())) {
 				
-				if (levels[i].getId().equals(levels[optionLevel].getId())) {
+				for (int j = 0; j < numTreasures; j++) {
 							
 					int positionX = generatePositionX();
 					int positionY = generatePositionY();
 							
-					return stopFlag = levels[i].addTreasure(nameTreasure, image, scoreAwardedToPlayer, positionX, positionY);
+					stopFlag = levels[i].addTreasure(nameTreasure, image, scoreAwardedToPlayer, positionX, positionY);
 				
 				}
 	
@@ -478,13 +478,14 @@ public class VideogameController{
 		
 		boolean stopFlag = false;
 		
+		
 		for (int i = 0; i < levels.length; i++) {
 			
 			for (int j = 0; j < levels[i].getEnemiesList().length; j++) {
 				
 				if (levels[i].getEnemiesList()[j] != null) {
 				
-					if (levels[i].getEnemiesList()[j].getEnemyType().equals(enemyType)) {
+					if (levels[i].getEnemiesList()[j].getEnemyType().equals(EnemyType.values()[enemyType])) {
 						
 						return stopFlag = true;
 						
@@ -516,61 +517,101 @@ public class VideogameController{
 		
 	}
 	
+	
 	public String showTreasureMostRepeated() {
 		
-		String globalTreasuresList[] = new String[500];
-		String treasureMostRepeated = "";
-		int cantTreasureMostRepeated = 0;
+		String[] globalTreasuresList = new String[500], globalTreasureListWithoutRepeated = new String[globalTreasuresList.length];
+		String nameTreasure = "", treasureMostRepeated = "", treasureAux = "", msg = "";
+		int cantTreasureMostRepeated = 0, cantTreasureAux = 0;
+		int k = 0, l = 0;
 		
-		//Rellenar arreglo global
+		//Rellenar arreglo global y el arreglo sin repetir elementos
+	
 		for (int i = 0; i < levels.length; i++) {
-			
+		
 			for (int j = 0; j < levels[i].getTreasuresList().length; j++) {
+
+				if (levels[i].getTreasuresList()[j] != null) {
+					
+					globalTreasuresList[k] = levels[i].getTreasuresList()[j].getNameTreasure();
+					nameTreasure = levels[i].getTreasuresList()[j].getNameTreasure();
+					
+					if  (!isRepeated(globalTreasureListWithoutRepeated, nameTreasure)) {
+							
+						globalTreasureListWithoutRepeated[l] = nameTreasure;
+						l++;
+							
+					}
+		
+				}
 				
-				if (levels[i].getTreasuresList() != null) {
+				k++;
+					
+			}	
+					
+		}
+		
+		
+		
+		for (int i = 0; i < globalTreasureListWithoutRepeated.length; i++) {
 			
-					globalTreasuresList[i] = levels[i].getTreasuresList()[j].getNameTreasure();
-				
+			cantTreasureAux = 0;
+			
+			for (int j = 0; j < globalTreasuresList.length; j++) {
+			
+				if (globalTreasuresList[j] != null) {
+					
+					if (globalTreasuresList[j].equals(globalTreasureListWithoutRepeated[i])) {
+							
+						treasureAux = globalTreasureListWithoutRepeated[i];
+						cantTreasureAux++;
+							
+					}
+					
 				}
 			
 			}
 			
-		}
-		
-		for (int i = 0; i < globalTreasuresList.length; i++) {
-			
-			if (i == 0) {
+			if (cantTreasureAux > cantTreasureMostRepeated) {
 				
-				treasureMostRepeated = globalTreasuresList[i];
-				cantTreasureMostRepeated++;
-				
-			} else {
-				
-				if (globalTreasuresList[i].equals(treasureMostRepeated)) {
-					
-					cantTreasureMostRepeated++;
-					
-				} else 
-				
-				
+				treasureMostRepeated = treasureAux;
+				cantTreasureMostRepeated = cantTreasureAux;
 				
 			}
 			
+		}
+		
+		msg = "TREASURE MOST REPEATED:"
+				+ "\nName: " + treasureMostRepeated
+				+ "\nAmount: " + cantTreasureMostRepeated;
+		
+		return msg;	
+		
+	}
+	
+	private boolean isRepeated(String[] globalTreasureListWithoutRepeated, String nameTreasure) {
+		
+		boolean stopFlag = false;
+		
+		for (int i = 0; i < globalTreasureListWithoutRepeated.length; i++) {
+			
+			if (globalTreasureListWithoutRepeated[i] != null) {
+			
+				if (globalTreasureListWithoutRepeated[i].equals(nameTreasure)) {
+					
+					return stopFlag = true;
+					
+				}
+				
+			}
 			
 		}
 		
-		
-		
-		
-		
-		
-		return ;
-		
+		return stopFlag;
 		
 	}
 	
 	
-	//Muestra el enemigo que mas se repite con su nivel y puntaje
 	public String showEnemyWithHighestScore() {
 		
 		String name = "";
@@ -662,15 +703,14 @@ public class VideogameController{
 	
 	public String showTopFive() {
 		
-		int playersGlobalScore[] = new int[20];
+		int[] playersGlobalScore = new int[20], playersGlobalScoreWithoutRepeated = new int[playersGlobalScore.length];
+		int count = 0, scoreAux = 0, k = 0, top = 0;
 		String msg = "";
-		boolean stopFlag = false;
-		int count = 0;
 		
 		for (int i = 0; i < playersList.length; i++) {
 				
 			if (playersList[i] != null) {
-			
+				
 				playersGlobalScore[i] = playersList[i].getScore();
 				
 			}
@@ -679,46 +719,59 @@ public class VideogameController{
 		
 		overallPlayerScoreSorted(playersGlobalScore);
 		
-		for (int i = 0; i < playersList.length; i++) {
+		for (int i = 0; i < playersGlobalScore.length; i++) {
+		
+			scoreAux = playersGlobalScore[i];
 				
-			if (playersList[i] != null) {
-				
-				for (int j = 0; j < 5; j++) {
-							
-					if (playersList[i].getScore() == playersGlobalScore[j] && !stopFlag) {
-							
-						msg += "\n" + (i+1) + ". " + playersList[i].getNickname() + "----->" + playersList[i].getScore();
-						stopFlag = true;
-							
-					}
+			if  (!isRepeated(playersGlobalScoreWithoutRepeated, scoreAux)) {
 						
-				}
-					
+				playersGlobalScoreWithoutRepeated[k] = scoreAux;
+				k++;
+						
 			}
-				
-			stopFlag = false;
-				
+	
 		}
 		
+		for (int i = 0; i < playersGlobalScoreWithoutRepeated.length; i++) {
+				
+			for (int j = 0; j < playersList.length; j++) {
+					
+				if (playersList[j] != null && count < 5) {
+											
+					if (playersList[j].getScore() == playersGlobalScoreWithoutRepeated[i]) {
+												
+						msg += "\n" + (top+1) + ". " + playersList[j].getNickname() + "----->" + playersList[j].getScore();
+						count++;
+						top++;
+						
+					}
+							
+				}
+						
+			}
+			
+		}
+			
 		return msg;
 		
 	}
+	
 	
     private void overallPlayerScoreSorted(int[] playersGlobalScore) {
     	
     	//Bubble Sort
     	
-        for (int x = 0; x < playersGlobalScore.length; x++) {
+        for (int i = 0; i < playersGlobalScore.length; i++) {
         	
-            for (int y = 0; y < playersGlobalScore.length - 1; y++) {
+            for (int j = 0; j < playersGlobalScore.length - 1; j++) {
             	
-                int currentItem = playersGlobalScore[y],
-                	nextItem = playersGlobalScore[y + 1];
+                int currentItem = playersGlobalScore[j],
+                	nextItem = playersGlobalScore[j + 1];
                 
                 if (currentItem < nextItem) {
 
-                	playersGlobalScore[y] = nextItem;
-                	playersGlobalScore[y + 1] = currentItem;
+                	playersGlobalScore[j] = nextItem;
+                	playersGlobalScore[j + 1] = currentItem;
                     
                 }
                 
@@ -727,6 +780,26 @@ public class VideogameController{
         }
        
     }
+    
+    private boolean isRepeated(int[] playersGlobalScoreWithoutRepeated, int scoreAux) {
+		
+		boolean stopFlag = false;
+		
+		for (int i = 0; i < playersGlobalScoreWithoutRepeated.length; i++) {
+			
+			
+				if (playersGlobalScoreWithoutRepeated[i] == scoreAux) {
+					
+					return stopFlag = true;
+					
+				}
+				
+			
+		}
+		
+		return stopFlag;
+		
+	}
     
     
 

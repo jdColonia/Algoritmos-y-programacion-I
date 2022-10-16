@@ -68,7 +68,7 @@ public class VideogameManager{
 				showAmountEnemy();
 				break;
 			case 9:
-				
+				System.out.println(controller.showTreasureMostRepeated());
 				break;
 			case 10:
 				System.out.println(controller.showEnemyWithHighestScore());
@@ -354,7 +354,7 @@ public class VideogameManager{
 		
 		if (controller.searchEnemyType(enemyType)) {
 			
-			System.out.println("The amount of " + enemyType + " is: " + controller.amountEnemyLevels(enemyType));
+			System.out.println("The amount of ese tipo de enemigo is: " + controller.amountEnemyLevels(enemyType));
 			
 			
 		} else {
