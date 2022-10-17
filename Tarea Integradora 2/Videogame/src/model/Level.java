@@ -36,22 +36,14 @@ public class Level{
 		return complexityLevel;
 	}
 
-	public void setComplexityLevel(int treasureScoreAwardedToPlayer, int enemyScoreAwardedToPlayer) {
-		
-		if (treasureScoreAwardedToPlayer > enemyScoreAwardedToPlayer) {
-			
+	public void setComplexityLevel(int scoreTreasures, int scoreEnemies) {
+		if (scoreTreasures > scoreEnemies) {
 			this.complexityLevel = ComplexityLevel.values()[0];
-			
-		} else if (treasureScoreAwardedToPlayer < enemyScoreAwardedToPlayer) {
-			
+		} else if (scoreTreasures < scoreEnemies) {
 			this.complexityLevel = ComplexityLevel.values()[2];
-			
 		} else {
-			
 			this.complexityLevel = ComplexityLevel.values()[1];
-			
 		}
-		
 	}
 
 	public Treasure[] getTreasuresList() {
@@ -70,49 +62,47 @@ public class Level{
 		this.enemiesList = enemiesList;
 	}
 	
-	
-	public int treasureScoreAwardedToPlayer() {
-		
-		int treasureScoreAwardedToPlayer = 0;
-		
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The countScoreTreasures method allows to count the points awarded for the treasures to a player
+	 * <strong>pre:</strong> treasuresList must be initialized
+	 * <strong>pos:</strong> The total score awarded by the treasures to a player is obtained
+	 * @return scoreTreasures </strong>int</strong> Total score awarded to player
+	 * </pre>
+	*/
+	public int countScoreTreasures() {
+		int scoreTreasures = 0;
 		for (int i = 0; i < treasuresList.length; i++) {
-			
 			if (treasuresList[i] != null) {
-			
-				treasureScoreAwardedToPlayer = treasuresList[i].getScoreAwardedToPlayer();
-			
+				scoreTreasures = treasuresList[i].getScoreAwardedToPlayer();
 			}
-			
 		}
-		
-		return treasureScoreAwardedToPlayer;
-
+		return scoreTreasures;
 	}
 	
-	public int enemyScoreAwardedToPlayer() {
-		
-		int enemyScoreAwardedToPlayer = 0;
-		
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The countScoreEnemies method allows to count the points awarded for the enemies to a player
+	 * <strong>pre:</strong> enemiesList must be initialized
+	 * <strong>pos:</strong> The total score awarded by the enemies to a player is obtained
+	 * @return scoreEnemies </strong>int</strong> Total score awarded to player
+	 * </pre>
+	*/
+	public int countScoreEnemies() {
+		int scoreEnemies = 0;
 		for (int i = 0; i < enemiesList.length; i++) {
-			
 			if (enemiesList[i] != null) {
-			
-				enemyScoreAwardedToPlayer = enemiesList[i].getScoreAwardedToPlayer();
-			
+				scoreEnemies = enemiesList[i].getScoreAwardedToPlayer();
 			}
-			
 		}
-		
-		return enemyScoreAwardedToPlayer;
-
+		return scoreEnemies;
 	}
-	
 	
 	/**
 	 * <pre>
 	 * <strong>Description:</strong> The method addTreasure allows to add treasures to a level
 	 * <strong>pre:</strong> treasuresList must be initialized
-	 * <strong>pos:</strong> Treasure is register in a level
+	 * <strong>pos:</strong> Treasure is register in a level and the level of complexity of the level is updated
 	 * @param nameTreasure </strong>String</strong> Name of the treasure
 	 * @param image </strong>String</strong> Image of the treasure 
 	 * @param scoreAwardedToPlayer </strong>int</strong> Score that the treasure award from the player
@@ -121,30 +111,18 @@ public class Level{
 	 * @return stopFlag </strong>boolean</strong> Flag to know if the process was successful or not
 	 * </pre>
 	*/
-	public boolean addTreasure(String nameTreasure, String image, int scoreAwardedToPlayer, int positionX, int positionY) {
-		
+	public boolean addTreasure(String nameTreasure, String image, int scoreAwardedToPlayer, int positionX, int positionY) {	
 		boolean stopFlag = false;
-		
 		Treasure myTreasure = new Treasure(nameTreasure, image, scoreAwardedToPlayer, positionX, positionY);
-		
 		for (int i = 0; i < treasuresList.length; i++) {
-
 			if (treasuresList[i] == null) {
-				
 				treasuresList[i] = myTreasure;
-				int treasureScoreAwardedToPlayer = treasureScoreAwardedToPlayer();
-				int enemyScoreAwardedToPlayer = enemyScoreAwardedToPlayer();
-				setComplexityLevel(treasureScoreAwardedToPlayer, enemyScoreAwardedToPlayer);
+				setComplexityLevel(countScoreTreasures(), countScoreEnemies());
 				return stopFlag = true;
-				
 			}
-
 		}
-
 		return stopFlag;
-
 	}
-	
 	
 	/**
 	 * <pre>
@@ -156,25 +134,15 @@ public class Level{
 	 * </pre>
 	 */
 	public boolean verifyEnemy (String nameEnemy) {
-		
-		boolean stopFlag = true;
-		
+		boolean stopFlag = false;
 		for (int i = 0; i < enemiesList.length; i++) {
-			
 			if (enemiesList[i] != null) {
-				
-				if (nameEnemy.equals(enemiesList[i].getNameEnemy())) {
-					
-					return stopFlag = false;
-					
+				if (enemiesList[i].getNameEnemy().equals(nameEnemy)) {	
+					return stopFlag = true;	
 				}
-				
 			}
-
 		}
-		
-		return stopFlag;
-		
+		return stopFlag;	
 	}
 	
 	
@@ -193,33 +161,19 @@ public class Level{
 	 * </pre>
 	*/
 	public boolean addEnemy(String nameEnemy, int enemyType, int scoreSubtractedToPlayer, int scoreAwardedToPlayer, int positionX, int positionY) {
-		
 		boolean stopFlag = false;
-		
 		Enemy myEnemy = new Enemy(nameEnemy, enemyType, scoreSubtractedToPlayer, scoreAwardedToPlayer, positionX, positionY);
-		
 		for (int i = 0; i < enemiesList.length; i++) {
-
-			if (enemiesList[i] == null) {
-				
-				if (verifyEnemy(nameEnemy)) {
-				
+			if (enemiesList[i] == null) {	
+				if (!verifyEnemy(nameEnemy)) {
 					enemiesList[i] = myEnemy;
-					int treasureScoreAwardedToPlayer = treasureScoreAwardedToPlayer();
-					int enemyScoreAwardedToPlayer = enemyScoreAwardedToPlayer();
-					setComplexityLevel(treasureScoreAwardedToPlayer, enemyScoreAwardedToPlayer);
+					setComplexityLevel(countScoreTreasures(), countScoreEnemies());
 					return stopFlag = true;
-				
-				}
-				
+				}		
 			}
-
 		}
-
 		return stopFlag;
-
 	}
-	
 	
 	/**
 	 * <pre>
@@ -230,43 +184,24 @@ public class Level{
 	 * </pre>
 	*/
 	public String showTreasuresByLevel() {
-		 
-		String msg = "";
-			
-			if (treasuresList[0] != null) {
-				
-				for (int i = 0; i < treasuresList.length; i++) {
-				
-					if (treasuresList[i] != null) {
-					
-						if (i == 0) {
-							
-							msg += "Treasures: " + treasuresList[i].getNameTreasure() + ", ";
-								
-						} else if (i < treasuresList.length-1) {
-								
-							msg += treasuresList[i].getNameTreasure() + ", ";
-							
-						} else {
-								
-							msg += treasuresList[i].getNameTreasure() + ".";
-								
-						} 
-					
-					}
-					
+		String msg = "";	
+		if (treasuresList[0] != null) {	
+			for (int i = 0; i < treasuresList.length; i++) {	
+				if (treasuresList[i] != null) {					
+					if (i == 0) {							
+						msg += "Treasures: " + treasuresList[i].getNameTreasure() + ", ";								
+					} else if (i < treasuresList.length-1) {				
+						msg += treasuresList[i].getNameTreasure() + ", ";							
+					} else {							
+						msg += treasuresList[i].getNameTreasure() + ".";					
+					} 	
 				}
-				
-			} else {
-				
-				msg = "There aren't any treasures registered in this level";
-			
-			}
-			
-		return msg;
-		
+			}		
+		} else {	
+			msg = "There aren't any treasures registered in this level.";	
+		}	
+		return msg;		
 	}
-	
 	
 	/**
 	 * <pre>
@@ -276,86 +211,63 @@ public class Level{
 	 * @return msg </strong>String</strong> Message with list of enemies
 	 * </pre>
 	*/
-	public String showEnemiesByLevel() {
-		 
+	public String showEnemiesByLevel() {	 
 		String msg = "";
-		
-		if (enemiesList[0] != null) {
-			
-			for (int i = 0; i < enemiesList.length; i++) {
-			
-				if (enemiesList[i] != null) {
-				
-					if (i == 0) {
-						
-						msg += "Enemies: " + enemiesList[i].getNameEnemy() + ", ";
-							
-					} else if (i < enemiesList.length-1) {
-							
-						msg += enemiesList[i].getNameEnemy() + ", ";
-						
-					} else {
-							
-						msg += enemiesList[i].getNameEnemy() + ".";
-							
-					} 
-				
-				}
-				
-			}
-			
-		} else {
-			
-			msg = "There aren't any enemies registered in this level";
-		
-		}
-		
-		return msg;
-		
+		if (enemiesList[0] != null) {	
+			for (int i = 0; i < enemiesList.length; i++) {			
+				if (enemiesList[i] != null) {				
+					if (i == 0) {						
+						msg += "Enemies: " + enemiesList[i].getNameEnemy() + ", ";							
+					} else if (i < enemiesList.length-1) {							
+						msg += enemiesList[i].getNameEnemy() + ", ";						
+					} else {							
+						msg += enemiesList[i].getNameEnemy() + ".";							
+					} 				
+				}				
+			}			
+		} else {			
+			msg = "There aren't any enemies registered in this level.";		
+		}		
+		return msg;		
 	}
-	
-	
-	public int amountTreasureLevel (String nameTreausure) {
-		
-		int numTreasuresInTheLevel = 0;
-		
-		for (int i = 0; i < treasuresList.length; i++) {
-			
-			if ((treasuresList[i] != null) && (treasuresList[i].getNameTreasure().equals(nameTreausure))) {
-				
-				numTreasuresInTheLevel += 1;
-				
-			}
-			
-		}
-		
-		  return numTreasuresInTheLevel;
-		  
-	}
-	
-	
-	public int amountEnemyLevel (int enemyType) {
-		
-		int numEnemiesInTheLevel = 0;
-		
-		for (int i = 0; i < enemiesList.length; i++) {
-			
-			if ((enemiesList[i] != null) && (enemiesList[i].getEnemyType().equals(EnemyType.values()[enemyType]))) {
-				
-				numEnemiesInTheLevel += 1;
-				
-			}
-			
-		}
-		
-		  return numEnemiesInTheLevel;
-		  
-	}
-	
-	
 
-		
-		
-		
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method amountTreasureLevel allows to find the amount of a treasure in a level
+	 * <strong>pre:</strong> treasuresList must be initialized
+	 * <strong>pos:</strong> Determine the amount of a treasure
+	 * @param nameTreasure </strong>String</strong> Name of the treasure from which its amount will be obtained
+	 * @return numTreasuresInTheLevel </strong>int</strong> Amount of a treasure in a level
+	 * </pre>
+	*/
+	public int amountTreasureLevel (String nameTreausure) {	
+		int numTreasuresInTheLevel = 0;		
+		for (int i = 0; i < treasuresList.length; i++) {			
+			if ((treasuresList[i] != null) && (treasuresList[i].getNameTreasure().equals(nameTreausure))) {				
+				numTreasuresInTheLevel += 1;				
+			}			
+		}		
+		return numTreasuresInTheLevel;		  
 	}
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method amountEnemyLevel allows to find the amount of a type of enemy in a level
+	 * <strong>pre:</strong> enemiesList must be initialized
+	 * <strong>pos:</strong> Determine the amount of a type of enemy
+	 * @param enemyType </strong>int</strong> Enemy type from which its amount will be obtained
+	 * @return numEnemiesInTheLevel </strong>int</strong> Amount of a type of enemy in a level
+	 * </pre>
+	*/
+	public int amountEnemyLevel (int enemyType) {		
+		int numEnemiesInTheLevel = 0;		
+		for (int i = 0; i < enemiesList.length; i++) {			
+			if ((enemiesList[i] != null) && (enemiesList[i].getEnemyType().equals(EnemyType.values()[enemyType]))) {				
+				numEnemiesInTheLevel += 1;				
+			}			
+		}		
+		return numEnemiesInTheLevel;		  
+	}	
+			
+}
 	

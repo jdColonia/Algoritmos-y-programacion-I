@@ -11,9 +11,9 @@ public class Player{
 	public Player(String nickname, String namePlayer) {
 		this.nickname = nickname;
 		this.namePlayer = namePlayer;
-		this.level = null;
-		this.numberLives = 0;
-		this.score = 0;
+		this.level = "Level " + 1;
+		this.numberLives = 5;
+		this.score = 10;
 	}
 
 	public String getNickname() {
