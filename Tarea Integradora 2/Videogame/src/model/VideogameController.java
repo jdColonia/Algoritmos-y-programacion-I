@@ -92,7 +92,7 @@ public class VideogameController{
 	 * <pre>
 	 * <strong>Description:</strong> The method createPlayer allows to register one player to the system
 	 * <strong>pre:</strong> playerList must be initialized
-	 * <strong>pos:</strong> Player is register in the playerList
+	 * <strong>pos:</strong> Player is registered in the playerList
 	 * @param nickname <strong>String</strong> Nickname of the player
 	 * @param namePlayer <strong>String</strong> Name of the player
 	 * @return stopFlag <strong>boolean</strong> Flag to know if the process was successful or not
@@ -108,6 +108,24 @@ public class VideogameController{
 			}
 		}
 		return stopFlag;
+	}
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showLevels allows to show the list of levels of the system
+	 * <strong>pre:</strong> levels must be initialized
+	 * <strong>pos:</strong> Show list of levels
+	 * @return msg </strong>String</strong> Message with list of levels (only id)
+	 * </pre>
+	*/
+	public String showLevels() {
+		String msg = "";
+		for (int i = 0; i < levels.length; i++) {
+			if (levels[i] != null) {
+				msg += "\n[" + (i+1) + "] " + levels[i].getId();	
+			}
+		}
+		return msg;
 	}
 	
 	/**
@@ -134,24 +152,6 @@ public class VideogameController{
 	public int generatePositionY() {
 		int positionY = random.nextInt(721);
 		return positionY;
-	}
-	
-	/**
-	 * <pre>
-	 * <strong>Description:</strong> The method showLevels allows to show the list of levels of the system
-	 * <strong>pre:</strong> levels must be initialized
-	 * <strong>pos:</strong> Show list of levels
-	 * @return msg </strong>String</strong> Message with list of levels (only id)
-	 * </pre>
-	*/
-	public String showLevels() {
-		String msg = "";
-		for (int i = 0; i < levels.length; i++) {
-			if (levels[i] != null) {
-				msg += "\n[" + (i+1) + "] " + levels[i].getId();	
-			}
-		}
-		return msg;
 	}
 	
 	/**
@@ -285,7 +285,6 @@ public class VideogameController{
 		}
 		return scoreRequired;
 	}
-	
 	
 	/**
 	 * <pre>
@@ -565,7 +564,7 @@ public class VideogameController{
 	
 	/**
 	 * <pre>
-	 * <strong>Description:</strong> The method countConsonant allows to show the top 5 of the players according to the score
+	 * <strong>Description:</strong> The method showTopFive allows to show the top 5 of the players according to the score
 	 * <strong>pre:</strong> levels must be initialized
 	 * <strong>pos:</strong> Determine the show the top 5 of the players according to the score
 	 * @return msg </strong>String</strong> Message with the nickname and score of the players of the top
@@ -611,7 +610,7 @@ public class VideogameController{
 	 * <strong>Description:</strong> The method isRepeated allows to check if the element is already inside the array
 	 * <strong>pre:</strong> playersGlobalScoreWithoutRepeated must be initialized
 	 * <strong>pos:</strong> Determine if the element is already inside the array
-	 * @param playersGlobalScoreWithoutRepeated </strong>String[]</strong> Array for save the scores without repeated
+	 * @param playersGlobalScoreWithoutRepeated </strong>int[]</strong> Array for save the scores without repeated
 	 * @param scoreAux </strong>int</strong> Score to search
 	 * @return stopFlag <strong>boolean</strong> Flag to know if the process was successful or not
 	 * </pre>
