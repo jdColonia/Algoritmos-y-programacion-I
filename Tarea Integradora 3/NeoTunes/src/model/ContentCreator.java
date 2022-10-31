@@ -1,5 +1,5 @@
 package model;
 
-public class ContentCreator extends UserProducer {
+public class ContentCreator extends Producer {
 
 }

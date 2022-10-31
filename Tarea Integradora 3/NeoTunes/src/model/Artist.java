@@ -1,5 +1,5 @@
 package model;
 
-public class Artist extends UserProducer {
+public class Artist extends Producer {
 
 }

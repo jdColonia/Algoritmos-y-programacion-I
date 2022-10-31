@@ -1,5 +1,5 @@
 package model;
 
-public class Premium extends UserBuyer {
+public class Premium extends Buyer {
 
 }
