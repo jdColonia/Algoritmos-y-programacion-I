@@ -32,7 +32,8 @@ public class NeoTunesManager {
 		boolean stopFlag = false;
 
 		while (!stopFlag) {
-
+			
+			System.out.print("****************************************");
 			System.out.println("\nMain menu:"
 					+ "\n[1] Register producer user"
 					+ "\n[2] Register buyer user"
@@ -42,6 +43,8 @@ public class NeoTunesManager {
 					+ "\n[0] Exit");
 			System.out.print("Select an option: ");
 			int mainOption = sc.nextInt();
+			System.out.print("****************************************");
+
 
 			switch (mainOption) {
 
@@ -121,21 +124,24 @@ public class NeoTunesManager {
 	
 	public void registerArtist() {
 		
-		System.out.println("Type the new Artist's name: ");
+		System.out.print("Type the new Artist's name: ");
 		sc.nextLine();
 		String nameUser = sc.nextLine();
+		
+		System.out.print("Type the new Artist's identification number: ");
+		String identificationNumber = sc.nextLine();
 
-		System.out.println("Type the new Artist's bonding date (YYYY-MM-DD): ");
+		System.out.print("Type the new Artist's bonding date [YYYY-MM-DD]: ");
 		String bondingDate = sc.nextLine();
 
-		int year = Integer.parseInt(date.split("-")[0]);
-		int month = Integer.parseInt(date.split("-")[1]);
-		int day = Integer.parseInt(date.split("-")[2]);
+		int year = Integer.parseInt(bondingDate.split("-")[0]);
+		int month = Integer.parseInt(bondingDate.split("-")[1]);
+		int day = Integer.parseInt(bondingDate.split("-")[2]);
 
-		System.out.println("Type the new Artist's photo: ");
+		System.out.print("Type the new Artist's photo: ");
 		String photoURL = sc.nextLine();
 
-		/*if (controller.registerRegularUser(name, id, email, phone)) {
+		if (controller.registerArtist(nameUser, identificationNumber, year, month, day, photoURL)) {
 
 			System.out.println("User registered successfully");
 
@@ -143,26 +149,30 @@ public class NeoTunesManager {
 
 			System.out.println("Error, User couldn't be registered");
 			
-		}*/
+		}
+		
 	}
 	
 	public void registerContentCreator() {
 		
-		System.out.println("Type the new Content Creator's name: ");
+		System.out.print("Type the new Content Creator's name: ");
 		sc.nextLine();
 		String nameUser = sc.nextLine();
+		
+		System.out.print("Type the new Content Creator's  identification number: ");
+		String identificationNumber = sc.nextLine();
 
-		System.out.println("Type the new Content Creator's bonding date (YYYY-MM-DD): ");
+		System.out.print("Type the new Content Creator's bonding date [YYYY-MM-DD]: ");
 		String bondingDate = sc.nextLine();
 
-		int year = Integer.parseInt(date.split("-")[0]);
-		int month = Integer.parseInt(date.split("-")[1]);
-		int day = Integer.parseInt(date.split("-")[2]);
+		int year = Integer.parseInt(bondingDate.split("-")[0]);
+		int month = Integer.parseInt(bondingDate.split("-")[1]);
+		int day = Integer.parseInt(bondingDate.split("-")[2]);
 
-		System.out.println("Type the new Content Creator's photo: ");
+		System.out.print("Type the new Content Creator's photo: ");
 		String photoURL = sc.nextLine();
 
-		/*if (controller.registerRegularUser(name, id, email, phone)) {
+		if (controller.registerContentCreator(nameUser, identificationNumber, year, month, day, photoURL)) {
 
 			System.out.println("User registered successfully");
 
@@ -170,27 +180,27 @@ public class NeoTunesManager {
 
 			System.out.println("Error, User couldn't be registered");
 			
-		}*/
+		}
 		
 	}
 		
 	public void registerStandardUser() {
 		
-		System.out.println("Type the new Standard User's name: ");
+		System.out.print("Type the new Standard User's name: ");
 		sc.nextLine();
 		String nameUser = sc.nextLine();
 
-		System.out.println("Type the new Standard User's bonding date (YYYY-MM-DD): ");
+		System.out.print("Type the new Standard User's bonding date [YYYY-MM-DD]: ");
 		String bondingDate = sc.nextLine();
 
-		int year = Integer.parseInt(date.split("-")[0]);
-		int month = Integer.parseInt(date.split("-")[1]);
-		int day = Integer.parseInt(date.split("-")[2]);
+		int year = Integer.parseInt(bondingDate.split("-")[0]);
+		int month = Integer.parseInt(bondingDate.split("-")[1]);
+		int day = Integer.parseInt(bondingDate.split("-")[2]);
 
-		System.out.println("Type the new Standard User's identification number: ");
+		System.out.print("Type the new Standard User's identification number: ");
 		String identificationNumber = sc.nextLine();
 
-		/*if (controller.registerRegularUser(name, id, email, phone)) {
+		if (controller.registerStandardUser(nameUser, identificationNumber, year, month, day)) {
 
 			System.out.println("User registered successfully");
 
@@ -198,27 +208,27 @@ public class NeoTunesManager {
 
 			System.out.println("Error, User couldn't be registered");
 			
-		}*/
+		}
 		
 	}
 	
 	public void registerPremiumUser() {
 		
-		System.out.println("Type the new Premium User's name: ");
+		System.out.print("Type the new Premium User's name: ");
 		sc.nextLine();
 		String nameUser = sc.nextLine();
 
-		System.out.println("Type the new Premium User's bonding date (YYYY-MM-DD): ");
+		System.out.print("Type the new Premium User's bonding date [YYYY-MM-DD]: ");
 		String bondingDate = sc.nextLine();
 
-		int year = Integer.parseInt(date.split("-")[0]);
-		int month = Integer.parseInt(date.split("-")[1]);
-		int day = Integer.parseInt(date.split("-")[2]);
+		int year = Integer.parseInt(bondingDate.split("-")[0]);
+		int month = Integer.parseInt(bondingDate.split("-")[1]);
+		int day = Integer.parseInt(bondingDate.split("-")[2]);
 
-		System.out.println("Type the new Premium User's identification number: ");
+		System.out.print("Type the new Premium User's identification number: ");
 		String identificationNumber = sc.nextLine();
 
-		/*if (controller.registerRegularUser(name, id, email, phone)) {
+		if (controller.registerPremiumUser(nameUser, identificationNumber, year, month, day)) {
 
 			System.out.println("User registered successfully");
 
@@ -226,19 +236,83 @@ public class NeoTunesManager {
 
 			System.out.println("Error, User couldn't be registered");
 			
-		}*/
+		}
 		
 	}
 	
 	public void registerSong() {
 		
+		System.out.print("Type the new Song's name: ");
+		sc.nextLine();
+		String nameSong = sc.nextLine();
+		
+		System.out.print("Type the new Song's album: ");
+		String album = sc.nextLine();
+		
+		System.out.print("These are the possible genre type: " + controller.getGenreType());
+		System.out.print("Type the new Song's genre type: ");
+		int genreType = (sc.nextInt()-1);
+
+		System.out.print("Type the new Song's photo: ");
+		sc.nextLine();
+		String url = sc.nextLine();
+		
+		System.out.print("Type the new Song's duration [MIN:SEC]: ");
+		String durationString = sc.nextLine();
+		int min = Integer.parseInt(durationString.split(":")[0]);
+		int sec = Integer.parseInt(durationString.split(":")[1]);
+		int duration = controller.convertToSec(min, sec);
+		
+		System.out.print("Type the new Song's sale value: ");
+		double saleValue = sc.nextDouble();
+
+		if (controller.registerSong(nameSong, album, genreType, url, duration, saleValue)) {
+
+		System.out.println("Song registered successfully");
+
+		} else {
+
+		System.out.println("Error, Song couldn't be registered");
+		
+		}
 		
 	}
 	
 	public void registerPodcast() {
 		
+		System.out.print("Type the new Podcast's name: ");
+		sc.nextLine();
+		String namePodcast = sc.nextLine();
 		
-	}
-	
+		System.out.print("Type the new Podcast's description: ");
+		String description = sc.nextLine();
+		
+		System.out.print("These are the possible podcast category: " + controller.getPodcastCategory());
+		System.out.print("Type the new Podcast's category: ");
+		int podcastCategory = (sc.nextInt()-1);
+
+		System.out.print("Type the new Podcast's photo: ");
+		sc.nextLine();
+		String url = sc.nextLine();
+		
+		System.out.print("Type the new Podcast's duration [H:MIN:SEC]: ");
+		String durationString = sc.nextLine();
+		int hour = Integer.parseInt(durationString.split(":")[0]);
+		int min = Integer.parseInt(durationString.split(":")[1]);
+		int sec = Integer.parseInt(durationString.split(":")[2]);
+		int duration = controller.convertToSec(hour, min, sec);
+		
+
+		if (controller.registerPodcast(namePodcast, description, podcastCategory, url, duration)) {
+
+		System.out.println("Podcast registered successfully");
+
+		} else {
+
+		System.out.println("Error, Podcast couldn't be registered");
+		
+		}	
+		
+	}	
 
 }

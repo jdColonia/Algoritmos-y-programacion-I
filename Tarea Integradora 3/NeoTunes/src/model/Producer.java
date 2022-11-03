@@ -2,12 +2,12 @@ package model;
 
 import java.util.Date;
 
-public class Producer extends User {
+public abstract class Producer extends User {
 	
 	private String photoURL;
 
-	public Producer(String nameUser, Date bondingDate, String photoURL) {
-		super(nameUser, bondingDate);
+	public Producer(String nameUser, String identificationNumber, Date bondingDate, String photoURL) {
+		super(nameUser, identificationNumber, bondingDate);
 		this.photoURL = photoURL;
 	}
 

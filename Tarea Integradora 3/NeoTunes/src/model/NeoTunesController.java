@@ -14,6 +14,7 @@ public class NeoTunesController {
 		testCase();
 	}
 	
+	
 	public String getGenreType() {
 		
 		String msg = "";
@@ -50,5 +51,64 @@ public class NeoTunesController {
 		
 		
 	}
+	
+	public int convertToSec(int min, int sec) {
+		
+		int totalSec; 
+		
+		totalSec = (min * 60) + sec;
+		
+		return totalSec;
+		
+	}
+	
+	public int convertToSec(int hour, int min, int sec) {
+		
+		int totalSec; 
+		
+		totalSec = (hour * 3600) + (min * 60) + sec;
+		
+		return totalSec;
+		
+	}
+	
+	public boolean registerArtist(String nameUser, String identificationNumber, int year, int month, int day, String photoURL) {
+
+		return userList.add(new Artist(nameUser, identificationNumber, new Date(year, month, day), photoURL));
+
+	}
+
+	public boolean registerContentCreator(String nameUser, String identificationNumber, int year, int month, int day, String photoURL) {
+
+		return userList.add(new ContentCreator(nameUser, identificationNumber, new Date(year, month, day), photoURL));
+
+	}
+	
+	public boolean registerStandardUser(String nameUser, String identificationNumber, int year, int month, int day) {
+
+		return userList.add(new Standard(nameUser, identificationNumber, new Date(year, month, day)));
+
+	}
+
+	public boolean registerPremiumUser(String nameUser, String identificationNumber, int year, int month, int day) {
+
+		return userList.add(new Premium(nameUser, identificationNumber, new Date(year, month, day)));
+
+	}
+	
+	public boolean registerSong(String nameSong, String album, int genreType, String url, int duration, double saleValue) {
+		
+		return audioList.add(new Song(nameSong, album, genreType, url, duration, saleValue, 0, 0));
+		
+	}
+	
+	public boolean registerPodcast(String namePodcast, String description, int podcastCategory, String url, int duration) {
+		
+		return audioList.add(new Podcast(namePodcast, description, podcastCategory, url, duration, 0));
+		
+	}
+	
+	
+	
 
 }
