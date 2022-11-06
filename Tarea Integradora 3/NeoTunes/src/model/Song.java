@@ -36,7 +36,7 @@ public class Song extends Audio {
 	}
 
 	public void setNumberTimesSold(int numberTimesSold) {
-		this.numberTimesSold = numberTimesSold;
+		this.numberTimesSold += numberTimesSold;
 	}
 
 	public GenreType getGenreType() {

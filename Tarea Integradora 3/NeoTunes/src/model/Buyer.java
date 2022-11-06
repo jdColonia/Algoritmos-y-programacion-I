@@ -9,6 +9,7 @@ public abstract class Buyer extends User {
 	}
 	
 	public abstract boolean addPlaylist(Playlist newPlaylist);
-    public abstract boolean addAudio(Audio newAudio);
-
+	public abstract Song searchSong(String nameAudio);
+    public abstract boolean addSong(Song newSong);
+       
 }

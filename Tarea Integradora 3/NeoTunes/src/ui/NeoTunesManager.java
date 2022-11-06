@@ -1,6 +1,10 @@
 package ui;
 
+import java.util.Date;
 import java.util.Scanner;
+
+import model.Artist;
+import model.ContentCreator;
 import model.NeoTunesController;
 
 public class NeoTunesManager {
@@ -31,7 +35,7 @@ public class NeoTunesManager {
 		boolean stopFlag = false;
 
 		while (!stopFlag) {	
-			System.out.print("*******************************************");
+			System.out.print("************************************************");
 			System.out.println("\nMain menu:"
 					+ "\n[1] Register producer user"
 					+ "\n[2] Register buyer user"
@@ -41,7 +45,7 @@ public class NeoTunesManager {
 					+ "\n[0] Exit");
 			System.out.print("Select an option: ");
 			int mainOption = sc.nextInt();
-			System.out.print("*******************************************");
+			System.out.print("************************************************");
 			
 			switch (mainOption) {
 			case 1:
@@ -68,7 +72,7 @@ public class NeoTunesManager {
 				}
 				break;
 			case 4:
-				//createPlaylist();
+				createPlaylist();
 				break;
 			case 5:
 				
@@ -205,14 +209,41 @@ public class NeoTunesManager {
 	
 		public void createPlaylist() {
 		
-		System.out.print("Type the User's name that creating the playlist: ");
+		System.out.print("\nType the User's name that creating the playlist: ");
 		sc.nextLine();
 		String nameUser = sc.nextLine();
 		
 		System.out.print("Type the new Playlist's name: ");
 		String namePlaylist = sc.nextLine();
 		
-		System.out.println("...\n" + controller.createPlaylist(nameUser, namePlaylist));
+		System.out.print("These are the possible playlist type: " + controller.getPlaylistType());
+		System.out.print("\nType the new Playlist's type: ");
+		int playlistType = (sc.nextInt()-1);
+		
+		int[][] matrix = controller.generateMatrix();	
+		System.out.print(controller.printMatrix(matrix));
+		
+		String idPlaylist;
+		
+		switch (playlistType) {
+		case 0:
+			idPlaylist = controller.generateCodeN(matrix);
+			System.out.print("Playlist's code is: " + idPlaylist);
+			System.out.println("\n...\n" + controller.createPlaylist(nameUser, namePlaylist, playlistType, matrix, idPlaylist));
+			break;
+		case 1:
+			idPlaylist = controller.generateCodeT(matrix);
+			System.out.print("Playlist's code is: " + idPlaylist);
+			System.out.println("\n...\n" + controller.createPlaylist(nameUser, namePlaylist, playlistType, matrix, idPlaylist));
+			break;
+		case 2:
+			idPlaylist = controller.generateCodeStaggered(matrix);
+			System.out.print("Playlist's code is: " + idPlaylist);
+			System.out.println("\n...\n" + controller.createPlaylist(nameUser, namePlaylist, playlistType, matrix, idPlaylist));
+			break;
+		default:
+			System.out.println("Error, you must type a valid option");
+		}
 		
 	}
 

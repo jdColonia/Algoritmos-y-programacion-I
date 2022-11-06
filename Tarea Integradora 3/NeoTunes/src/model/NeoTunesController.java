@@ -77,6 +77,15 @@ public class NeoTunesController {
 		return msg;		
 	}
 	
+	public String getPlaylistType() {		
+		String msg = "";		
+		PlaylistType[] playlistType = PlaylistType.values();		
+		for (int i = 0; i < playlistType.length; i++) {			
+			msg += "\n[" + (i+1) + "]" + playlistType[i];			
+		}		
+		return msg;		
+	}
+	
 	public int convertToSec(int min, int sec) {	
 		int totalSec; 		
 		totalSec = (min * 60) + sec;		
@@ -104,10 +113,10 @@ public class NeoTunesController {
 	public Audio searchAudio(String nameAudio){
         Audio audio = null;
         boolean isFound = false;
-         for(int i=0;i<audioList.size() && !isFound ;i++){
-            if( audioList.get(i).getNameAudio().equalsIgnoreCase(nameAudio)){
-                audio=audioList.get(i);
-                isFound= true;
+         for(int i = 0; i < audioList.size() && !isFound; i++){
+            if(audioList.get(i).getNameAudio().equalsIgnoreCase(nameAudio)) {
+                audio = audioList.get(i);
+                isFound = true;
             }
          }
     
@@ -201,62 +210,48 @@ public class NeoTunesController {
 		}
 	}
 	
-	public String createPlaylist(String nameUser, String namePlaylist) {
+	public String createPlaylist(String nameUser, String namePlaylist, int playlistType, int[][] matrix, String idPlaylist) {
 		
+		String msg = "Error, Playlist couldn't be registered";
 		User user = searchUser(nameUser);
 		Buyer buyer = (Buyer) user; // Downcasting of User to Buyer
 		if (buyer == null) {
-			return "Error, User doesn't exist";
+			msg = "Error, User doesn't exist";
 		} else {
-			
-			
-			
-		}
-		return "";
-	}
-	
-	
-	
-	
-/*	public int[][] generateMatrix() {
-		
-		int[][] newMatrix = new int[6][6];
-		
-		for (int i = 0; i < newMatrix.length; i++) {
-			
-			for (int j = 0; j < newMatrix[i].length; j++) {
-				
-				newMatrix[i][j] = random.nextInt(10);
-				
-			}	
-			
-		}
-		
-		return newMatrix;
-		
-	}
-	
-	public String printMatrix(int[][] matrix) {
-		
-		String msg = "";
-		
-		for (int i = 0; i < matrix.length; i++) {
-			
-			for (int j = 0; j < matrix[i].length; j++) {
-				
-				msg += matrix[i][j] + " ";
-			
+			Playlist newPlaylist = new Playlist(namePlaylist, playlistType, matrix, idPlaylist);
+			if (buyer.addPlaylist(newPlaylist)) {
+				globalPlaylist.add(newPlaylist);
+				msg = "Playlist registered successfully";	
 			}
-			
-			msg += "\n";
-			
 		}
-
 		return msg;
 	}
 	
+	public int[][] generateMatrix() {
+		
+		int[][] newMatrix = new int[6][6];
+		for (int i = 0; i < newMatrix.length; i++) {	
+			for (int j = 0; j < newMatrix[i].length; j++) {		
+				newMatrix[i][j] = random.nextInt(10);				
+			}				
+		}		
+		return newMatrix;		
+	}
 	
-	public String genrateCodeN(int[][] matrix) {
+	public String printMatrix(int[][] matrix) {		
+		
+		String msg = "";		
+		for (int i = 0; i < matrix.length; i++) {			
+			for (int j = 0; j < matrix[i].length; j++) {				
+				msg += matrix[i][j] + " ";			
+			}			
+			msg += "\n";			
+		}
+		return msg;
+	}
+		
+	public String generateCodeN(int[][] matrix) {
+		
 		String msg = "";
 		for (int i = matrix.length; i > 0; i--) { // Gets the values of the first column of the matrix
 			msg += matrix[i - 1][0];
@@ -271,6 +266,7 @@ public class NeoTunesController {
 	}
 	
 	public String generateCodeT(int[][] matrix) {
+		
 		String msg = "";
 		for (int j = 0; j < matrix.length -4; j++) { // Gets the values of the first row, since column zero until column two
 			msg += matrix[0][j];
@@ -288,6 +284,7 @@ public class NeoTunesController {
 	}
 	
 	public String generateCodeStaggered(int[][] matrix) {
+		
 		String msg = "";
 		for (int i = matrix.length -1; i >= 0; i--) {			
 			for (int j = matrix.length -1; j >= 0 ; j--) {			
@@ -297,10 +294,6 @@ public class NeoTunesController {
 			}			
 		}		
 		return msg;	
-	}*/
-	
-	
-	
-	
+	}
 
 }
