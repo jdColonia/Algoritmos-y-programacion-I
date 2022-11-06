@@ -28,12 +28,10 @@ public class NeoTunesManager {
 	public void showMainMenu() {
 
 		System.out.println("WELCOME TO NEOTUNES");
-
 		boolean stopFlag = false;
 
-		while (!stopFlag) {
-			
-			System.out.print("****************************************");
+		while (!stopFlag) {	
+			System.out.print("*******************************************");
 			System.out.println("\nMain menu:"
 					+ "\n[1] Register producer user"
 					+ "\n[2] Register buyer user"
@@ -43,46 +41,14 @@ public class NeoTunesManager {
 					+ "\n[0] Exit");
 			System.out.print("Select an option: ");
 			int mainOption = sc.nextInt();
-			System.out.print("****************************************");
-
-
+			System.out.print("*******************************************");
+			
 			switch (mainOption) {
-
 			case 1:
-				System.out.println("\n[1] Register artist" + "\n[2] Register content creator");
-				System.out.print("Select an option: ");
-				int optProducer = sc.nextInt();
-
-				switch (optProducer) {
-				case 1:
-					registerArtist();
-					break;
-				case 2:
-					registerContentCreator();
-					break;
-				default:
-					System.out.println("You must type a valid option");
-					break;
-				}
-				
+				registerProducerUser();
 				break;
 			case 2:
-				System.out.println("\n[1] Register standard user" + "\n[2] Register premium user");
-				System.out.print("Select an option: ");
-				int optBuyer = sc.nextInt();
-
-				switch (optBuyer) {
-				case 1:
-					registerStandardUser();
-					break;
-				case 2:
-					registerPremiumUser();
-					break;
-				default:
-					System.out.println("You must type a valid option");
-					break;
-				}
-				
+				registerBuyerUser();
 				break;
 			case 3:
 				System.out.println("\n[1] Register song" + "\n[2] Register podcast");
@@ -100,10 +66,9 @@ public class NeoTunesManager {
 					System.out.println("You must type a valid option");
 					break;
 				}
-				
 				break;
 			case 4:
-				
+				//createPlaylist();
 				break;
 			case 5:
 				
@@ -122,128 +87,65 @@ public class NeoTunesManager {
 
 	}
 	
-	public void registerArtist() {
+
+	public void registerProducerUser() {
 		
-		System.out.print("Type the new Artist's name: ");
+		System.out.println("\n[1] Register artist" + "\n[2] Register content creator");
+		System.out.print("Select an option: ");
+		int optProducer = sc.nextInt();
+		
+		System.out.print("Type the new Producer's name: ");
 		sc.nextLine();
 		String nameUser = sc.nextLine();
 		
-		System.out.print("Type the new Artist's identification number: ");
+		System.out.print("Type the new Producer's identification number: ");
 		String identificationNumber = sc.nextLine();
 
-		System.out.print("Type the new Artist's bonding date [YYYY-MM-DD]: ");
+		System.out.print("Type the new Producer's bonding date [YYYY-MM-DD]: ");
 		String bondingDate = sc.nextLine();
 
 		int year = Integer.parseInt(bondingDate.split("-")[0]);
 		int month = Integer.parseInt(bondingDate.split("-")[1]);
 		int day = Integer.parseInt(bondingDate.split("-")[2]);
 
-		System.out.print("Type the new Artist's photo: ");
+		System.out.print("Type the new Producer's photo: ");
 		String photoURL = sc.nextLine();
 
-		if (controller.registerArtist(nameUser, identificationNumber, year, month, day, photoURL)) {
-
-			System.out.println("User registered successfully");
-
-		} else {
-
-			System.out.println("Error, User couldn't be registered");
-			
-		}
+		System.out.println("...\n" + controller.registerProducerUser(optProducer, nameUser, identificationNumber, year, month, day, photoURL));
 		
 	}
 	
-	public void registerContentCreator() {
+	public void registerBuyerUser() {
 		
-		System.out.print("Type the new Content Creator's name: ");
+		System.out.println("\n[1] Register Standard User" + "\n[2] Register Premium User");
+		System.out.print("Select an option: ");
+		int optBuyer = sc.nextInt();
+		
+		System.out.print("Type the new Buyer User's name: ");
 		sc.nextLine();
 		String nameUser = sc.nextLine();
-		
-		System.out.print("Type the new Content Creator's  identification number: ");
-		String identificationNumber = sc.nextLine();
 
-		System.out.print("Type the new Content Creator's bonding date [YYYY-MM-DD]: ");
+		System.out.print("Type the new Buyer User's bonding date [YYYY-MM-DD]: ");
 		String bondingDate = sc.nextLine();
 
 		int year = Integer.parseInt(bondingDate.split("-")[0]);
 		int month = Integer.parseInt(bondingDate.split("-")[1]);
 		int day = Integer.parseInt(bondingDate.split("-")[2]);
 
-		System.out.print("Type the new Content Creator's photo: ");
-		String photoURL = sc.nextLine();
-
-		if (controller.registerContentCreator(nameUser, identificationNumber, year, month, day, photoURL)) {
-
-			System.out.println("User registered successfully");
-
-		} else {
-
-			System.out.println("Error, User couldn't be registered");
-			
-		}
-		
-	}
-		
-	public void registerStandardUser() {
-		
-		System.out.print("Type the new Standard User's name: ");
-		sc.nextLine();
-		String nameUser = sc.nextLine();
-
-		System.out.print("Type the new Standard User's bonding date [YYYY-MM-DD]: ");
-		String bondingDate = sc.nextLine();
-
-		int year = Integer.parseInt(bondingDate.split("-")[0]);
-		int month = Integer.parseInt(bondingDate.split("-")[1]);
-		int day = Integer.parseInt(bondingDate.split("-")[2]);
-
-		System.out.print("Type the new Standard User's identification number: ");
+		System.out.print("Type the new Buyer User's identification number: ");
 		String identificationNumber = sc.nextLine();
-
-		if (controller.registerStandardUser(nameUser, identificationNumber, year, month, day)) {
-
-			System.out.println("User registered successfully");
-
-		} else {
-
-			System.out.println("Error, User couldn't be registered");
-			
-		}
 		
-	}
-	
-	public void registerPremiumUser() {
-		
-		System.out.print("Type the new Premium User's name: ");
-		sc.nextLine();
-		String nameUser = sc.nextLine();
-
-		System.out.print("Type the new Premium User's bonding date [YYYY-MM-DD]: ");
-		String bondingDate = sc.nextLine();
-
-		int year = Integer.parseInt(bondingDate.split("-")[0]);
-		int month = Integer.parseInt(bondingDate.split("-")[1]);
-		int day = Integer.parseInt(bondingDate.split("-")[2]);
-
-		System.out.print("Type the new Premium User's identification number: ");
-		String identificationNumber = sc.nextLine();
-
-		if (controller.registerPremiumUser(nameUser, identificationNumber, year, month, day)) {
-
-			System.out.println("User registered successfully");
-
-		} else {
-
-			System.out.println("Error, User couldn't be registered");
-			
-		}
+		System.out.println("...\n" + controller.registerBuyerUser(optBuyer, nameUser, identificationNumber, year, month, day));
 		
 	}
 	
 	public void registerSong() {
 		
-		System.out.print("Type the new Song's name: ");
+		System.out.print("Type the Producer's name of the song: ");
 		sc.nextLine();
+		String nameArtist = sc.nextLine();
+		
+		System.out.print("Type the new Song's name: ");
 		String nameSong = sc.nextLine();
 		
 		System.out.print("Type the new Song's album: ");
@@ -265,23 +167,18 @@ public class NeoTunesManager {
 		
 		System.out.print("Type the new Song's sale value: ");
 		double saleValue = sc.nextDouble();
-
-		if (controller.registerSong(nameSong, album, genreType, url, duration, saleValue)) {
-
-		System.out.println("Song registered successfully");
-
-		} else {
-
-		System.out.println("Error, Song couldn't be registered");
 		
-		}
+		System.out.println("...\n" + controller.registerSong(nameSong, album, genreType, url, duration, saleValue, nameArtist));
 		
 	}
 	
 	public void registerPodcast() {
 		
-		System.out.print("Type the new Podcast's name: ");
+		System.out.print("Type the Producer's name of the podcast: ");
 		sc.nextLine();
+		String nameContentCreator = sc.nextLine();
+		
+		System.out.print("Type the new Podcast's name: ");
 		String namePodcast = sc.nextLine();
 		
 		System.out.print("Type the new Podcast's description: ");
@@ -302,17 +199,21 @@ public class NeoTunesManager {
 		int sec = Integer.parseInt(durationString.split(":")[2]);
 		int duration = controller.convertToSec(hour, min, sec);
 		
-
-		if (controller.registerPodcast(namePodcast, description, podcastCategory, url, duration)) {
-
-		System.out.println("Podcast registered successfully");
-
-		} else {
-
-		System.out.println("Error, Podcast couldn't be registered");
+		System.out.println("...\n" + controller.registerPodcast(namePodcast, description, podcastCategory, url, duration, nameContentCreator));
+	
+	}
+	
+		public void createPlaylist() {
 		
-		}	
+		System.out.print("Type the User's name that creating the playlist: ");
+		sc.nextLine();
+		String nameUser = sc.nextLine();
 		
-	}	
+		System.out.print("Type the new Playlist's name: ");
+		String namePlaylist = sc.nextLine();
+		
+		System.out.println("...\n" + controller.createPlaylist(nameUser, namePlaylist));
+		
+	}
 
 }

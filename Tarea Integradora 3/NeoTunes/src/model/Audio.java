@@ -7,12 +7,11 @@ public abstract class Audio {
 	private int duration;
 	private int numberPlays;
 	
-	public Audio(String nameAudio, String url, int duration, int numberPlays) {
-		super();
+	public Audio(String nameAudio, String url, int duration) {
 		this.nameAudio = nameAudio;
 		this.url = url;
 		this.duration = duration;
-		this.numberPlays = numberPlays;
+		this.numberPlays = 0;
 	}
 
 	public String getNameAudio() {

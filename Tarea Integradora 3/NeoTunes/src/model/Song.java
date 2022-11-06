@@ -7,13 +7,12 @@ public class Song extends Audio {
 	private int numberTimesSold;
 	private GenreType genreType;
 
-	public Song(String nameAudio, String album, int genreType, String url, int duration, double saleValue,
-			int numberPlays, int numberTimesSold) {
-		super(nameAudio, url, duration, numberPlays);
+	public Song(String nameAudio, String album, int genreType, String url, int duration, double saleValue) {
+		super(nameAudio, url, duration);
 		this.album = album;
 		this.genreType = GenreType.values()[genreType];
 		this.saleValue = saleValue;
-		this.numberTimesSold = numberTimesSold;
+		this.numberTimesSold = 0;
 	}
 
 	public String getAlbum() {
