@@ -58,6 +58,8 @@ public class NeoTunesController {
 	public void setGlobalPlaylist(ArrayList<Playlist> globalPlaylist) {
 		this.globalPlaylist = globalPlaylist;
 	}
+	
+	// AUXILIAR METHODS
 
 	public String getGenreType() {		
 		String msg = "";		
@@ -98,6 +100,8 @@ public class NeoTunesController {
 		return totalSec;		
 	}
 	
+	// SEARCH METHODS
+	
     public User searchUser(String nameUser){
 		User user = null; 
 		boolean isFound = false; 
@@ -122,6 +126,39 @@ public class NeoTunesController {
     
         return audio;
     }
+	
+	public Playlist searchPlaylist(String nameUser, String idPlaylist) {
+		User user = null;
+		Playlist playlist = null;
+		boolean isFound = false;
+		if (searchUser(nameUser) != null) {
+			return playlist;
+		} else {
+			Buyer buyer = (Buyer) user; // Downcasting of User to Buyer
+			if (buyer instanceof Standard) {
+				Standard standard = (Standard) buyer; // Downcasting of Buyer to Standard
+				for (int i = 0; i < standard.getPlaylists().length && !isFound; i++) {
+					if (standard.getPlaylists()[i] != null) {
+						if (standard.getPlaylists()[i].getIdPlayList().equalsIgnoreCase(idPlaylist)) {
+							playlist = standard.getPlaylists()[i];
+							isFound = true;
+						}
+					}
+				}
+			} else {
+				Premium premium = (Premium) buyer; // Downcasting of Buyer to Premium
+				for (int i = 0; i < premium.getPlaylists().size() && !isFound; i++) {
+					if (premium.getPlaylists().get(i).getIdPlayList().equalsIgnoreCase(idPlaylist)) {
+						playlist = premium.getPlaylists().get(i);
+						isFound = true;
+					}
+				}
+			}
+		}
+		return playlist;
+	}
+	
+	// REGISTER METHODS
     
     public String registerProducerUser(int optProducer, String nameUser, String identificationNumber, int year, int month, int day, String photoURL) {
 	
@@ -167,11 +204,11 @@ public class NeoTunesController {
 	public String registerSong(String nameSong, String album, int genreType, String url, int duration, double saleValue, String nameArtist) {
 
 		User user = searchUser(nameArtist);
-		Producer producer = (Producer) user; // Downcasting of User to Producer
-		if (producer == null) {
+		if (user == null) {
 			return "Error, User doesn't exist";
 		} else {
-			if (producer instanceof Artist) {
+			if (user instanceof Artist) {
+				Producer producer = (Producer) user; // Downcasting of User to Producer
 				Audio song = searchAudio(nameSong);
 				if (song != null) {
 					return "Error, the Song is already registered";
@@ -190,11 +227,11 @@ public class NeoTunesController {
 	public String registerPodcast(String namePodcast, String description, int podcastCategory, String url, int duration, String nameContentCreator) {
 
 		User user = searchUser(nameContentCreator);
-		Producer producer = (Producer) user; // Downcasting of User to Producer
-		if (producer == null) {
+		if (user == null) {
 			return "Error, User doesn't exist";
 		} else {
-			if (producer instanceof ContentCreator) {
+			if (user instanceof ContentCreator) {
+				Producer producer = (Producer) user; // Downcasting of User to Producer
 				Audio podcast = searchAudio(namePodcast);
 				if (podcast != null) {
 					return "Error, the Podcast is already registered";
@@ -214,18 +251,22 @@ public class NeoTunesController {
 		
 		String msg = "Error, Playlist couldn't be registered";
 		User user = searchUser(nameUser);
-		Buyer buyer = (Buyer) user; // Downcasting of User to Buyer
-		if (buyer == null) {
+		if (user == null) {
 			msg = "Error, User doesn't exist";
 		} else {
-			Playlist newPlaylist = new Playlist(namePlaylist, playlistType, matrix, idPlaylist);
-			if (buyer.addPlaylist(newPlaylist)) {
-				globalPlaylist.add(newPlaylist);
-				msg = "Playlist registered successfully";	
+			if (user instanceof Buyer) {
+				Buyer buyer = (Buyer) user; // Downcasting of User to Buyer
+				Playlist newPlaylist = new Playlist(namePlaylist, playlistType, matrix, idPlaylist);
+				if (buyer.addPlaylist(newPlaylist)) {
+					globalPlaylist.add(newPlaylist);
+					msg = "Playlist registered successfully";	
+				}
 			}
 		}
 		return msg;
 	}
+	
+	// METHODS FOR PLAYLIST'S MATRIX
 	
 	public int[][] generateMatrix() {
 		

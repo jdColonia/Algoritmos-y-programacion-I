@@ -2,9 +2,6 @@ package ui;
 
 import java.util.Date;
 import java.util.Scanner;
-
-import model.Artist;
-import model.ContentCreator;
 import model.NeoTunesController;
 
 public class NeoTunesManager {
@@ -75,7 +72,7 @@ public class NeoTunesManager {
 				createPlaylist();
 				break;
 			case 5:
-				
+				editPlaylist();
 				break;
 			case 0:
 				System.out.println("Thanks for using our system");
@@ -90,7 +87,6 @@ public class NeoTunesManager {
 		}
 
 	}
-	
 
 	public void registerProducerUser() {
 		
@@ -128,6 +124,9 @@ public class NeoTunesManager {
 		System.out.print("Type the new Buyer User's name: ");
 		sc.nextLine();
 		String nameUser = sc.nextLine();
+		
+		System.out.print("Type the new Buyer User's identification number: ");
+		String identificationNumber = sc.nextLine();
 
 		System.out.print("Type the new Buyer User's bonding date [YYYY-MM-DD]: ");
 		String bondingDate = sc.nextLine();
@@ -136,9 +135,6 @@ public class NeoTunesManager {
 		int month = Integer.parseInt(bondingDate.split("-")[1]);
 		int day = Integer.parseInt(bondingDate.split("-")[2]);
 
-		System.out.print("Type the new Buyer User's identification number: ");
-		String identificationNumber = sc.nextLine();
-		
 		System.out.println("...\n" + controller.registerBuyerUser(optBuyer, nameUser, identificationNumber, year, month, day));
 		
 	}
@@ -189,7 +185,7 @@ public class NeoTunesManager {
 		String description = sc.nextLine();
 		
 		System.out.print("These are the possible podcast category: " + controller.getPodcastCategory());
-		System.out.print("Type the new Podcast's category: ");
+		System.out.print("\nType the new Podcast's category: ");
 		int podcastCategory = (sc.nextInt()-1);
 
 		System.out.print("Type the new Podcast's photo: ");
@@ -207,7 +203,7 @@ public class NeoTunesManager {
 	
 	}
 	
-		public void createPlaylist() {
+	public void createPlaylist() {
 		
 		System.out.print("\nType the User's name that creating the playlist: ");
 		sc.nextLine();
@@ -245,6 +241,43 @@ public class NeoTunesManager {
 			System.out.println("Error, you must type a valid option");
 		}
 		
+	}
+		
+	public void editPlaylist() {
+		
+		System.out.print("Type the User's name that created the playlist: ");
+		sc.nextLine();
+		String nameUser = sc.nextLine();
+		
+		System.out.print("Type the Playlist's code: ");
+		String idPlaylist = sc.nextLine();
+		
+		System.out.println("\n[1] Rename playlist" + "\n[2] Change playlist type" + "\n[3] Add audio to playlist" + "\n[4] Remove audio the playlist");
+		System.out.print("Select an option: ");
+		int optEdit = sc.nextInt();
+		
+		switch (optEdit) {
+		case 1:
+			System.out.print("Type new the Playlist's name: ");
+			String newNamePlaylist = sc.nextLine();
+
+			break;
+		case 2:
+			System.out.print("These are the possible playlist type: " + controller.getPlaylistType());
+			System.out.print("\nType the new Playlist's type: ");
+			int newPlaylistType = (sc.nextInt()-1);
+			
+			break;
+		case 3:
+
+			break;
+		case 4:
+			
+			break;
+		default:
+			System.out.println("Error, you must type a valid option");
+		}
+			
 	}
 
 }

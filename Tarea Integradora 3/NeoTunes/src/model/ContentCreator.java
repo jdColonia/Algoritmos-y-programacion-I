@@ -9,6 +9,7 @@ public class ContentCreator extends Producer {
 
 	public ContentCreator(String nameUser, String identificationNumber, Date bondingDate, String photoURL) {
 		super(nameUser, identificationNumber, bondingDate, photoURL);
+		this.podcasts = new ArrayList<Podcast>();
 	}
 
 	public ArrayList<Podcast> getPodcasts() {
