@@ -39,6 +39,7 @@ public class NeoTunesManager {
 					+ "\n[3] Register audios"
 					+ "\n[4] Create a playlist"
 					+ "\n[5] Edit a playlist"
+					+ "\n[6] Share a playlist"
 					+ "\n[0] Exit");
 			System.out.print("Select an option: ");
 			int mainOption = sc.nextInt();
@@ -73,6 +74,9 @@ public class NeoTunesManager {
 				break;
 			case 5:
 				editPlaylist();
+				break;
+			case 6:
+				sharePlaylist();
 				break;
 			case 0:
 				System.out.println("Thanks for using our system");
@@ -239,34 +243,36 @@ public class NeoTunesManager {
 			break;
 		default:
 			System.out.println("Error, you must type a valid option");
+			break;
 		}
 		
 	}
 		
 	public void editPlaylist() {
 		
-		System.out.print("Type the User's name that created the playlist: ");
+		System.out.print("\nType the User's name that created the playlist: ");
 		sc.nextLine();
 		String nameUser = sc.nextLine();
 		
-		System.out.print("Type the Playlist's code: ");
-		String idPlaylist = sc.nextLine();
+		System.out.print("Type the Playlist's name: ");
+		String namePlaylist = sc.nextLine();
 		
-		System.out.println("\n[1] Rename playlist" + "\n[2] Change playlist type" + "\n[3] Add audio to playlist" + "\n[4] Remove audio the playlist");
+		System.out.println("[1] Rename playlist" + "\n[2] Change playlist type" + "\n[3] Add audio to playlist" + "\n[4] Remove audio the playlist");
 		System.out.print("Select an option: ");
 		int optEdit = sc.nextInt();
 		
 		switch (optEdit) {
 		case 1:
 			System.out.print("Type new the Playlist's name: ");
+			sc.nextLine();
 			String newNamePlaylist = sc.nextLine();
-
+			System.out.println(controller.renamePlaylist(nameUser, namePlaylist, newNamePlaylist));
 			break;
 		case 2:
 			System.out.print("These are the possible playlist type: " + controller.getPlaylistType());
 			System.out.print("\nType the new Playlist's type: ");
-			int newPlaylistType = (sc.nextInt()-1);
-			
+			int newPlaylistType = sc.nextInt();
+			System.out.println(controller.changePlaylistType(nameUser, namePlaylist, newPlaylistType));
 			break;
 		case 3:
 
@@ -276,8 +282,22 @@ public class NeoTunesManager {
 			break;
 		default:
 			System.out.println("Error, you must type a valid option");
+			break;
 		}
 			
+	}
+	
+	public void sharePlaylist() {
+		
+		System.out.print("\nType the User's name that created the playlist: ");
+		sc.nextLine();
+		String nameUser = sc.nextLine();
+		
+		System.out.print("Type the Playlist's name: ");
+		String namePlaylist = sc.nextLine();
+		
+		System.out.println("...\n" + controller.sharePlaylist(nameUser, namePlaylist));
+		
 	}
 
 }
