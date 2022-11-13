@@ -22,7 +22,7 @@ public class Artist extends Producer {
 	
     @Override
     public void addAudio(Audio newAudio) {
-        songs.add( (Song) newAudio ); //Downcasting of Audio to Song
+        songs.add( (Song) newAudio ); // Downcasting of Audio to Song
     }
 
 }

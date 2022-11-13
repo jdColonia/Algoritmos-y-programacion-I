@@ -28,6 +28,21 @@ public class Standard extends Buyer {
 	public void setPurchasedSong(Song[] purchasedSong) {
 		this.purchasedSong = purchasedSong;
 	}
+	
+	@Override
+	public Playlist searchPlaylist(String namePlaylist) {
+		Playlist playlist = null;
+		boolean isFound = false;
+		for (int i = 0; i < playlists.length && !isFound; i++) {
+			if (playlists[i] != null) {
+				if (playlists[i].getNamePlaylist().equalsIgnoreCase(namePlaylist)) {
+					playlist = playlists[i];
+					isFound = true;
+				}
+			}
+		}
+		return playlist;
+	}
 
 	@Override
 	public boolean addPlaylist(Playlist newPlaylist) {

@@ -105,8 +105,8 @@ public class NeoTunesController {
     public User searchUser(String nameUser){
 		User user = null; 
 		boolean isFound = false; 
-		for(int i = 0; i < userList.size() && !isFound; i++) {
-			if(userList.get(i).getNameUser().equalsIgnoreCase(nameUser)) {
+		for (int i = 0; i < userList.size() && !isFound; i++) {
+			if (userList.get(i).getNameUser().equalsIgnoreCase(nameUser)) {
 				user = userList.get(i); 
 				isFound = true; 
 			}
@@ -117,40 +117,15 @@ public class NeoTunesController {
 	public Audio searchAudio(String nameAudio){
         Audio audio = null;
         boolean isFound = false;
-         for(int i = 0; i < audioList.size() && !isFound; i++){
-            if(audioList.get(i).getNameAudio().equalsIgnoreCase(nameAudio)) {
+         for (int i = 0; i < audioList.size() && !isFound; i++){
+            if (audioList.get(i).getNameAudio().equalsIgnoreCase(nameAudio)) {
                 audio = audioList.get(i);
                 isFound = true;
             }
          }   
         return audio;
     }
-	
-	public Playlist searchPlaylist(Buyer buyer, String namePlaylist) {
-		Playlist playlist = null;
-		boolean isFound = false;
-		if (buyer instanceof Standard) {
-			Standard standard = (Standard) buyer; // Downcasting of Buyer to Standard
-			for (int i = 0; i < standard.getPlaylists().length && !isFound; i++) {
-				if (standard.getPlaylists()[i] != null) {
-					if (standard.getPlaylists()[i].getNamePlaylist().equalsIgnoreCase(namePlaylist)) {
-						playlist = standard.getPlaylists()[i];
-						isFound = true;
-					}
-				}
-			}
-		} else {
-			Premium premium = (Premium) buyer; // Downcasting of Buyer to Premium
-			for (int i = 0; i < premium.getPlaylists().size() && !isFound; i++) {
-				if (premium.getPlaylists().get(i).getNamePlaylist().equalsIgnoreCase(namePlaylist)) {
-					playlist = premium.getPlaylists().get(i);
-					isFound = true;
-				}
-			}
-		}
-		return playlist;
-	}
-	
+
 	// REGISTER METHODS
     
     public String registerProducerUser(int optProducer, String nameUser, String identificationNumber, int year, int month, int day, String photoURL) {
@@ -248,9 +223,8 @@ public class NeoTunesController {
 		} else {
 			if (user instanceof Buyer) {
 				Buyer buyer = (Buyer) user; // Downcasting of User to Buyer
-				Playlist playlist = searchPlaylist(buyer, namePlaylist);
-				if (playlist != null) {
-					return "Error, playlist name not available";
+				if (buyer.searchPlaylist(namePlaylist) != null) {
+					msg = "Error, playlist name not available";
 				} else {
 					Playlist newPlaylist = new Playlist(namePlaylist, playlistType, matrix, idPlaylist);
 					if (buyer.addPlaylist(newPlaylist)) {
@@ -334,7 +308,9 @@ public class NeoTunesController {
 		return msg;	
 	}
 	
-	public String renamePlaylist (String nameUser, String namePlaylist, String newNamePlaylist) {
+	// PLAYLIST METHODS
+	
+	public String renamePlaylist(String nameUser, String namePlaylist, String newNamePlaylist) {
 		
 		String msg = "";
 		User user = searchUser(nameUser);
@@ -343,7 +319,7 @@ public class NeoTunesController {
 		} else {
 			if (user instanceof Buyer) {
 				Buyer buyer = (Buyer) user; // Downcasting of User to Buyer
-				Playlist playlist = searchPlaylist(buyer, namePlaylist);
+				Playlist playlist = buyer.searchPlaylist(namePlaylist);
 				if (playlist == null) {
 					msg = "Error, playlist not available";
 				} else {
@@ -355,7 +331,54 @@ public class NeoTunesController {
 		return msg;
 	}
 	
-	public String changePlaylistType (String nameUser, String namePlaylist, int newPlaylistType) {
+	public String addAudioToPlaylist(String nameUser, String namePlaylist, String nameAudioToAdd) {
+		
+		String msg = "Error, audio couldn't be added";
+		User user = searchUser(nameUser);
+		Audio audio = searchAudio(nameAudioToAdd);
+		if (user == null) {
+			msg = "Error, user doesn't exist";
+		} else if (audio == null) {
+			msg = "Error, audio doesn't exist";
+		} else {
+			if (user instanceof Buyer) {
+				Buyer buyer = (Buyer) user; // Downcasting of User to Buyer	
+				Playlist playlist = buyer.searchPlaylist(namePlaylist);
+				if (playlist == null) {
+					msg = "Error, playlist not available";
+				} else {
+					if (playlist.getPlaylistType() == PlaylistType.values()[0] && audio instanceof Song) {
+						if (playlist.searchAudio(nameAudioToAdd) != null) {
+							msg = "Error, audio had already been added";
+						} else {
+							if (playlist.addAudio(audio)) {
+								msg = "Audio added successfully";
+							}
+						}
+					} else if (playlist.getPlaylistType() == PlaylistType.values()[1] && audio instanceof Podcast) {
+						if (playlist.searchAudio(nameAudioToAdd) != null) {
+							msg = "Error, audio had already been added";
+						} else {
+							if (playlist.addAudio(audio)) {
+								msg = "Audio added successfully";
+							}
+						}
+					} else if (playlist.getPlaylistType() == PlaylistType.values()[2]) {
+						if (playlist.searchAudio(nameAudioToAdd) != null) {
+							msg = "Error, audio had already been added";
+						} else {
+							if (playlist.addAudio(audio)) {
+								msg = "Audio added successfully";
+							}
+						}
+					}
+				}	
+			}
+		}
+		return msg;	
+	}
+	
+	public String removeAudioOfPlaylist(String nameUser, String namePlaylist, String nameAudioToRemove) {
 		
 		String msg = "";
 		User user = searchUser(nameUser);
@@ -364,21 +387,27 @@ public class NeoTunesController {
 		} else {
 			if (user instanceof Buyer) {
 				Buyer buyer = (Buyer) user; // Downcasting of User to Buyer
-				Playlist playlist = searchPlaylist(buyer, namePlaylist);
+				Playlist playlist = buyer.searchPlaylist(namePlaylist);
 				if (playlist == null) {
 					msg = "Error, playlist not available";
 				} else {
-					PlaylistType playlistType = PlaylistType.values()[newPlaylistType];
-					playlist.setPlaylistType(playlistType);;
-					msg = "Playlist's type update"; 
+					Audio audio = playlist.searchAudio(nameAudioToRemove);
+					if (audio == null) {
+						msg = "Error, audio is not in the playlist";
+					} else {
+						if (playlist.searchAudio(nameAudioToRemove) != null) {
+							if (playlist.removeAudio(audio)) {
+								msg = "Audio playlist's remove";
+							}
+						}
+					}
 				}
 			}
 		}
 		return msg;
 	}
 	
-	
-	public String sharePlaylist (String nameUser, String namePlaylist) {
+	public String sharePlaylist(String nameUser, String namePlaylist) {
 		
 		String msg = "";
 		User user = searchUser(nameUser);
@@ -387,7 +416,7 @@ public class NeoTunesController {
 		} else {
 			if (user instanceof Buyer) {
 				Buyer buyer = (Buyer) user; // Downcasting of User to Buyer
-				Playlist playlist = searchPlaylist(buyer, namePlaylist);
+				Playlist playlist = buyer.searchPlaylist(namePlaylist);
 				if (playlist == null) {
 					msg = "Error, playlist not found";
 				} else {
@@ -395,6 +424,41 @@ public class NeoTunesController {
 				}	
 			}
 		}		
+		return msg;
+	}
+	
+	// INTERACTION USER
+	
+	public String playSong (String nameUser, String nameSong) {
+		
+		String msg = "";
+		
+		return msg;
+	}
+	
+	public String buySong(String nameUser, String nameSong) {
+		
+		String msg = "Error, song couldn't be buyed";
+		User user = searchUser(nameUser);
+		Audio audio = searchAudio(nameSong);
+		if (user == null) {
+			msg = "Error, user doesn't exist";
+		} else if (audio == null) {
+			msg = "Error, song doesn't exist";
+		} else {
+			if (audio instanceof Song && user instanceof Buyer) {
+				Buyer buyer = (Buyer) user; // Downcasting of User to Buyer
+				Song song = (Song) audio; // Downcasting of Audio to Song
+				if (buyer.searchSong(nameSong) != null) {
+					msg = "Error, song was previously purchased";
+				} else {
+					if (buyer.addSong(song)){
+						song.setNumberTimesSold(1);	
+						msg = "Song buyed successfully";
+					}
+				}
+			}
+		}
 		return msg;
 	}
 

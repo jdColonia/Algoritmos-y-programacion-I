@@ -40,6 +40,8 @@ public class NeoTunesManager {
 					+ "\n[4] Create a playlist"
 					+ "\n[5] Edit a playlist"
 					+ "\n[6] Share a playlist"
+					+ "\n[7] Play an audio"
+					+ "\n[8] Buy a song"
 					+ "\n[0] Exit");
 			System.out.print("Select an option: ");
 			int mainOption = sc.nextInt();
@@ -77,6 +79,12 @@ public class NeoTunesManager {
 				break;
 			case 6:
 				sharePlaylist();
+				break;
+			case 7:
+				playSong();
+				break;
+			case 8:
+				buySong();
 				break;
 			case 0:
 				System.out.println("Thanks for using our system");
@@ -221,25 +229,21 @@ public class NeoTunesManager {
 		int playlistType = (sc.nextInt()-1);
 		
 		int[][] matrix = controller.generateMatrix();	
-		System.out.print(controller.printMatrix(matrix));
 		
 		String idPlaylist;
 		
 		switch (playlistType) {
 		case 0:
 			idPlaylist = controller.generateCodeN(matrix);
-			System.out.print("Playlist's code is: " + idPlaylist);
-			System.out.println("\n...\n" + controller.createPlaylist(nameUser, namePlaylist, playlistType, matrix, idPlaylist));
+			System.out.println("...\n" + controller.createPlaylist(nameUser, namePlaylist, playlistType, matrix, idPlaylist));
 			break;
 		case 1:
 			idPlaylist = controller.generateCodeT(matrix);
-			System.out.print("Playlist's code is: " + idPlaylist);
-			System.out.println("\n...\n" + controller.createPlaylist(nameUser, namePlaylist, playlistType, matrix, idPlaylist));
+			System.out.println("...\n" + controller.createPlaylist(nameUser, namePlaylist, playlistType, matrix, idPlaylist));
 			break;
 		case 2:
 			idPlaylist = controller.generateCodeStaggered(matrix);
-			System.out.print("Playlist's code is: " + idPlaylist);
-			System.out.println("\n...\n" + controller.createPlaylist(nameUser, namePlaylist, playlistType, matrix, idPlaylist));
+			System.out.println("...\n" + controller.createPlaylist(nameUser, namePlaylist, playlistType, matrix, idPlaylist));
 			break;
 		default:
 			System.out.println("Error, you must type a valid option");
@@ -257,7 +261,7 @@ public class NeoTunesManager {
 		System.out.print("Type the Playlist's name: ");
 		String namePlaylist = sc.nextLine();
 		
-		System.out.println("[1] Rename playlist" + "\n[2] Change playlist type" + "\n[3] Add audio to playlist" + "\n[4] Remove audio the playlist");
+		System.out.println("[1] Rename playlist" + "\n[2] Add audio to playlist" + "\n[3] Remove audio the playlist");
 		System.out.print("Select an option: ");
 		int optEdit = sc.nextInt();
 		
@@ -266,19 +270,19 @@ public class NeoTunesManager {
 			System.out.print("Type new the Playlist's name: ");
 			sc.nextLine();
 			String newNamePlaylist = sc.nextLine();
-			System.out.println(controller.renamePlaylist(nameUser, namePlaylist, newNamePlaylist));
+			System.out.println("...\n" + controller.renamePlaylist(nameUser, namePlaylist, newNamePlaylist));
 			break;
 		case 2:
-			System.out.print("These are the possible playlist type: " + controller.getPlaylistType());
-			System.out.print("\nType the new Playlist's type: ");
-			int newPlaylistType = sc.nextInt();
-			System.out.println(controller.changePlaylistType(nameUser, namePlaylist, newPlaylistType));
+			System.out.print("Type the Audio's name to add: ");
+			sc.nextLine();
+			String nameAudioToAdd = sc.nextLine();
+			System.out.println("...\n" + controller.addAudioToPlaylist(nameUser, namePlaylist, nameAudioToAdd));
 			break;
 		case 3:
-
-			break;
-		case 4:
-			
+			System.out.print("Type the Audio's name to remove: ");
+			sc.nextLine();
+			String nameAudioToRemove = sc.nextLine();
+			System.out.println("...\n" + controller.removeAudioOfPlaylist(nameUser, namePlaylist, nameAudioToRemove));
 			break;
 		default:
 			System.out.println("Error, you must type a valid option");
@@ -297,6 +301,32 @@ public class NeoTunesManager {
 		String namePlaylist = sc.nextLine();
 		
 		System.out.println("...\n" + controller.sharePlaylist(nameUser, namePlaylist));
+		
+	}
+	
+	public void playSong() {
+		
+		System.out.print("\nType the User's name that buyed the song: ");
+		sc.nextLine();
+		String nameUser = sc.nextLine();
+		
+		System.out.print("Type the Song's name: ");
+		String nameSong = sc.nextLine();
+		
+		System.out.println("...\n" + controller.playSong(nameUser, nameSong));
+		
+	}
+	
+	public void buySong() {
+		
+		System.out.print("\nType the User's name that will buy the song: ");
+		sc.nextLine();
+		String nameUser = sc.nextLine();
+		
+		System.out.print("Type the Song's name: ");
+		String nameSong = sc.nextLine();
+		
+		System.out.println("...\n" + controller.buySong(nameUser, nameSong));
 		
 	}
 

@@ -43,7 +43,7 @@ public abstract class Audio {
 	}
 
 	public void setNumberPlays(int numberPlays) {
-		this.numberPlays = numberPlays;
+		this.numberPlays += numberPlays;
 	}
 
 }

@@ -57,5 +57,25 @@ public class Playlist {
 	public void setAudioList(ArrayList<Audio> audioList) {
 		this.audioList = audioList;
 	}
+	
+	public Audio searchAudio(String nameAudio) {
+		Audio audio = null;
+		boolean isFound = false;
+		for (int i = 0; i < audioList.size() && !isFound; i++) {
+			if (audioList.get(i).getNameAudio().equalsIgnoreCase(nameAudio)) {
+				audio = audioList.get(i);
+				isFound = true;
+			}
+		}
+		return audio;
+	}
+
+	public boolean addAudio(Audio newAudio) {
+		return audioList.add(newAudio);
+	}
+	
+	public boolean removeAudio(Audio newAudio) {
+		return audioList.remove(newAudio);
+	}
 
 }

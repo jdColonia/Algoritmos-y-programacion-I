@@ -29,6 +29,19 @@ public class Premium extends Buyer {
 	public void setPurchasedSong(ArrayList<Song> purchasedSong) {
 		this.purchasedSong = purchasedSong;
 	}
+	
+	@Override
+	public Playlist searchPlaylist(String namePlaylist) {
+		Playlist playlist = null;
+		boolean isFound = false;
+		for (int i = 0; i < playlists.size() && !isFound; i++) {
+			if (playlists.get(i).getNamePlaylist().equalsIgnoreCase(namePlaylist)) {
+				playlist = playlists.get(i);
+				isFound = true;
+			}
+		}
+		return playlist;
+	}
 
 	@Override
 	public boolean addPlaylist(Playlist newPlaylist) {
@@ -50,12 +63,7 @@ public class Premium extends Buyer {
 
 	@Override
 	public boolean addSong(Song newSong) {
-		if (searchSong(newSong.getNameAudio()) != null) {
-			return false;
-		}
-		getPurchasedSong().add(newSong);
-		newSong.setNumberTimesSold(1);
-		return true;
+		return purchasedSong.add(newSong);
 	}
 
 }

@@ -8,6 +8,7 @@ public abstract class Buyer extends User {
 		super(nameUser, identificationNumber, bondingDate);
 	}
 	
+	public abstract Playlist searchPlaylist(String namePlaylist);
 	public abstract boolean addPlaylist(Playlist newPlaylist);
 	public abstract Song searchSong(String nameAudio);
     public abstract boolean addSong(Song newSong);

@@ -22,7 +22,7 @@ public class ContentCreator extends Producer {
 	
     @Override
     public void addAudio(Audio newAudio) {
-    	podcasts.add( (Podcast) newAudio ); //Downcasting of Audio to Podcast
+    	podcasts.add( (Podcast) newAudio ); // Downcasting of Audio to Podcast
     }
 
 }
