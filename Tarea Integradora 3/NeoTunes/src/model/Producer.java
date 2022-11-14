@@ -28,7 +28,7 @@ public abstract class Producer extends User {
 	}
 
 	public void setTotalViews(int totalViews) {
-		this.totalViews = totalViews;
+		this.totalViews += totalViews;
 	}
 
 	public int getTotalTimePlayed() {
@@ -36,7 +36,7 @@ public abstract class Producer extends User {
 	}
 
 	public void setTotalTimePlayed(int totalTimePlayed) {
-		this.totalTimePlayed = totalTimePlayed;
+		this.totalTimePlayed += totalTimePlayed;
 	}
 	
 	public abstract void addAudio(Audio newAudio);

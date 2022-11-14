@@ -81,13 +81,12 @@ public class NeoTunesManager {
 				sharePlaylist();
 				break;
 			case 7:
-				playSong();
+				playAudio();
 				break;
 			case 8:
 				buySong();
 				break;
 			case 0:
-				System.out.println("Thanks for using our system");
 				stopFlag = true;
 				break;
 			default:
@@ -304,16 +303,16 @@ public class NeoTunesManager {
 		
 	}
 	
-	public void playSong() {
+	public void playAudio() {
 		
-		System.out.print("\nType the User's name that buyed the song: ");
+		System.out.print("\nType the User's name that has the audio: ");
 		sc.nextLine();
 		String nameUser = sc.nextLine();
 		
-		System.out.print("Type the Song's name: ");
-		String nameSong = sc.nextLine();
+		System.out.print("Type the Audio's name: ");
+		String nameAudio = sc.nextLine();
 		
-		System.out.println("...\n" + controller.playSong(nameUser, nameSong));
+		System.out.println("...\n" + controller.playAudio(nameUser, nameAudio) + "\n...");
 		
 	}
 	

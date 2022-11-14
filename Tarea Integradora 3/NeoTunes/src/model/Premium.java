@@ -66,4 +66,19 @@ public class Premium extends Buyer {
 		return purchasedSong.add(newSong);
 	}
 
+	@Override
+	public String play(Audio audio) {
+		
+		String msg = null;
+		if(audio instanceof Song){
+			Song song = (Song) audio;
+			if (searchSong(song.getNameAudio()) != null) {
+				msg = "| PLAYING AUDIO |";
+			}
+		} else if (audio instanceof Podcast) {
+			msg = "\n| PLAYING AUDIO |";
+		}
+		return msg;
+	}
+	
 }

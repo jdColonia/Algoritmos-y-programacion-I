@@ -429,11 +429,77 @@ public class NeoTunesController {
 	
 	// INTERACTION USER
 	
-	public String playSong (String nameUser, String nameSong) {
+	public String playAudio(String nameUser, String nameAudio) {
 		
 		String msg = "";
-		
+		User user = searchUser(nameUser);
+		Audio audio = searchAudio(nameAudio);
+		if (user == null) {
+			msg = "Error, user doesn't exist";
+		} else if (audio == null) {
+			msg = "Error, audio doesn't exist";
+		} else {
+			if (user instanceof Buyer) {
+				if (user instanceof Standard) {
+					Standard standard = (Standard) user; // Downcasting of User to Standard
+					if (standard.play(audio) != null) {
+						msg = standard.play(audio);
+						updateState(audio);					
+					} else {
+						msg = "Error, user has not bought the song";
+					}
+
+				} else if (user instanceof Premium) {
+					Premium premium = (Premium) user; // Downcasting of User to Premium
+					if (premium.play(audio) != null) {
+						msg = premium.play(audio);
+						updateState(audio);
+					} else {
+						msg = "Error, user has not bought the song";
+					}
+				}
+			} else {
+				msg = "User is not an buyer user";
+			}
+		}
 		return msg;
+	}
+
+	public void updateState(Audio audio) {
+	    
+		if(audio instanceof Song){
+			Song song = (Song) audio; // Downcasting of Audio to Song
+	        boolean stopFlag = false;
+	        for (int i = 0; i < userList.size() && !stopFlag; i++) {
+	        	if (userList.get(i) instanceof Artist) {
+	                Artist artist = (Artist) userList.get(i);
+	                for (int j = 0; j < artist.getSongs().size() && !stopFlag; j++) {
+		                if (artist.getSongs().get(j).equals(audio)) {
+		                	artist.setTotalViews(1);
+		                    artist.setTotalTimePlayed(song.getDuration());
+		                    audio.setNumberPlays(1);
+		                    stopFlag = true;
+		                }
+	                }
+	            }
+	        }
+		} else if (audio instanceof Podcast) {
+			Podcast podcast = (Podcast) audio; // Downcasting of Audio to Podcast
+	        boolean stopFlag = false;
+	        for (int i = 0; i < userList.size() && !stopFlag; i++) {
+	        	if (userList.get(i) instanceof ContentCreator) {
+	        		ContentCreator contentCreator = (ContentCreator) userList.get(i);
+	                for (int j = 0; j < contentCreator.getPodcasts().size() && !stopFlag; j++) {
+		                if (contentCreator.getPodcasts().get(j).equals(podcast)) {
+		                	contentCreator.setTotalViews(1);
+		                	contentCreator.setTotalTimePlayed(podcast.getDuration());
+		                    audio.setNumberPlays(1);
+		                    stopFlag = true;
+		                }
+	                }
+	            }
+	        }	
+		}
 	}
 	
 	public String buySong(String nameUser, String nameSong) {
