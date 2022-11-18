@@ -7,11 +7,13 @@ public class Premium extends Buyer {
 
 	private ArrayList<Playlist> playlists;
 	private ArrayList<Song> purchasedSong;
+    private ArrayList<Audio> playback;
 
 	public Premium(String nameUser, String identificationNumber, Date bondingDate) {
 		super(nameUser, identificationNumber, bondingDate);
 		this.playlists = new ArrayList<Playlist>();
 		this.purchasedSong = new ArrayList<Song>();
+		this.playback = new ArrayList<Audio>();
 	}
 
 	public ArrayList<Playlist> getPlaylists() {
@@ -30,6 +32,14 @@ public class Premium extends Buyer {
 		this.purchasedSong = purchasedSong;
 	}
 	
+	public ArrayList<Audio> getPlayback() {
+		return playback;
+	}
+
+	public void setPlayback(ArrayList<Audio> playback) {
+		this.playback = playback;
+	}
+
 	@Override
 	public Playlist searchPlaylist(String namePlaylist) {
 		Playlist playlist = null;
@@ -74,9 +84,12 @@ public class Premium extends Buyer {
 			Song song = (Song) audio;
 			if (searchSong(song.getNameAudio()) != null) {
 				msg = "| PLAYING AUDIO |";
+				playback.add(song);
 			}
 		} else if (audio instanceof Podcast) {
+			Podcast podcast = (Podcast) audio;
 			msg = "\n| PLAYING AUDIO |";
+			playback.add(podcast);
 		}
 		return msg;
 	}

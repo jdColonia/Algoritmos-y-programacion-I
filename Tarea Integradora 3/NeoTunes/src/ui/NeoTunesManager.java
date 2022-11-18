@@ -1,6 +1,5 @@
 package ui;
 
-import java.util.Date;
 import java.util.Scanner;
 import model.NeoTunesController;
 
@@ -42,6 +41,7 @@ public class NeoTunesManager {
 					+ "\n[6] Share a playlist"
 					+ "\n[7] Play an audio"
 					+ "\n[8] Buy a song"
+					+ "\n[9] Generate reports"
 					+ "\n[0] Exit");
 			System.out.print("Select an option: ");
 			int mainOption = sc.nextInt();
@@ -85,6 +85,38 @@ public class NeoTunesManager {
 				break;
 			case 8:
 				buySong();
+				break;
+			case 9:
+				System.out.println("\n[1] Show the total accumulated reproductions on the entire platform" + "\n[2]" + "\n[3]" + "\n[4]" + "\n[5]" + "\n[6]" + "\n[7]");
+				System.out.print("Select an option: ");
+				int optReport = sc.nextInt();
+
+				switch (optReport) {
+				case 1:
+					showTotalAccumulatedReproductions();
+					break;
+				case 2:
+
+					break;
+				case 3:
+					
+					break;
+				case 4:
+					
+					break;
+				case 5:
+					
+					break;
+				case 6:
+					
+					break;
+				case 7:
+					
+					break;
+				default:
+					System.out.println("You must type a valid option");
+					break;
+				}
 				break;
 			case 0:
 				stopFlag = true;
@@ -260,6 +292,7 @@ public class NeoTunesManager {
 		System.out.print("Type the Playlist's name: ");
 		String namePlaylist = sc.nextLine();
 		
+		System.out.println("The following options are available: ");
 		System.out.println("[1] Rename playlist" + "\n[2] Add audio to playlist" + "\n[3] Remove audio the playlist");
 		System.out.print("Select an option: ");
 		int optEdit = sc.nextInt();
@@ -326,6 +359,27 @@ public class NeoTunesManager {
 		String nameSong = sc.nextLine();
 		
 		System.out.println("...\n" + controller.buySong(nameUser, nameSong));
+		
+	}
+	
+	public void showTotalAccumulatedReproductions() {
+		
+		System.out.println("The following options are available: ");
+		System.out.println("[1] Show total accumulated reproductions of songs" + "\n[2] Show total accumulated reproductions of podcast");
+		System.out.print("Select an option: ");
+		int optAudio = sc.nextInt();
+		
+		switch (optAudio) {
+		case 1:
+			System.out.println("...\n" + "Total accumulated reproductions of songs: " + controller.showTotalAccumulatedReproductions(optAudio));
+			break;
+		case 2:
+			System.out.println("...\n" + "Total accumulated reproductions of podcast: " + controller.showTotalAccumulatedReproductions(optAudio));
+			break;
+		default:
+			System.out.println("Error, you must type a valid option");
+			break;
+		}
 		
 	}
 

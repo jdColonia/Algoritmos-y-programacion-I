@@ -3,20 +3,17 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Standard extends Buyer {
+public class Standard extends Buyer implements IAdvertisement{
 
 	private Playlist[] playlists;
 	private Song[] purchasedSong;
-    private ArrayList<Song> playbackSongs;
-    private final String ADD_NIKE = "  Nike - Just Do It";
-    private final String ADD_COKE = "  Coca-Cola - Open Happiness";
-    private final String ADD_MMS = "  M&Ms - Melts in Your Mouth, Not in Your Hands";
+    private ArrayList<Audio> playback;
 
 	public Standard(String nameUser, String identificationNumber, Date bondingDate) {
 		super(nameUser, identificationNumber, bondingDate);
 		this.playlists = new Playlist[20];
 		this.purchasedSong = new Song[100];
-		this.playbackSongs = new ArrayList<Song>();
+		this.playback = new ArrayList<Audio>();
 	}
 
 	public Playlist[] getPlaylists() {
@@ -35,12 +32,12 @@ public class Standard extends Buyer {
 		this.purchasedSong = purchasedSong;
 	}
 	
-	public ArrayList<Song> getPlaybackSongs() {
-		return playbackSongs;
+	public ArrayList<Audio> getPlayback() {
+		return playback;
 	}
 
-	public void setPlaybackSongs(ArrayList<Song> playbackSongs) {
-		this.playbackSongs = playbackSongs;
+	public void setPlayback(ArrayList<Audio> playback) {
+		this.playback = playback;
 	}
 
 	@Override
@@ -105,7 +102,7 @@ public class Standard extends Buyer {
 			Song song = (Song) audio;
 			if (searchSong(song.getNameAudio()) != null) {
 				msg = "| PLAYING AUDIO |";
-				int reproductions = playbackSongs.size();
+				int reproductions = playback.size();
 				if (reproductions != 0 && (reproductions % 2) == 0) {
 					int r = (int) (Math.random() * ( 4 - 1 )) + 1;
 					switch (r) {
@@ -120,10 +117,11 @@ public class Standard extends Buyer {
 						break;
 					}
 				} else {
-					playbackSongs.add(song);
+					playback.add(song);
 				}
 			}
 		} else if (audio instanceof Podcast) {
+			Podcast podcast = (Podcast) audio;
 			int r = (int) (Math.random() * ( 4 - 1 )) + 1;
 			switch (r) {
 			case 1:
@@ -137,6 +135,7 @@ public class Standard extends Buyer {
 				break;
 			}
 			msg += "\n| PLAYING AUDIO |";
+			playback.add(podcast);
 		}
 		return msg;
 	}

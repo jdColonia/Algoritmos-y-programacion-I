@@ -326,6 +326,8 @@ public class NeoTunesController {
 					playlist.setNamePlaylist(newNamePlaylist);
 					msg = "Playlist's name update"; 
 				}
+			} else {
+				msg = "User is not an buyer user";
 			}
 		}
 		return msg;
@@ -373,6 +375,8 @@ public class NeoTunesController {
 						}
 					}
 				}	
+			} else {
+				msg = "User is not an buyer user";
 			}
 		}
 		return msg;	
@@ -402,6 +406,8 @@ public class NeoTunesController {
 						}
 					}
 				}
+			} else {
+				msg = "User is not an buyer user";
 			}
 		}
 		return msg;
@@ -422,6 +428,8 @@ public class NeoTunesController {
 				} else {
 					msg = printMatrix(playlist.getMatrix()) + "Playlist's code is: " + playlist.getIdPlayList();
 				}	
+			} else {
+				msg = "User is not an buyer user";
 			}
 		}		
 		return msg;
@@ -448,7 +456,6 @@ public class NeoTunesController {
 					} else {
 						msg = "Error, user has not bought the song";
 					}
-
 				} else if (user instanceof Premium) {
 					Premium premium = (Premium) user; // Downcasting of User to Premium
 					if (premium.play(audio) != null) {
@@ -526,6 +533,28 @@ public class NeoTunesController {
 			}
 		}
 		return msg;
+	}
+	
+	public int showTotalAccumulatedReproductions(int optAudio) {
+		
+		int totalReproductions = 0;
+		switch(optAudio) {
+		case 1:
+			for (int i = 0; i < audioList.size(); i++) {
+				if (audioList.get(i) instanceof Song) {
+					totalReproductions = audioList.get(i).getNumberPlays();
+				}
+			}		
+			break;
+		case 2:
+			for (int i = 0; i < audioList.size(); i++) {
+				if (audioList.get(i) instanceof Podcast) {
+					totalReproductions = audioList.get(i).getNumberPlays();
+				}
+			}	
+			break;
+		}
+		return totalReproductions;
 	}
 
 }
