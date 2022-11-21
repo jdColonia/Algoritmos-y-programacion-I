@@ -21,8 +21,15 @@ public class Artist extends Producer {
 	}
 	
     @Override
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method addAudio allows to add a new song to the artist's song collection
+	 * <strong>pre:</strong> songs must be initialized
+	 * <strong>pos:</strong> Song added
+	 * </pre>
+	 */
     public void addAudio(Audio newAudio) {
-        songs.add( (Song) newAudio ); // Downcasting of Audio to Song
+        songs.add( (Song) newAudio );
     }
 
 }

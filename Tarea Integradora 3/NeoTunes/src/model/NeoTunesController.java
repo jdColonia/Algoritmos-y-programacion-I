@@ -16,23 +16,6 @@ public class NeoTunesController {
 		this.audioList = new ArrayList<Audio>();
         this.globalPlaylist = new ArrayList<Playlist>();
 		this.random = new Random();
-		testCase();
-	}
-	
-	public void testCase() {
-		
-		Artist artist = new Artist("Juan", "A00395956", new Date(2022, 8, 19), "png");
-
-		ContentCreator contentCreator = new ContentCreator("Camila", "A00312345", new Date(2021, 9, 21), "png");
-		
-		Standard standardBuyer = new Standard("Andres", "12345", new Date(2021, 1, 11));
-
-		Premium premiumBuyer = new Premium("Valentina", "67890", new Date(2021, 6, 23));
-		
-		userList.add(artist);
-		userList.add(contentCreator);
-		userList.add(standardBuyer);
-		userList.add(premiumBuyer);		
 	}
 		
 	public ArrayList<User> getUserList() {
@@ -61,6 +44,14 @@ public class NeoTunesController {
 	
 	// AUXILIAR METHODS
 
+    /**
+     * <pre>
+     * <strong>Description:</strong> The method getGenreType allows to display the genre type of the songs
+	 * <strong>pre:</strong> NA
+	 * <strong>pos:</strong> NA
+     * @return msg <strong>String</strong> Message with type of genre songs
+     * </pre>
+     */
 	public String getGenreType() {		
 		String msg = "";		
 		GenreType[] genreType = GenreType.values();		
@@ -70,6 +61,14 @@ public class NeoTunesController {
 		return msg;		
 	}
 	
+    /**
+     * <pre>
+     * <strong>Description:</strong> The method getPodcastCategory allows to display the categories of the podcast
+	 * <strong>pre:</strong> NA
+	 * <strong>pos:</strong> NA
+     * @return msg <strong>String</strong> Message with the podcast categories 
+     * </pre>
+     */
 	public String getPodcastCategory() {		
 		String msg = "";		
 		PodcastCategory[] podcastCategory = PodcastCategory.values();		
@@ -79,6 +78,14 @@ public class NeoTunesController {
 		return msg;		
 	}
 	
+    /**
+     * <pre>
+     * <strong>Description:</strong> The method getPlaylistType allows to display the types of the playlist
+	 * <strong>pre:</strong> NA
+	 * <strong>pos:</strong> NA
+     * @return msg <strong>String</strong> Message with the playlist types 
+     * </pre>
+     */
 	public String getPlaylistType() {		
 		String msg = "";		
 		PlaylistType[] playlistType = PlaylistType.values();		
@@ -88,12 +95,33 @@ public class NeoTunesController {
 		return msg;		
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The convertToSec method allows to convert duration in seconds
+	 * <strong>pre:</strong> NA
+	 * <strong>pos:</strong> NA
+	 * @param min <strong>int</strong> Time in mins
+	 * @param sec <strong>int</strong> Time in seconds
+     * @return totalSec <strong>int</strong> Duration in seconds
+	 * </pre>
+	 */
 	public int convertToSec(int min, int sec) {	
 		int totalSec; 		
 		totalSec = (min * 60) + sec;		
 		return totalSec;		
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The convertToSec method allows to convert duration in seconds
+	 * <strong>pre:</strong> NA
+	 * <strong>pos:</strong> NA
+	 * @param hour <strong>int</strong> Time in hours
+	 * @param min <strong>int</strong> Time in mins
+	 * @param sec <strong>int</strong> Time in seconds
+     * @return totalSec <strong>int</strong> Duration in seconds
+	 * </pre>
+	 */
 	public int convertToSec(int hour, int min, int sec) {		
 		int totalSec; 		
 		totalSec = (hour * 3600) + (min * 60) + sec;		
@@ -102,6 +130,15 @@ public class NeoTunesController {
 	
 	// SEARCH METHODS
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method searchUser allows to check if the user name is registered in the system
+	 * <strong>pre:</strong> userList must be initialized
+	 * <strong>pos:</strong> NA
+	 * @param nameUser <strong>String</strong> User name
+	 * @return user <strong>User</strong> User that match the name
+	 * </pre>
+	 */
     public User searchUser(String nameUser){
 		User user = null; 
 		boolean isFound = false; 
@@ -114,6 +151,15 @@ public class NeoTunesController {
 		return user; 
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method searchAudio allows to check if the audio name is registered in the system
+	 * <strong>pre:</strong> audioList must be initialized
+	 * <strong>pos:</strong> NA
+	 * @param nameAudio <strong>String</strong> Audio name
+	 * @return audio <strong>Audio</strong> Audio that match the name
+	 * </pre>
+	 */
 	public Audio searchAudio(String nameAudio){
         Audio audio = null;
         boolean isFound = false;
@@ -128,6 +174,21 @@ public class NeoTunesController {
 
 	// REGISTER METHODS
     
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method registerProducerUser allows to register producer user to the system
+	 * <strong>pre:</strong> userList must be initialized
+	 * <strong>pos:</strong> User is registered
+	 * @param optProducer <strong>int</strong> Type of producer user
+	 * @param nameUser <strong>String</strong> User name
+	 * @param identificationNumber <strong>String</strong> User identification number
+	 * @param year <strong>String</strong> User registration date	 
+	 * @param month <strong>String</strong> User registration date
+	 * @param day <strong>String</strong> User registration date
+	 * @param photoURL <strong>String</strong> Url of the user's photo
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
     public String registerProducerUser(int optProducer, String nameUser, String identificationNumber, int year, int month, int day, String photoURL) {
 	
 		if (searchUser(nameUser) != null) { 
@@ -148,6 +209,20 @@ public class NeoTunesController {
 		}
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method registerBuyerUser allows to register buyer user to the system
+	 * <strong>pre:</strong> userList must be initialized
+	 * <strong>pos:</strong> User is registered
+	 * @param optBuyer <strong>int</strong> Type of buyer user
+	 * @param nameUser <strong>String</strong> User name
+	 * @param identificationNumber <strong>String</strong> User identification number
+	 * @param year <strong>String</strong> User registration date	 
+	 * @param month <strong>String</strong> User registration date
+	 * @param day <strong>String</strong> User registration date
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
 	public String registerBuyerUser(int optBuyer, String nameUser, String identificationNumber, int year, int month, int day) {
 		
 		if (searchUser(nameUser) != null) { 
@@ -168,6 +243,21 @@ public class NeoTunesController {
 		}
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method registerSong allows to register song to the system
+	 * <strong>pre:</strong> audioList must be initialized
+	 * <strong>pos:</strong> Song is registered
+	 * @param nameArtist <strong>String</strong> Name of the artist producing the song
+	 * @param nameSong <strong>String</strong> Song name
+	 * @param album <strong>String</strong> Song album
+	 * @param genreType <strong>int</strong> Type of song genre
+	 * @param url <strong>String</strong> Url of the song's photo
+	 * @param duration <strong>String</strong> Duration of the song
+	 * @param saleValue <strong>double</strong> Sales value of the song
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
 	public String registerSong(String nameSong, String album, int genreType, String url, int duration, double saleValue, String nameArtist) {
 
 		User user = searchUser(nameArtist);
@@ -191,6 +281,20 @@ public class NeoTunesController {
 		}
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method registerPodcast allows to register podcast to the system
+	 * <strong>pre:</strong> audioList must be initialized
+	 * <strong>pos:</strong> Podcast is registered
+	 * @param nameContentCreator <strong>String</strong> Name of the content creator producing the podcast
+	 * @param namePodcast <strong>String</strong> Podcast name
+	 * @param description <strong>String</strong> Podcast description
+	 * @param podcastCategory <strong>int</strong> Podcast category
+	 * @param url <strong>String</strong> Url of the podcast's photo
+	 * @param duration <strong>String</strong> Duration of the podcast
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
 	public String registerPodcast(String namePodcast, String description, int podcastCategory, String url, int duration, String nameContentCreator) {
 
 		User user = searchUser(nameContentCreator);
@@ -214,6 +318,20 @@ public class NeoTunesController {
 		}
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method createPlaylist allows to create a playlist in the system
+	 * <strong>pre:</strong> userList must be initialized and have at least one buyer user
+	 * <strong>pre:</strong> globalPlaylist must be initialized
+	 * <strong>pos:</strong> Playlist is registered and added to an user
+	 * @param nameUser <strong>String</strong> Name of the user who is going to create the playlist
+	 * @param namePlaylist <strong>String</strong> Playlist name
+	 * @param playlistType <strong>int</strong> Playlist type
+	 * @param matrix <strong>int[][]</strong> Playlist matrix
+	 * @param idPlaylist <strong>String</strong> Playlist identifier code 
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	 */
 	public String createPlaylist(String nameUser, String namePlaylist, int playlistType, int[][] matrix, String idPlaylist) {
 		
 		String msg = "Error, playlist couldn't be registered";
@@ -239,6 +357,14 @@ public class NeoTunesController {
 	
 	// METHODS FOR PLAYLIST'S MATRIX
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method generateMatrix allows to generate a matrix
+	 * <strong>pre:</strong> NA
+	 * <strong>pos:</strong> NA
+	 * @return newMatrix <strong>int[]</strong> Generated Matrix
+	 * </pre>
+	 */
 	public int[][] generateMatrix() {
 		
 		int[][] newMatrix = new int[6][6];
@@ -250,6 +376,15 @@ public class NeoTunesController {
 		return newMatrix;		
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method printMatrix allows to print a matrix
+	 * <strong>pre:</strong> NA
+	 * <strong>pos:</strong> NA
+	 * @param matrix <strong>int[][]</strong> Generated Matrix
+	 * @return msg <strong>String</strong> Message containing the matrix generated
+	 * </pre>
+	 */
 	public String printMatrix(int[][] matrix) {		
 		
 		String msg = "";		
@@ -261,7 +396,16 @@ public class NeoTunesController {
 		}
 		return msg;
 	}
-		
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method generateCodeN allows to generate the playlist identifier code for song-only playlists
+	 * <strong>pre:</strong> NA
+	 * <strong>pos:</strong> NA
+	 * @param matrix <strong>int[][]</strong> Generated Matrix
+	 * @return msg <strong>String</strong> Message containing identifier code 
+	 * </pre>
+	 */
 	public String generateCodeN(int[][] matrix) {
 		
 		String msg = "";
@@ -277,6 +421,15 @@ public class NeoTunesController {
 		return msg;
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method generateCodeT allows to generate the playlist identifier code for podcast-only playlists
+	 * <strong>pre:</strong> NA
+	 * <strong>pos:</strong> NA
+	 * @param matrix <strong>int[][]</strong> Generated Matrix
+	 * @return msg <strong>String</strong> Message containing identifier code 
+	 * </pre>
+	 */
 	public String generateCodeT(int[][] matrix) {
 		
 		String msg = "";
@@ -295,6 +448,15 @@ public class NeoTunesController {
 		return msg;	
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method generateCodeStaggered allows to generate the playlist identifier code for song and podcast playlists
+	 * <strong>pre:</strong> NA
+	 * <strong>pos:</strong> NA
+	 * @param matrix <strong>int[][]</strong> Generated Matrix
+	 * @return msg <strong>String</strong> Message containing identifier code 
+	 * </pre>
+	 */
 	public String generateCodeStaggered(int[][] matrix) {
 		
 		String msg = "";
@@ -310,6 +472,18 @@ public class NeoTunesController {
 	
 	// PLAYLIST METHODS
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method renamePlaylist allows to modify a playlist's name
+	 * <strong>pre:</strong> userList must be initialized and have at least one buyer user
+	 * <strong>pre:</strong> globalPlaylist must be initialized and have at least one playlist
+	 * <strong>pos:</strong> Name of the playlist is changed
+	 * @param nameUser <strong>String</strong> Name of the user who created the playlist
+	 * @param namePlaylist <strong>String</strong> Playlist name
+	 * @param newNamePlaylist <strong>String</strong> New playlist name
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
 	public String renamePlaylist(String nameUser, String namePlaylist, String newNamePlaylist) {
 		
 		String msg = "";
@@ -333,6 +507,19 @@ public class NeoTunesController {
 		return msg;
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method addAudioToPlaylist allows to add an audio to a playlist
+	 * <strong>pre:</strong> userList must be initialized and have at least one buyer user
+	 * <strong>pre:</strong> audioList must be initialized and have at least one audio
+	 * <strong>pre:</strong> globalPlaylist must be initialized and have at least one playlist
+	 * <strong>pos:</strong> Audio is added
+	 * @param nameUser <strong>String</strong> Name of the user who created the playlist
+	 * @param namePlaylist <strong>String</strong> Playlist name
+	 * @param nameAudioToAdd <strong>String</strong> Name of the audio to be added
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
 	public String addAudioToPlaylist(String nameUser, String namePlaylist, String nameAudioToAdd) {
 		
 		String msg = "Error, audio couldn't be added";
@@ -382,6 +569,19 @@ public class NeoTunesController {
 		return msg;	
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method removeAudioOfPlaylist allows to remove an audio of a playlist
+	 * <strong>pre:</strong> userList must be initialized and have at least one buyer user
+	 * <strong>pre:</strong> audioList must be initialized and have at least one audio
+	 * <strong>pre:</strong> globalPlaylist must be initialized and have at least one playlist
+	 * <strong>pos:</strong> Audio is removed
+	 * @param nameUser <strong>String</strong> Name of the user who created the playlist
+	 * @param namePlaylist <strong>String</strong> Playlist name
+	 * @param nameAudioToRemove <strong>String</strong> Name of the audio to be removed
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
 	public String removeAudioOfPlaylist(String nameUser, String namePlaylist, String nameAudioToRemove) {
 		
 		String msg = "";
@@ -413,6 +613,17 @@ public class NeoTunesController {
 		return msg;
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method sharePlaylist allows to share the playlist of a user
+	 * <strong>pre:</strong> userList must be initialized and have at least one buyer user
+	 * <strong>pre:</strong> globalPlaylist must be initialized and have at least one playlist
+	 * <strong>pos:</strong> Playlist is shared
+	 * @param nameUser <strong>String</strong> Name of the user who created the playlist
+	 * @param namePlaylist <strong>String</strong> Playlist name
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
 	public String sharePlaylist(String nameUser, String namePlaylist) {
 		
 		String msg = "";
@@ -437,6 +648,17 @@ public class NeoTunesController {
 	
 	// INTERACTION USER
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method playAudio allows to simulate the playback of a song or podcast
+	 * <strong>pre:</strong> userList must be initialized and have at least one buyer user
+	 * <strong>pre:</strong> audioList must be initialized and have at least one audio
+	 * <strong>pos:</strong> Audio is played
+	 * @param nameUser <strong>String</strong> User name
+	 * @param nameAudio <strong>String</strong> Audio name
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
 	public String playAudio(String nameUser, String nameAudio) {
 		
 		String msg = "";
@@ -450,16 +672,16 @@ public class NeoTunesController {
 			if (user instanceof Buyer) {
 				if (user instanceof Standard) {
 					Standard standard = (Standard) user; // Downcasting of User to Standard
-					if (standard.play(audio) != null) {
-						msg = standard.play(audio);
+					msg = standard.play(audio);
+					if (msg != null) {
 						updateState(audio);					
 					} else {
 						msg = "Error, user has not bought the song";
 					}
 				} else if (user instanceof Premium) {
 					Premium premium = (Premium) user; // Downcasting of User to Premium
-					if (premium.play(audio) != null) {
-						msg = premium.play(audio);
+					msg = premium.play(audio);
+					if (msg != null) {
 						updateState(audio);
 					} else {
 						msg = "Error, user has not bought the song";
@@ -472,6 +694,14 @@ public class NeoTunesController {
 		return msg;
 	}
 
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method updateState allows to update producer and audio attributes
+	 * <strong>pre:</strong> NA
+	 * <strong>pos:</strong> All attributes are updated
+	 * @param audio <strong>Audio</strong> Object audio
+	 * </pre>
+	 */
 	public void updateState(Audio audio) {
 	    
 		if(audio instanceof Song){
@@ -509,6 +739,17 @@ public class NeoTunesController {
 		}
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method buySong allows to buy a song from a buyer user
+	 * <strong>pre:</strong> userList must be initialized and have at least one buyer user
+	 * <strong>pre:</strong> audioList must be initialized and have at least one audio
+	 * <strong>pos:</strong> Audio is buyed
+	 * @param nameUser <strong>String</strong> User's name that will buy the song
+	 * @param nameSong <strong>String</strong> Name of the song to buy
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
 	public String buySong(String nameUser, String nameSong) {
 		
 		String msg = "Error, song couldn't be buyed";
@@ -522,7 +763,7 @@ public class NeoTunesController {
 			if (audio instanceof Song && user instanceof Buyer) {
 				Buyer buyer = (Buyer) user; // Downcasting of User to Buyer
 				Song song = (Song) audio; // Downcasting of Audio to Song
-				if (buyer.searchSong(nameSong) != null) {
+				if (buyer.searchSong(song)) {
 					msg = "Error, song was previously purchased";
 				} else {
 					if (buyer.addSong(song)){
@@ -535,6 +776,16 @@ public class NeoTunesController {
 		return msg;
 	}
 	
+	// STATISTICS
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showTotalAccumulatedReproductions allows to generate a report of the total accumulated plays for the entire platform for each type of audio
+	 * <strong>pre:</strong> audioList must be initialized and have at least one audio
+	 * @param optAudio <strong>opt</strong> Action selected by the user
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
 	public int showTotalAccumulatedReproductions(int optAudio) {
 		
 		int totalReproductions = 0;
@@ -542,19 +793,610 @@ public class NeoTunesController {
 		case 1:
 			for (int i = 0; i < audioList.size(); i++) {
 				if (audioList.get(i) instanceof Song) {
-					totalReproductions = audioList.get(i).getNumberPlays();
+					totalReproductions += audioList.get(i).getNumberPlays();
 				}
 			}		
 			break;
 		case 2:
 			for (int i = 0; i < audioList.size(); i++) {
 				if (audioList.get(i) instanceof Podcast) {
-					totalReproductions = audioList.get(i).getNumberPlays();
+					totalReproductions += audioList.get(i).getNumberPlays();
 				}
 			}	
 			break;
 		}
 		return totalReproductions;
+	}
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showMostPlayedSongGenre allows to generate a report showing the most listened song genre in the whole platform
+	 * <strong>pre:</strong> audioList must be initialized and have at least one audio
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
+	public String showMostPlayedSongGenre() {
+		
+		String msg = "";
+		int[] genreType = new int[4];
+		for (int i = 0; i < audioList.size(); i++) {
+			if (audioList.get(i) instanceof Song) {
+				Song song = (Song) audioList.get(i);
+				if (song.getGenreType().equals(GenreType.values()[0])) { // ROCK
+					genreType[0] += song.getNumberPlays();
+				} else if (song.getGenreType().equals(GenreType.values()[1])) { // POP
+					genreType[1] += song.getNumberPlays();
+				} else if (song.getGenreType().equals(GenreType.values()[2])) { // TRAP
+					genreType[2] += song.getNumberPlays();
+				} else if (song.getGenreType().equals(GenreType.values()[3])) { // HOUSE
+					genreType[3] += song.getNumberPlays();
+				}
+			}
+		}
+		int max = 0;
+        int pos = -1;
+        for (int i = 0; i < genreType.length; i++) {
+            if (genreType[i] > max) {
+                max = genreType[i];
+                pos = i;
+            }
+        }
+        switch (pos) {
+        case 0:
+            msg = "The most listened genre is: Rock, with a total of " + max + " plays";
+            break;
+        case 1:
+            msg = "The most listened genre is: Pop, with a total of " + max + " plays";
+            break;
+        case 2:
+            msg = "The most listened genre is: Trap, with a total of " + max + " plays";
+            break;
+        case 3:
+            msg = "The most listened genre is: House, with a total of " + max + " plays";
+            break;
+        }
+		return msg;
+	}
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showUserMostPlayedSongGenre allows to generate a report showing the most listened song genre by user
+	 * <strong>pre:</strong> userList must be initialized and have at least one buyer user
+	 * <strong>pre:</strong> audioList must be initialized and have at least one audio
+	 * @param nameUser <strong>String</strong> User name
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
+	public String showUserMostPlayedSongGenre(String nameUser) {
+		
+		String msg = "";
+		User user = searchUser(nameUser);
+		int[] genreType = new int[4];
+		if (user == null) {
+			msg = "Error, user doesn't exist";
+		}  else {
+			if (user instanceof Buyer) {
+				if (user instanceof Standard) {
+					Standard standard = (Standard) user; // Downcasting of User to Standard
+					for (int i = 0; i < standard.getPlayback().size(); i++) {
+						if (standard.getPlayback().get(i) instanceof Song) {
+							Song song = (Song) standard.getPlayback().get(i);
+							if (song.getGenreType().equals(GenreType.values()[0])) { // ROCK
+								genreType[0] += 1;
+							} else if (song.getGenreType().equals(GenreType.values()[1])) { // POP
+								genreType[1] += 1;
+							} else if (song.getGenreType().equals(GenreType.values()[2])) { // TRAP
+								genreType[2] += 1;
+							} else if (song.getGenreType().equals(GenreType.values()[3])) { // HOUSE
+								genreType[3] += 1;
+							}
+						}
+					}
+					int max = 0;
+			        int pos = -1;
+			        for (int i = 0; i < genreType.length; i++) {
+			            if (genreType[i] > max) {
+			                max = genreType[i];
+			                pos = i;
+			            }
+			        }
+			        switch (pos) {
+			        case 0:
+			            msg = "The most listened genre is: Rock, with a total of " + max + " plays";
+			            break;
+			        case 1:
+			            msg = "The most listened genre is: Pop, with a total of " + max + " plays";
+			            break;
+			        case 2:
+			            msg = "The most listened genre is: Trap, with a total of " + max + " plays";
+			            break;
+			        case 3:
+			            msg = "The most listened genre is: House, with a total of " + max + " plays";
+			            break;
+			        }
+				} else if (user instanceof Premium) {
+					Premium premium = (Premium) user; // Downcasting of User to Premium
+					for (int i = 0; i < premium.getPlayback().size(); i++) {
+						if (premium.getPlayback().get(i) instanceof Song) {
+							Song song = (Song) premium.getPlayback().get(i);
+							if (song.getGenreType().equals(GenreType.values()[0])) { // ROCK
+								genreType[0] += 1;
+							} else if (song.getGenreType().equals(GenreType.values()[1])) { // POP
+								genreType[1] += 1;
+							} else if (song.getGenreType().equals(GenreType.values()[2])) { // TRAP
+								genreType[2] += 1;
+							} else if (song.getGenreType().equals(GenreType.values()[3])) { // HOUSE
+								genreType[3] += 1;
+							}
+						}
+					}
+					int max = 0;
+			        int pos = -1;
+			        for (int i = 0; i < genreType.length; i++) {
+			            if (genreType[i] > max) {
+			                max = genreType[i];
+			                pos = i;
+			            }
+			        }
+			        switch (pos) {
+			        case 0:
+			            msg = "The most listened genre is: Rock, with a total of " + max + " plays";
+			            break;
+			        case 1:
+			            msg = "The most listened genre is: Pop, with a total of " + max + " plays";
+			            break;
+			        case 2:
+			            msg = "The most listened genre is: Trap, with a total of " + max + " plays";
+			            break;
+			        case 3:
+			            msg = "The most listened genre is: House, with a total of " + max + " plays";
+			            break;
+			        }
+				}
+			} else {
+				msg = "User is not an buyer user";
+			}
+		}	
+		return msg;
+	}
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showMostPlayedPodcastCategory allows to generate a report showing the most listened podcast category in platform
+	 * <strong>pre:</strong> audioList must be initialized and have at least one audio
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
+	public String showMostPlayedPodcastCategory() {
+		
+		String msg = "";
+		int[] podcastCategory = new int[4];
+		for (int i = 0; i < audioList.size(); i++) {
+			if (audioList.get(i) instanceof Podcast) {
+				Podcast podcast = (Podcast) audioList.get(i);
+				if (podcast.getPodcastCategory().equals(PodcastCategory.values()[0])) { // POLITICS
+					podcastCategory[0] += podcast.getNumberPlays();
+				} else if (podcast.getPodcastCategory().equals(PodcastCategory.values()[1])) { // ENTERTAINMENT
+					podcastCategory[1] += podcast.getNumberPlays();
+				} else if (podcast.getPodcastCategory().equals(PodcastCategory.values()[2])) { // VIDEOGAMES
+					podcastCategory[2] += podcast.getNumberPlays();
+				} else if (podcast.getPodcastCategory().equals(PodcastCategory.values()[3])) { // FASHION
+					podcastCategory[3] += podcast.getNumberPlays();
+				}
+			}
+		}
+		int max = 0;
+        int pos = -1;
+        for (int i = 0; i < podcastCategory.length; i++) {
+            if (podcastCategory[i] > max) {
+                max = podcastCategory[i];
+                pos = i;
+            }
+        }
+        switch (pos) {
+        case 0:
+            msg = "The most listened category is: Politics, with a total of " + max + " plays";
+            break;
+        case 1:
+            msg = "The most listened category is: Entertainment, with a total of " + max + " plays";
+            break;
+        case 2:
+            msg = "The most listened category is: Videogames, with a total of " + max + " plays";
+            break;
+        case 3:
+            msg = "The most listened category is: Fashion, with a total of " + max + " plays";
+            break;
+        }
+		return msg;
+	}
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showUserMostPlayedPodcastCategory allows to generate a report showing the most listened podcast category per user
+	 * <strong>pre:</strong> userList must be initialized and have at least one buyer user
+	 * <strong>pre:</strong> audioList must be initialized and have at least one audio
+	 * @param nameUser <strong>String</strong> User name
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
+	public String showUserMostPlayedPodcastCategory(String nameUser) {
+		
+		String msg = "";
+		User user = searchUser(nameUser);
+		int[] podcastCategory = new int[4];
+		if (user == null) {
+			msg = "Error, user doesn't exist";
+		}  else {
+			if (user instanceof Buyer) {
+				if (user instanceof Standard) {
+					Standard standard = (Standard) user; // Downcasting of User to Standard
+					for (int i = 0; i < standard.getPlayback().size(); i++) {
+						if (standard.getPlayback().get(i) instanceof Podcast) {
+							Podcast podcast = (Podcast) standard.getPlayback().get(i);
+							if (podcast.getPodcastCategory().equals(PodcastCategory.values()[0])) { // POLITICS
+								podcastCategory[0] += 1;
+							} else if (podcast.getPodcastCategory().equals(PodcastCategory.values()[1])) { // ENTERTAINMENT
+								podcastCategory[1] += 1;
+							} else if (podcast.getPodcastCategory().equals(PodcastCategory.values()[2])) { // VIDEOGAMES
+								podcastCategory[2] += 1;
+							} else if (podcast.getPodcastCategory().equals(PodcastCategory.values()[3])) { // FASHION
+								podcastCategory[3] += 1;
+							}
+						}
+					}
+					int max = 0;
+			        int pos = -1;
+			        for (int i = 0; i < podcastCategory.length; i++) {
+			            if (podcastCategory[i] > max) {
+			                max = podcastCategory[i];
+			                pos = i;
+			            }
+			        }
+			        switch (pos) {
+			        case 0:
+			            msg = "The most listened category is: Politics, with a total of " + max + " plays";
+			            break;
+			        case 1:
+			            msg = "The most listened category is: Entertainment, with a total of " + max + " plays";
+			            break;
+			        case 2:
+			            msg = "The most listened category is: Videogames, with a total of " + max + " plays";
+			            break;
+			        case 3:
+			            msg = "The most listened category is: Fashion, with a total of " + max + " plays";
+			            break;
+			        }
+				} else if (user instanceof Premium) {
+					Premium premium = (Premium) user; // Downcasting of User to Premium
+					for (int i = 0; i < premium.getPlayback().size(); i++) {
+						if (premium.getPlayback().get(i) instanceof Podcast) {
+							Podcast podcast = (Podcast) premium.getPlayback().get(i);
+							if (podcast.getPodcastCategory().equals(PodcastCategory.values()[0])) { // POLITICS
+								podcastCategory[0] += 1;
+							} else if (podcast.getPodcastCategory().equals(PodcastCategory.values()[1])) { // ENTERTAINMENT
+								podcastCategory[1] += 1;
+							} else if (podcast.getPodcastCategory().equals(PodcastCategory.values()[2])) { // VIDEOGAMES
+								podcastCategory[2] += 1;
+							} else if (podcast.getPodcastCategory().equals(PodcastCategory.values()[3])) { // FASHION
+								podcastCategory[3] += 1;
+							}
+						}
+					}
+					int max = 0;
+			        int pos = -1;
+			        for (int i = 0; i < podcastCategory.length; i++) {
+			            if (podcastCategory[i] > max) {
+			                max = podcastCategory[i];
+			                pos = i;
+			            }
+			        }
+			        switch (pos) {
+			        case 0:
+			            msg = "The most listened category is: Politics, with a total of " + max + " plays";
+			            break;
+			        case 1:
+			            msg = "The most listened category is: Entertainment, with a total of " + max + " plays";
+			            break;
+			        case 2:
+			            msg = "The most listened category is: Videogames, with a total of " + max + " plays";
+			            break;
+			        case 3:
+			            msg = "The most listened category is: Fashion, with a total of " + max + " plays";
+			            break;
+			        }
+				}
+			} else {
+				msg = "User is not an buyer user";
+			}
+		}	
+		return msg;
+	}
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method bubbleSort allows to sort the array descending
+	 * <strong>pre:</strong> array must be initialized
+	 * <strong>pos:</strong> Sort the array descending
+	 * @param array <strong>int[]</strong> Array to sort
+	 * </pre>
+	*/
+    public void bubbleSort (int[] array) {
+        for (int i = 0; i < array.length; i++) {      	
+            for (int j = 0; j < array.length - 1; j++) {           	
+                int currentItem = array[j],
+                	nextItem = array[j + 1];             
+                if (currentItem < nextItem) {
+                	array[j] = nextItem;
+                	array[j + 1] = currentItem;                
+                }                
+            }            
+        }       
+    }
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method isRepeated allows to check if the element is already inside the array
+	 * <strong>pre:</strong> array must be initialized
+	 * <strong>pos:</strong> Determine if the element is already inside the array
+	 * @param array <strong>int[]</strong> Array for save the elements without repeated
+	 * @param aux <strong>int</strong> Aux to search
+	 * @return stopFlag <strong>boolean</strong> Flag to know if the process was successful or not
+	 * </pre>
+	*/
+    public boolean isRepeated(int[] array, int aux) {
+		boolean stopFlag = false;
+		for (int i = 0; i < array.length; i++) {	
+			if (array[i] == aux) {		
+				return stopFlag = true;		
+			}
+		}
+		return stopFlag;		
+	}
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showTopArtist allows to show the top 5 artists
+	 * <strong>pre:</strong> userList must be initialized and have at least one buyer user
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
+	public String showTopArtist() {
+		
+		ArrayList<Artist> artistsGlobal = new ArrayList<Artist>();
+		int[] artistsGlobalPlayed = new int[userList.size()], artistsGlobalPlayedWithoutRepeated = new int[userList.size()];
+		int count = 0, playedAux = 0, k = 0, top = 0;
+		String msg = "";
+		//Loop to fill array
+		for (int i = 0; i < userList.size(); i++) {
+			if (userList.get(i) instanceof Artist) {
+				Artist artist = (Artist) userList.get(i);
+				if (artist.getTotalViews() != 0) {
+					artistsGlobal.add(artist); // Fill array artist
+					artistsGlobalPlayed[i] = artist.getTotalViews(); //Fill array global	
+				}
+			}
+		}
+		//Bubble sort from largest to smallest
+		bubbleSort(artistsGlobalPlayed);
+		//Loop to remove duplicate elements
+		for (int i = 0; i < artistsGlobalPlayed.length; i++) {
+			playedAux = artistsGlobalPlayed[i];		
+			if  (!isRepeated(artistsGlobalPlayedWithoutRepeated, playedAux)) {			
+				artistsGlobalPlayedWithoutRepeated[k] = playedAux;
+				k++;			
+			}
+		}
+		//Loop to compare and determine the podium
+		for (int i = 0; i < artistsGlobalPlayedWithoutRepeated.length; i++) {	
+			for (int j = 0; j < artistsGlobal.size(); j++) {		
+				if (count < 5) {								
+					if (artistsGlobal.get(j).getTotalViews() == artistsGlobalPlayedWithoutRepeated[i]) {											
+						msg += "\n" + (top+1) + ". " + artistsGlobal.get(j).getNameUser() + "          " + artistsGlobal.get(j).getTotalViews();
+						count++;
+						top++;					
+					}							
+				}						
+			}			
+		}			
+		return msg;
+	}
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showTopContentCreator allows to show the top 5 content creators
+	 * <strong>pre:</strong> userList must be initialized and have at least one buyer user
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
+	public String showTopContentCreator() {
+		
+		ArrayList<ContentCreator> contentCreatorsGlobal = new ArrayList<ContentCreator>();
+		int[] contentCreatorsGlobalPlayed = new int[userList.size()], contentCreatorsGlobalPlayedWithoutRepeated = new int[userList.size()];
+		int count = 0, playedAux = 0, k = 0, top = 0;
+		String msg = "";
+		//Loop to fill array
+		for (int i = 0; i < userList.size(); i++) {
+			if (userList.get(i) instanceof ContentCreator) {
+				ContentCreator contentCreator = (ContentCreator) userList.get(i);
+				if (contentCreator.getTotalViews() != 0) {
+					contentCreatorsGlobal.add(contentCreator); // Fill array artist
+					contentCreatorsGlobalPlayed[i] = contentCreator.getTotalViews(); //Fill array global	
+				}
+			}
+		}
+		//Bubble sort from largest to smallest
+		bubbleSort(contentCreatorsGlobalPlayed);
+		//Loop to remove duplicate elements
+		for (int i = 0; i < contentCreatorsGlobalPlayed.length; i++) {
+			playedAux = contentCreatorsGlobalPlayed[i];		
+			if  (!isRepeated(contentCreatorsGlobalPlayedWithoutRepeated, playedAux)) {			
+				contentCreatorsGlobalPlayedWithoutRepeated[k] = playedAux;
+				k++;			
+			}
+		}
+		//Loop to compare and determine the podium
+		for (int i = 0; i < contentCreatorsGlobalPlayedWithoutRepeated.length; i++) {	
+			for (int j = 0; j < contentCreatorsGlobal.size(); j++) {		
+				if (count < 5) {								
+					if (contentCreatorsGlobal.get(j).getTotalViews() == contentCreatorsGlobalPlayedWithoutRepeated[i]) {											
+						msg += "\n" + (top+1) + ". " + contentCreatorsGlobal.get(j).getNameUser() + "          " + contentCreatorsGlobal.get(j).getTotalViews();
+						count++;
+						top++;					
+					}							
+				}						
+			}			
+		}			
+		return msg;
+	}
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showTopSong allows to show the top 10 songs
+	 * <strong>pre:</strong> audioList must be initialized and have at least one audio
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
+	public String showTopSong() {
+		
+		ArrayList<Song> songsGlobal = new ArrayList<Song>();
+		int[] songsGlobalPlayed = new int[userList.size()], songsGlobalPlayedWithoutRepeated = new int[userList.size()];
+		int count = 0, playedAux = 0, k = 0, top = 0;
+		String msg = "";
+		//Loop to fill array
+		for (int i = 0; i < audioList.size(); i++) {
+			if (audioList.get(i) instanceof Song) {
+				Song song = (Song) audioList.get(i);
+				if (song.getNumberPlays() != 0) {
+					songsGlobal.add(song); // Fill array artist
+					songsGlobalPlayed[i] = song.getNumberPlays(); //Fill array global	
+				}
+			}
+		}
+		//Bubble sort from largest to smallest
+		bubbleSort(songsGlobalPlayed);
+		//Loop to remove duplicate elements
+		for (int i = 0; i < songsGlobalPlayed.length; i++) {
+			playedAux = songsGlobalPlayed[i];		
+			if  (!isRepeated(songsGlobalPlayedWithoutRepeated, playedAux)) {			
+				songsGlobalPlayedWithoutRepeated[k] = playedAux;
+				k++;			
+			}
+		}
+		//Loop to compare and determine the podium
+		for (int i = 0; i < songsGlobalPlayedWithoutRepeated.length; i++) {	
+			for (int j = 0; j < songsGlobal.size(); j++) {		
+				if (count < 10) {								
+					if (songsGlobal.get(j).getNumberPlays() == songsGlobalPlayedWithoutRepeated[i]) {											
+						msg += "\n" + (top+1) + ". " + songsGlobal.get(j).getNameAudio() + "          " + songsGlobal.get(j).getGenreType() + "          " + songsGlobal.get(j).getNumberPlays();
+						count++;
+						top++;					
+					}							
+				}						
+			}			
+		}			
+		return msg;
+	}
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showTopPodcast allows to show the top 10 podcasts
+	 * <strong>pre:</strong> audioList must be initialized and have at least one audio
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
+	public String showTopPodcast() {
+		
+		ArrayList<Podcast> podcastsGlobal = new ArrayList<Podcast>();
+		int[] podcastsGlobalPlayed = new int[userList.size()], podcastsGlobalPlayedWithoutRepeated = new int[userList.size()];
+		int count = 0, playedAux = 0, k = 0, top = 0;
+		String msg = "";
+		//Loop to fill array
+		for (int i = 0; i < audioList.size(); i++) {
+			if (audioList.get(i) instanceof Podcast) {
+				Podcast podcast = (Podcast) audioList.get(i);
+				if (podcast.getNumberPlays() != 0) {
+					podcastsGlobal.add(podcast); // Fill array artist
+					podcastsGlobalPlayed[i] = podcast.getNumberPlays(); //Fill array global	
+				}
+			}
+		}
+		//Bubble sort from largest to smallest
+		bubbleSort(podcastsGlobalPlayed);
+		//Loop to remove duplicate elements
+		for (int i = 0; i < podcastsGlobalPlayed.length; i++) {
+			playedAux = podcastsGlobalPlayed[i];		
+			if  (!isRepeated(podcastsGlobalPlayedWithoutRepeated, playedAux)) {			
+				podcastsGlobalPlayedWithoutRepeated[k] = playedAux;
+				k++;			
+			}
+		}
+		//Loop to compare and determine the podium
+		for (int i = 0; i < podcastsGlobalPlayedWithoutRepeated.length; i++) {	
+			for (int j = 0; j < podcastsGlobal.size(); j++) {		
+				if (count < 10) {								
+					if (podcastsGlobal.get(j).getNumberPlays() == podcastsGlobalPlayedWithoutRepeated[i]) {											
+						msg += "\n" + (top+1) + ". " + podcastsGlobal.get(j).getNameAudio() + "          " + podcastsGlobal.get(j).getPodcastCategory() + "          " + podcastsGlobal.get(j).getNumberPlays();
+						count++;
+						top++;					
+					}							
+				}						
+			}			
+		}			
+		return msg;
+	}
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showInfoByGenreSong allows to generate a report showing the number of songs sold and the total sales value for each genre
+	 * <strong>pre:</strong> audioList must be initialized and have at least one audio
+	 * @param genreType <strong>int</strong> Type of song genre
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
+	public String showInfoByGenreSong(int genreType) {
+		
+		int amountSales = 0;
+		double sellTotalValue = 0;
+		for (int i = 0; i < audioList.size(); i++) {
+			if (audioList.get(i) instanceof Song) {
+				Song song = (Song) audioList.get(i);
+				if (song.getGenreType().equals(GenreType.values()[genreType])) {
+					amountSales += song.getNumberTimesSold();
+					sellTotalValue += (song.getNumberTimesSold()*song.getSaleValue());
+				}
+			}
+		}
+		return "The number of songs sold is " + amountSales + " and total sales value $" + sellTotalValue;
+	}
+	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method showBestSellerSong allows to generate a report of the best-selling song on the platform
+	 * <strong>pre:</strong> audioList must be initialized and have at least one audio
+	 * @return msg <strong>String</strong> Information on the result of the process
+	 * </pre>
+	*/
+	public String showBestSellerSong() {
+		
+		String msg = "Error, no songs have been sold";
+	    Song max = null;
+	    for (int i = 0; i < audioList.size(); i++) {
+	    	if (audioList.get(i) instanceof Song) {
+                Song song = (Song) audioList.get(i);
+                if (max == null) {
+                    max = song;
+                }
+                if (song.getNumberTimesSold() > max.getNumberTimesSold()) {
+                    max = song;
+                }
+	    	}
+	    }
+        if (max != null) {
+            if (max.getNumberTimesSold() > 0) {
+                msg = "The best-selling song is " + max.getNameAudio() + " with " + max.getNumberTimesSold() + " sales and a collection of $" + (max.getNumberTimesSold()*max.getSaleValue() + " ");
+            }
+        }
+		return msg;
 	}
 
 }

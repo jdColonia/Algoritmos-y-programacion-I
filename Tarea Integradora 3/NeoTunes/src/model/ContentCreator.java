@@ -21,8 +21,15 @@ public class ContentCreator extends Producer {
 	}
 	
     @Override
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method addAudio allows to add a new podcast to the content creator's collection
+	 * <strong>pre:</strong> podcasts must be initialized
+	 * <strong>pos:</strong> Podcast added
+	 * </pre>
+	 */
     public void addAudio(Audio newAudio) {
-    	podcasts.add( (Podcast) newAudio ); // Downcasting of Audio to Podcast
+    	podcasts.add( (Podcast) newAudio );
     }
 
 }

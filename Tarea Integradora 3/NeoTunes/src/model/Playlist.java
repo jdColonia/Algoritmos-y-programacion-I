@@ -58,6 +58,15 @@ public class Playlist {
 		this.audioList = audioList;
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method searchAudio allows to check if the audio is in the playlist
+	 * <strong>pre:</strong> audioList must be initialized
+	 * <strong>pos:</strong> NA
+	 * @param nameAudio <strong>String</strong> Audio name
+	 * @return audio <strong>Audio</strong> Audio that match the name
+	 * </pre>
+	 */
 	public Audio searchAudio(String nameAudio) {
 		Audio audio = null;
 		boolean isFound = false;
@@ -70,10 +79,28 @@ public class Playlist {
 		return audio;
 	}
 
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method addAudio allows to add an audio
+	 * <strong>pre:</strong> audioList must be initialized
+	 * <strong>pos:</strong> Audio is added
+	 * @param newAudio <strong>Audio</strong> Object audio
+	 * @return status <strong>boolean</strong> To know if the process was successful or not
+	 * </pre>
+	*/
 	public boolean addAudio(Audio newAudio) {
 		return audioList.add(newAudio);
 	}
 	
+	/**
+	 * <pre>
+	 * <strong>Description:</strong> The method removeAudio allows to remove an audio
+	 * <strong>pre:</strong> audioList must be initialized
+	 * <strong>pos:</strong> Audio is removed
+	 * @param newAudio <strong>String</strong> Object audio
+	 * @return status <strong>boolean</strong> To know if the process was successful or not
+	 * </pre>
+	*/
 	public boolean removeAudio(Audio newAudio) {
 		return audioList.remove(newAudio);
 	}
